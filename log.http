@@ -9,4 +9,18 @@ Content-Type: application/json
   "repetitions": 3
 }
 
+### get all logs
+GET http://localhost:5000/api/log/
+Content-Type: application/json
 
+{
+  "user": "miguel@debloat.us"
+}
+
+### edit a workout
+PUT http://localhost:5000/api/log/622637d5c7180d522ed8d9ae
+Content-Type: application/json
+
+{
+  "movement": "Clean"
+}

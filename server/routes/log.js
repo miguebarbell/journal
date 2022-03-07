@@ -22,7 +22,7 @@ router.put("/:id", async (req, res) => {
 				$set: req.body
 			}
 		);
-		return res.status(200).json(savedLog)
+		return res.status(200).json(`${req.params.id} successfully edited.`)
 	} catch (err) {
 		return res.status(500).json(err)
 	}
