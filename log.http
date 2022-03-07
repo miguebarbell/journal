@@ -22,5 +22,5 @@ PUT http://localhost:5000/api/log/622637d5c7180d522ed8d9ae
 Content-Type: application/json
 
 {
-  "movement": "Clean"
+  "movement": "Clean and Jerk"
 }
