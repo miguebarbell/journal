@@ -1,0 +1,12 @@
+### add a workout
+POST http://localhost:5000/api/log/
+Content-Type: application/json
+
+{
+  "user": "miguel@debloat.us",
+  "movement": "Snatch",
+  "weight": 100,
+  "repetitions": 3
+}
+
+
