@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
 // Edit a log
 router.put("/:id", async (req, res) => {
 	try {
-		const savedLog = await Log.findByIdAndUpdate(
+		await Log.findByIdAndUpdate(
 			req.params.id, {
 				$set: req.body
 			}
