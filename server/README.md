@@ -9,10 +9,25 @@ User schema {
 
 
 Movement schema {
+	user: User.email, `miguel@debloat.us` -> have the posibility to create new movements
 	name: string, `Back Squat`
 	body: string[], `['quads', 'lower back', 'glutes']`
 	class: string, `multijoint`
+}
 
+Log schema {
+	id: string,
+	name: Movement.name, `Back Squat`
+	weight: float,
+	repetitions: integer,
+	durations: integer,
+	date: Date
+}
+
+Session schema {
+	sets: [Log.id], 
+	duration,
+	date: Date
 }
 
 TODOS:
