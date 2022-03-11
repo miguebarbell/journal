@@ -13,7 +13,9 @@ router.post("/register", async (req, res) => {
 	});
 	try {
 		const savedUser = await newUser.save();
-		return res.status(200).json(savedUser)
+		// Just return the necessary information
+		const {password, name, email, ...others} = savedUser._doc;
+		return res.status(200).json({status:'Created new user.',name:name,email:email})
 	} catch (err) {
 		console.error(err);
 		return res.status(500).json(err)
@@ -22,10 +24,11 @@ router.post("/register", async (req, res) => {
 
 // Login a user, the error from a bad email or a bad password must be the same, makes it more secure.
 router.post("/login", async (req, res) => {
+	// console.log(req.body)
 	try {
 		const user = await User.findOne({
 			email: req.body.email
-		})
+		});
 		// check the email if the user exist
 		!user && res.status(401).json("Wrong Credentials.");
 		// user exists, now check the password
@@ -38,8 +41,9 @@ router.post("/login", async (req, res) => {
 		}, process.env.JWT_SEC, {expiresIn: "3d"})
 		// hiding the password from the response
 		const {password, ...others} = user._doc;
-		return res.status(200).json(...others, accessToken)
+		return res.status(200).json({...others, accessToken})
 	} catch (err) {
+		console.log(err);
 		return res.status(500).json(err)
 	}
 })

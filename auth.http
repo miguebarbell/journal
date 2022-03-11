@@ -1,9 +1,18 @@
-### check the server
+### Register
 POST http://localhost:5000/api/auth/register/
 Content-Type: application/json
 
 {
-  "email": "test@debloat.us",
+  "email": "admin@debloat.us",
   "password": "admin",
   "name": "Miguel"
+}
+
+### Login
+POST http://localhost:5000/api/auth/login/
+Content-Type: application/json
+
+{
+  "email": "admin@debloat.us",
+  "password": "admin"
 }

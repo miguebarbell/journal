@@ -1,8 +1,14 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
+import {navbarHeight} from "../conf";
+import {useSelector} from "react-redux";
 
 const Container = styled.div`
-  background-color: dodgerblue;
+  //background-color: dodgerblue;
   display: flex;
+  justify-content: space-between;
+  height: ${navbarHeight};
+  padding: 0.5rem;
 `;
 
 const Logo = styled.div`
@@ -16,12 +22,16 @@ const Search = styled.input`
 `;
 
 const Navbar = () => {
+  const {name} = useSelector(state => state.user.currentUser);
     return (
         <Container>
-          <Logo>LOGO</Logo>
-          <Search placeholder="Search..."/>
-          <span>Hi Miguel</span>
-
+          <Link to="/">
+            <Logo>LOGO</Logo>
+          </Link>
+          {/*<Search placeholder="Search..."/>*/}
+          <Link to="/profile">
+            <span>{name}</span>
+          </Link>
         </Container>
     );
 };

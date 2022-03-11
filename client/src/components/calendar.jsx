@@ -3,24 +3,34 @@ import styled from "styled-components";
 import Day from "./day";
 
 const Container = styled.div`
-  background-color: yellow;
+  //background-color: yellow;
+  padding: 1rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  //grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: "day day day day day day day";
   gap: 3px;
-
+  justify-items: center;
+  justify-content: center;
   div {
-    height: 3rem;
-    width: 4rem;
+    height: 4rem;
+    width: 6rem;
+    border-radius: 3px;
+    padding: 0.25rem;
+
   }
 `;
 
 const LabelContainer = styled.div`
   text-transform: uppercase;
+  font-weight: bold;
   //text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
+  
+  //grid-area: day;
+  
 `;
 
 const Calendar = () => {
@@ -32,24 +42,32 @@ const Calendar = () => {
     let calendar = [];
     const firstMon = new Date();
     firstMon.setDate(day.getDate() - day.getDay() + 1 - (weeks * 7));
+    // pass if change the month
+    let month = true;
     for (let i = 0; i < weeks*7*2 + 7; i++) {
       const dayToPush = new Date();
       dayToPush.setFullYear(firstMon.getFullYear());
       dayToPush.setMonth(firstMon.getMonth());
       dayToPush.setDate(firstMon.getDate() + i);
-      calendar.push(dayToPush);
+      if (calendar.length > 0 && dayToPush.getMonth() !== calendar[calendar.length - 1].date.getMonth()) month = true;
+      calendar.push({
+        date: dayToPush,
+        month: month
+      });
+      if (month) month = false;
     }
+
     return calendar;
   };
   const today = new Date();
-  const weeks = dateRange(today, 1);
+  const weeks = dateRange(today, 2);
     return (
         <Container>
             {headerDays.map((day, index) => (
               <LabelContainer key={index}>{day}</LabelContainer>
             ))}
           {weeks.map((day, index) => (
-            <Day key={index} date={day}/>
+            <Day key={index} date={day.date} month={day.month}/>
           ))}
         </Container>
     );
