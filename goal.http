@@ -1,0 +1,14 @@
+### add a goal
+POST http://localhost:5000/api/goal
+content-type: application/json
+
+{
+  "user": "admin@debloat.us",
+  "movement": "snatch",
+  "quantity": 130,
+  "unit": "kgs",
+  "plan": "test",
+  "timeFrame": 90,
+  "start": "2022-march-23",
+  "notes": "after this, focus in CJ"
+}

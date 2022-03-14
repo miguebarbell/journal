@@ -5,7 +5,7 @@ const GoalSchema = new mongoose.Schema({
 	movement: {type: String, required: true},
 	quantity: {type: Number, required: true},
 	unit: {type: String, required: true},
-	type: {type: String},
+	plan: {type: String},
 	timeFrame: {type: Number},
 	start: {type: Date},
 	done: { type: Boolean, default: false},
