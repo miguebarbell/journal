@@ -1,0 +1,20 @@
+### Get all movements
+GET http://localhost:5000/api/movement
+content-type: application/json
+
+{
+  "user": "admin@debloat.us"
+}
+
+
+### Create a movement
+POST http://localhost:5000/api/movement
+content-type: application/json
+
+{
+  "user": "default",
+  "name": "swim",
+  "partOfTheBody": "cardio",
+  "description": "Displacement in the water",
+  "execution": "one breath every 3 or 4 braces."
+}
