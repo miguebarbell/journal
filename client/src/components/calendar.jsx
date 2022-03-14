@@ -44,23 +44,24 @@ const Calendar = () => {
     firstMon.setDate(day.getDate() - day.getDay() + 1 - (weeks * 7));
     // pass if change the month
     let month = true;
-    for (let i = 0; i < weeks*7*2 + 7; i++) {
+    for (let i = 0; i < weeks*7 + 7; i++) {
       const dayToPush = new Date();
       dayToPush.setFullYear(firstMon.getFullYear());
       dayToPush.setMonth(firstMon.getMonth());
       dayToPush.setDate(firstMon.getDate() + i);
+      // check if change the month in this day dayToPush.getDay === 0 ? month = true;
       if (calendar.length > 0 && dayToPush.getMonth() !== calendar[calendar.length - 1].date.getMonth()) month = true;
       calendar.push({
         date: dayToPush,
         month: month
       });
       if (month) month = false;
+      if (dayToPush.getDate() === day.getDate() && dayToPush.getMonth() === day.getMonth() && dayToPush.getFullYear() === day.getFullYear()) break;
     }
-
     return calendar;
   };
   const today = new Date();
-  const weeks = dateRange(today, 2);
+  const weeks = dateRange(today, 4);
     return (
         <Container>
             {headerDays.map((day, index) => (
