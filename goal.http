@@ -12,3 +12,11 @@ content-type: application/json
   "start": "2022-march-23",
   "notes": "after this, focus in CJ"
 }
+
+### get goals
+GET http://localhost:5000/api/goal
+content-type: application/json
+
+{
+  "user": "admin@debloat.us"
+}

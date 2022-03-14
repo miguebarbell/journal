@@ -23,4 +23,15 @@ router.post("/",
 		}
 	})
 
+router.get("/", async (req, res) => {
+	try {
+		const goals = await Goal.find({
+			"user": req.body.user
+		})
+		return res.status(200).json(goals)
+	} catch (err) {
+		return res.status(500).json(err)
+	}
+})
+
 module.exports = router;
