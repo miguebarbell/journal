@@ -1,5 +1,5 @@
 ### add a goal
-POST http://localhost:5000/api/goal
+POST http://localhost:5000/api/goal/add
 content-type: application/json
 
 {
@@ -14,9 +14,9 @@ content-type: application/json
 }
 
 ### get goals
-GET http://localhost:5000/api/goal
+POST http://localhost:5000/api/goal
 content-type: application/json
 
 {
-  "user": "admin@debloat.us"
+  "email": "admin@debloat.us"
 }

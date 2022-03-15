@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 import userReducer from "./userRedux";
+import goalReducer from "./goalRedux";
 import storage from "redux-persist/lib/storage";
 import {
 	persistStore,
@@ -19,7 +20,7 @@ const persistConfig = {
 	storage
 };
 
-const rootReducer = combineReducers({user: userReducer});
+const rootReducer = combineReducers({user: userReducer, training: goalReducer});
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 
