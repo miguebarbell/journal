@@ -15,6 +15,8 @@ const EditButton = styled.button`
   border: 1px solid black;
   border-radius: 2px;
   cursor: pointer;
+  padding: 2px;
+  margin: 0 5px;
   &:hover { 
     background-color: ${threeColour};
   }
@@ -44,11 +46,13 @@ const Profile = () => {
   const user = useSelector((state) => state.user.currentUser);
   const goals = useSelector((state) => state.training.goals);
   const daysLeft = (startDay, daysToComplete) => {
+    const stringDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const stringMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const beginDay = new Date(startDay);
     const finishDay = new Date(startDay);
     finishDay.setDate(beginDay.getDate() + daysToComplete);
     const daysLeft = Math.round((finishDay - new Date()) / (1000 * 60 * 60 * 24));
-    return `${finishDay.getDate()} ${finishDay.getMonth()} ${finishDay.getFullYear()} ${daysLeft} days left`;
+    return `${stringDays[finishDay.getDay()]} ${finishDay.getDate()}  / ${stringMonths[finishDay.getMonth()]} / ${finishDay.getFullYear()} --> ${daysLeft} days left`;
 
   };
     return (
@@ -56,12 +60,12 @@ const Profile = () => {
 
           <Title>Hi {user.name}</Title>
           <span>Here you can set new fitness goals and review your journey.</span>
-          <ul>Goals:
+          <ul>Goals
+            <EditButton onClick={() => {addGoal();}}>ADD A NEW GOAL</EditButton>
             {goals.map((goal, index) => (
               <li key={index}>{goal.movement} {goal.quantity} {goal.unit} before {daysLeft(goal.start, goal.timeFrame)}
               </li>
             ))}
-          <EditButton onClick={() => {addGoal();}}>ADD GOAL</EditButton>
           </ul>
           <span>you should focus in one at time</span>
           <h2>Last 30 days:</h2>
