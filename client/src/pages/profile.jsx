@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import AddGoal from "../components/addgoal";
 import {threeColour} from "../conf";
-import {useEffect} from "react";
+import {useState} from "react";
+import {logOut} from "../redux/userRedux";
 
 
 const Container = styled.div``;
@@ -19,38 +20,56 @@ const EditButton = styled.button`
   }
 `;
 
+const LogoutButton = styled.button`
+  border: 1px solid black;
+  border-radius: 2px;
+  cursor: pointer;
+  &:hover {
+    background-color: red;
+  }
+`;
+
 
 
 const Profile = () => {
-  let displayingGoal = false;
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logOut());
+  };
+  const [displayingGoal, setDisplayingGoal] = useState(false);
   const addGoal = () => {
-    displayingGoal = true;
-    console.log(displayingGoal);
+    setDisplayingGoal(true);
     document.title = "Adding goal.";
   };
   const user = useSelector((state) => state.user.currentUser);
+  const goals = useSelector((state) => state.training.goals);
+  const daysLeft = (startDay, daysToComplete) => {
+    const beginDay = new Date(startDay);
+    const finishDay = new Date(startDay);
+    finishDay.setDate(beginDay.getDate() + daysToComplete);
+    const daysLeft = Math.round((finishDay - new Date()) / (1000 * 60 * 60 * 24));
+    return `${finishDay.getDate()} ${finishDay.getMonth()} ${finishDay.getFullYear()} ${daysLeft} days left`;
+
+  };
     return (
         <Container>
 
           <Title>Hi {user.name}</Title>
           <span>Here you can set new fitness goals and review your journey.</span>
-          <h2>Goals:
-          <EditButton onClick={() => {addGoal();}}>ADD</EditButton>
-          </h2>
+          <ul>Goals:
+            {goals.map((goal, index) => (
+              <li key={index}>{goal.movement} {goal.quantity} {goal.unit} before {daysLeft(goal.start, goal.timeFrame)}
+              </li>
+            ))}
+          <EditButton onClick={() => {addGoal();}}>ADD GOAL</EditButton>
+          </ul>
           <span>you should focus in one at time</span>
-          <h3>Run 80k at month
-            <EditButton>EDIT</EditButton>
-          </h3>
-          <h3>Deadlift 160kgs
-            <EditButton>EDIT</EditButton> </h3>
-          <h3>Body-weight 70kgs
-            <EditButton>EDIT</EditButton>
-          </h3>
           <h2>Last 30 days:</h2>
           <h3>Time</h3>
           <h3>Distance</h3>
           <h3>Weight</h3>
-          {/*{displayingGoal ? <AddGoal/> }*/}
+          { displayingGoal ? <AddGoal/> : null}
+          <LogoutButton onClick={() => {handleLogout();}}>Log Out</LogoutButton>
         </Container>
     );
 };
