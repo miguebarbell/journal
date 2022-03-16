@@ -26,7 +26,7 @@ const userSlice = createSlice({
 		},
 		resetLogin: (state) => {
 			state.error = false;
-		}
+		},
 	}
 });
 
