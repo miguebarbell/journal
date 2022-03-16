@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {footerHeight, fourColour, navbarHeight, oneColour, threeColour, twoColour} from "../conf";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {login} from "../redux/apiCalls";
+import {login} from "../redux/userApiCalls";
 
 export const Container = styled.div`
   display: flex;
