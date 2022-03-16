@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import {threeColour} from "../conf";
 
 const Container = styled.div`
+  background-color: ${({today}) => today ? threeColour + "50" : "inherit"};
   border: 1px solid gray;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
@@ -38,9 +40,13 @@ const GoalContainer = styled.span`
 
 const Day = ({date, month}) => {
   const monthsArray = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+  const today = new Date();
+  let isToday = false;
+  // check if date is today (so it can change the colour)
+  if (date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) isToday = true;
 
-    return (
-        <Container>
+  return (
+        <Container today={isToday}>
           <MonthContainer>
             {month && monthsArray[date.getMonth()]}
           </MonthContainer>
