@@ -48,4 +48,18 @@ router.post("/login", async (req, res) => {
 	}
 })
 
+// Edit user, name or password
+router.put("/", async (req, res) => {
+	try {
+		const user = await User.findOne({
+			email: req.body.user.email
+		});
+		user.name = req.body.user.name
+		const savedUser = await user.save();
+		res.status(200).json({savedUser})
+	} catch (err) {
+		res.status(500).json(err)
+	}
+})
+
 module.exports = router;
