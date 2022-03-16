@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Goal = require("../models/Goal");
 
 
-router.post("/",
+router.post("/add",
 	async (req, res) => {
 
 		const newGoal = new Goal({
@@ -23,10 +23,11 @@ router.post("/",
 		}
 	})
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
+	console.log(req.body)
 	try {
 		const goals = await Goal.find({
-			"user": req.body.user
+			"user": req.body.email
 		})
 		return res.status(200).json(goals)
 	} catch (err) {

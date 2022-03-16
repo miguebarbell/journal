@@ -2,12 +2,15 @@ const mongoose = require('mongoose');
 
 const LogSchema = new mongoose.Schema({
 	user:  {type: String, required: true},
+	movement: {type: String, required: true},
+	rep: {type: Number, default: 1},
+	sets: {type: Number, default: 1},
 	weight: {type: Number},
-	repetitions: {type: Number},
-	distance: {type: Number},
+	distance: {type: Number, default: 1},
+	unit: {type: String, required: true},
 	duration: {type: Number},
 	date: {type: Date},
-	movement: {type: String, required: true}
-})
+	notes: {type: String},
+});
 
-module.exports = mongoose.model("Log", LogSchema)
+module.exports = mongoose.model("Log", LogSchema);
