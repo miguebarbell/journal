@@ -9,7 +9,7 @@ const LogSchema = new mongoose.Schema({
 	distance: {type: Number, default: 1},
 	unit: {type: String, required: true},
 	duration: {type: Number},
-	date: {type: Date},
+	date: {type: Date, default: new Date()},
 	notes: {type: String},
 });
 

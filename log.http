@@ -3,10 +3,13 @@ POST http://localhost:5000/api/log/
 Content-Type: application/json
 
 {
-  "user": "miguel@debloat.us",
+  "user": "admin@debloat.us",
   "movement": "Snatch",
+  "rep": 3,
+  "sets": 3,
   "weight": 100,
-  "repetitions": 3
+  "unit": "kgs",
+  "duration": ""
 }
 
 ### get all logs
