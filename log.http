@@ -4,12 +4,15 @@ Content-Type: application/json
 
 {
   "user": "admin@debloat.us",
-  "movement": "Snatch",
-  "rep": 3,
-  "sets": 3,
-  "weight": 100,
-  "unit": "kgs",
-  "duration": ""
+  "movement": "meditation",
+  "rep": 1,
+  "sets": 1,
+  "strain": 15,
+  "unit": "min",
+  "duration": 15,
+  "date" : "2022-03-10",
+  "notes": "its working the running"
+
 }
 
 ### get all logs
