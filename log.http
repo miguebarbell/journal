@@ -17,7 +17,7 @@ GET http://localhost:5000/api/log/
 Content-Type: application/json
 
 {
-  "user": "miguel@debloat.us"
+  "email": "admin@debloat.us"
 }
 
 ### edit a workout
