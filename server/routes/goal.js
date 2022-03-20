@@ -24,7 +24,7 @@ router.post("/add",
 	})
 
 router.post("/", async (req, res) => {
-	console.log(req.body)
+	// console.log(req.body)
 	try {
 		const goals = await Goal.find({
 			"user": req.body.email

@@ -1,16 +1,20 @@
 import {loginFailure, loginSuccess, loginStart} from "./userRedux";
 import {publicRequest} from "../requestMethods";
-import {setGoals} from "./goalRedux";
+import {getLogs, setGoals} from "./goalRedux";
 
 
 // user calls
 export const login = async (dispatch, user) => {
+
 	dispatch(loginStart());
 	try {
+		// TODO make a single request getting all the data
 		const goals = await publicRequest.post("api/goal/", user);
 		const res = await publicRequest.post("api/auth/login", user);
+		const logs = await publicRequest.get("api/log", user);
 		dispatch(loginSuccess(res.data));
 		dispatch(setGoals(goals.data));
+		dispatch(getLogs(logs.data));
 	} catch (err) {
 		console.log(err);
 		dispatch(loginFailure());

@@ -51,7 +51,9 @@ router.get("/:id", async (req, res) => {
 // Get all logs
 router.get("/", async (req, res) => {
 	try {
-		const logs = await Log.find({user: req.body.user})
+		const logs = await Log.find({
+			"email": req.body.email
+		})
 		return res.status(200).json(logs)
 	} catch (err) {
 		return res.status(500).json(err)
