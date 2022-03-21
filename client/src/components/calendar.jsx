@@ -52,10 +52,18 @@ const LabelContainer = styled.div`
 
 const GoalSpan = styled.span`
   cursor: pointer;
-  text-decoration-thickness: 10%;
+  text-decoration-thickness: 7px;
   text-decoration: ${({goal}) => goal ? "underline red" : "none" } ;
+  background: ${({goal}) => goal ? "inherit" : "rgba(153, 170, 181, 0.7)"};
+  //font-weight: ${({goal}) => goal ? "bold" : "normal"};
+  border: 1px solid black;
+  border-radius: 10px 10px 0 0;
   text-transform: capitalize;
-  margin: 2rem;
+  //margin: 2rem;
+  padding: 0.25rem 0.5rem 0 0.5rem;
+  &:hover {
+    background: white;
+  }
   `;
 
 const ChangeMonthSpan = styled.span`
