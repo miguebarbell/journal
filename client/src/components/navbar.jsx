@@ -2,6 +2,8 @@ import styled from "styled-components";
 import {Link} from "react-router-dom";
 import {navbarHeight} from "../conf";
 import {useSelector} from "react-redux";
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 const Container = styled.div`
   //background-color: dodgerblue;
@@ -12,25 +14,25 @@ const Container = styled.div`
 `;
 
 const Logo = styled.div`
-  background-color: black;
+  //background-color: black;
   height: 2rem;
-  color: white;
+  //color: white;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 `;
 
-const Search = styled.input`
-  border: none;
-`;
 
 const Navbar = () => {
   const {name} = useSelector(state => state.user.currentUser);
     return (
         <Container>
           <Link to="/">
-            <Logo>LOGO</Logo>
+            <Logo><FitnessCenterIcon/> Journal</Logo>
           </Link>
           {/*<Search placeholder="Search..."/>*/}
           <Link to="/profile">
-            <span>{name}</span>
+            <Logo><AccountBoxIcon/>{name}</Logo>
           </Link>
         </Container>
     );
