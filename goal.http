@@ -4,13 +4,13 @@ content-type: application/json
 
 {
   "user": "admin@debloat.us",
-  "movement": "snatch",
-  "quantity": 130,
-  "unit": "kgs",
-  "plan": "test",
+  "movement": "Meditation",
+  "quantity": 360,
+  "unit": "min",
+  "plan": "accu",
   "timeFrame": 90,
-  "start": "2022-march-23",
-  "notes": "after this, focus in CJ"
+  "start": "2022-march-20",
+  "notes": "daily meditation"
 }
 
 ### get goals
