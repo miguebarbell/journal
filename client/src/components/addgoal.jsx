@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 
-import {fiveColour, fourColour, threeColour, twoColour} from "../conf";
+import {fiveColour, threeColour, twoColour} from "../conf";
 import {useState} from "react";
 import {addAGoal} from "../redux/goalApiCalls";
 
@@ -99,7 +99,7 @@ const AddGoal = () => {
               </select>
               <label >Plan</label>
               <select onChange={(e) => setPlan(e.target.value)} required value={plan}>
-                <option value="test">Max Attemp</option>
+                <option value="test">Max Attempt</option>
                 <option value="accu">Accumulation</option>
               </select>
             </div>
