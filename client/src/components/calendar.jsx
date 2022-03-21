@@ -59,7 +59,7 @@ const GoalSpan = styled.span`
   `;
 
 const ChangeMonthSpan = styled.span`
-  cursor: pointer;
+  cursor: ${({disabled}) => disabled ? "default" : "pointer"};
   //top: 50%;
   //position: absolute;
 `;
@@ -134,6 +134,7 @@ const Calendar = () => {
           ))}
         </GridContainer>
         {relativeMonth !== 0 && <ChangeMonthSpan left={false} onClick={() => setRelativeMonth(relativeMonth + 1)}><ArrowForwardIosIcon/></ChangeMonthSpan>}
+          {relativeMonth === 0 && <ChangeMonthSpan disabled={true}><ArrowForwardIosIcon color="disabled"/></ChangeMonthSpan>}
         </CalendarWrapper>
       </Container>
     );
