@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {threeColour} from "../conf";
 import {useSelector} from "react-redux";
-import {useState} from "react";
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 
 const Container = styled.div`
   background-color: ${({today}) => today ? threeColour + "50" : "inherit"};
@@ -20,6 +20,9 @@ const Container = styled.div`
 const DayContainer = styled.span`
   grid-area: day;
   text-align: end;
+  color: green;
+  font-weight: bold;
+  font-size: 0.75rem;
 `;
 
 const MonthContainer = styled.span`
@@ -37,14 +40,24 @@ const GoalContainer = styled.span`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  span {
-    font-size: 1rem;
+`;
+
+const Plus = styled.span`
+  color: gray;
+  &:hover {
+    color: green;
   }
 `;
 
 
+const Strain = styled.span`
+  font-family: serif;
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
+
+
 const Day = ({date, month, goal}) => {
-  const [strain, setStrain] = useState("+");
   const logs = useSelector((state) => state.training.logs);
   // console.log(logs);
   // console.log(date);
@@ -54,9 +67,7 @@ const Day = ({date, month, goal}) => {
   let isToday = false;
   // check if date is today (so it can change the colour)
   if (date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) isToday = true;
-  let movements;
-  if (goal === "") {
-    movements = (logs.filter(log =>
+  const movements = (logs.filter(log =>
       (new Date(log.date)).getDate() === date.getDate()
       && (new Date(log.date)).getMonth() === date.getMonth()
       && (new Date(log.date)).getFullYear() === date.getFullYear()
@@ -64,7 +75,7 @@ const Day = ({date, month, goal}) => {
     // console.log(logs.map(log => (new Date(log.date)).getDate()));
     // console.log(date.getDate());
     // console.log(movements);
-  }
+  // console.log(movements.filter(movement => movement.movement === goal));
   return (
         <Container today={isToday}>
           <MonthContainer>
@@ -74,7 +85,10 @@ const Day = ({date, month, goal}) => {
             {date.getDate()}
           </DayContainer>
           <GoalContainer>
-            {movements.length === 0 ? "+" : movements.map(movement => (<span>{movement.movement}</span>))}
+            {
+              (goal === "" && (movements.length === 0 ? <Plus><AddCircleOutlineRoundedIcon/></Plus> : movements.map((movement, index )=> (<Strain key={index}>{movement.movement}</Strain>))))
+              || (movements.length === 0 ? <Plus><AddCircleOutlineRoundedIcon/></Plus> : (movements.filter(movement => movement.movement === goal)).map((mov, ind) => (<Strain key={ind}>{mov.strain}{mov.unit}</Strain>)))
+            }
           </GoalContainer>
         </Container>
     );
