@@ -4,7 +4,7 @@ const goalSlice = createSlice({
 	name: "training",
 	initialState: {
 		goals: [],
-		logs: []
+		logs: [],
 	},
 	reducers: {
 		setGoals: (state, action) => {
@@ -14,11 +14,12 @@ const goalSlice = createSlice({
 		addGoal: (state, action) => {
 			state.goals.push(action.payload.data);
 		},
-		getLogs: (state, action) => {
+		setLogs: (state, action) => {
 			state.logs = action.payload;
-		}
+		},
+
 	}
 });
 
-export const {setGoals, addGoal, getLogs} = goalSlice.actions;
+export const {setGoals, addGoal, setLogs} = goalSlice.actions;
 export default goalSlice.reducer;
