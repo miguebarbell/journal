@@ -1,9 +1,17 @@
+// external
 import styled from "styled-components";
-import {threeColour} from "../conf";
 import {useSelector} from "react-redux";
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import {useState} from "react";
+
+// internal
+import AddLog from "./addLog";
+
+//conf
+import {threeColour} from "../conf";
 
 const Container = styled.div`
+  position: relative;
   background-color: ${({today}) => today ? threeColour + "50" : "inherit"};
   border: 1px solid gray;
   display: grid;
@@ -57,6 +65,20 @@ const Strain = styled.span`
 `;
 
 
+const AddALogContainer = styled.div`
+  position: fixed;
+  background-color: ${threeColour + "50"};
+  display: ${({show}) => show ? "flex" : "none"};
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  
+`;
+
+
+
 const Day = ({date, month, goal}) => {
   const logs = useSelector((state) => state.training.logs);
   // console.log(logs);
@@ -76,8 +98,16 @@ const Day = ({date, month, goal}) => {
     // console.log(date.getDate());
     // console.log(movements);
   // console.log(movements.filter(movement => movement.movement === goal));
+
+  // add a log
+  const [addALogForm, setAddALogForm] = useState(false);
+  const handleAddLog = () => {
+    setAddALogForm(!addALogForm);
+  };
+  const goals = useSelector((state) => state.training.goals);
+
   return (
-        <Container today={isToday}>
+        <Container today={isToday} >
           <MonthContainer>
             {month && monthsArray[date.getMonth()]}
           </MonthContainer>
@@ -86,10 +116,11 @@ const Day = ({date, month, goal}) => {
           </DayContainer>
           <GoalContainer>
             {
-              (goal === "" && (movements.length === 0 ? <Plus><AddCircleOutlineRoundedIcon fontSize="large"/></Plus> : movements.map((movement, index )=> (<Strain key={index}>{movement.movement}</Strain>))))
-              || (movements.filter(movement => movement.movement === goal).length === 0 ? <Plus><AddCircleOutlineRoundedIcon fontSize="large"/></Plus> : (movements.filter(movement => movement.movement === goal)).map((mov, ind) => (<Strain key={ind}>{mov.strain}{mov.unit}</Strain>)))
+              (goal === "" && (movements.length === 0 ? <Plus><AddCircleOutlineRoundedIcon fontSize="large" onClick={()=>{handleAddLog();}}/></Plus> : movements.map((movement, index )=> (<Strain key={index}>{movement.movement}</Strain>))))
+              || (movements.filter(movement => movement.movement === goal).length === 0 ? <Plus><AddCircleOutlineRoundedIcon fontSize="large" onClick={()=>{handleAddLog();}}/></Plus> : (movements.filter(movement => movement.movement === goal)).map((mov, ind) => (<Strain key={ind}>{mov.strain}{mov.unit}</Strain>)))
             }
           </GoalContainer>
+
         </Container>
     );
 };
