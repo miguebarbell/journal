@@ -1,6 +1,12 @@
+// external
 import styled from "styled-components";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import CloseIcon from '@mui/icons-material/Close';
+// internal
+import {setActive} from "../redux/logRedux";
+// conf
 import {threeColour, twoColour} from "../conf";
+
 
 const BlurContainer = styled.div`
   position: fixed;
@@ -21,7 +27,11 @@ const FormContainer = styled.div`
   flex-direction: column;
   width: 20rem;
 `;
-const Title = styled.h1``;
+const Title = styled.h1`
+  &:after {
+    content: "x"
+  }
+`;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -65,13 +75,24 @@ const DataWrap = styled.div`
     color: ${twoColour};
     position: absolute;
     background: white;
-    width: 6rem;
+    max-width: 6rem;
     font-size: 0.85rem;
     display: block;
     border: 1px solid ${threeColour};
     border-radius: 10px;
     padding: 0.5rem;
-    transform: translate(-25%, -100%)
+    transform: translate(-25%, -100%);
+  }
+  &#close {
+    cursor: pointer;
+    align-items: end;
+    transform: translate(25%, -200%);
+    &:hover {
+      color: red;
+    }
+  }
+  &#close:hover:after {
+    content: "Close";
   }
   &#strain:hover:after { 
     content: "strain";
@@ -85,13 +106,17 @@ const DataWrap = styled.div`
   &#time:hover:after {
     content: "time";
   }
-`;
-const NoteWrapper = styled.div`
-  display: flex;
-  textarea {
+  &#note:hover:after {
+    content: "note";
+  }
+  &#note {
+    display: flex;
     width: 100%;
-    resize: none;
-    height: 3rem;
+    textarea {
+      width: 100%;
+      resize: none;
+      height: 3rem;
+    }
   }
 `;
 
@@ -99,6 +124,11 @@ const AddLog = () => {
   // extract all the data from store
   const goals = useSelector((state) => state.training.goals);
 
+  const dispatch = useDispatch();
+  const handleCancel = () => {
+    // save the draft
+    dispatch(setActive());
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -109,12 +139,16 @@ const AddLog = () => {
           <HeaderWrapper>
             <Title>DATE</Title>
             <CreateMovementButton>Create new goal</CreateMovementButton>
+            <DataWrap id="close">
+              <CloseIcon onClick={handleCancel}/>
+            </DataWrap>
           </HeaderWrapper>
           <Form>
             <MovementWrapper>
               <select>
-                {goals.map(goal =>
-                  <option value={goal.movement}>{goal.movement} ({goal.unit})</option>
+                {/* take the movement from redux*/}
+                {goals.map((goal, index) =>
+                  <option key={index} value={goal.movement}>{goal.movement} ({goal.unit})</option>
                 )}
               </select>
             </MovementWrapper>
@@ -136,10 +170,10 @@ const AddLog = () => {
                 <input placeholder="10"/>
               </DataWrap>
             </DataContainer>
-            <NoteWrapper>
+            <DataWrap id="note">
               <label>Additional note</label>
               <textarea />
-            </NoteWrapper>
+            </DataWrap>
             <ButtonSubmit submit={handleSubmit}>Register!</ButtonSubmit>
           </Form>
         </FormContainer>
