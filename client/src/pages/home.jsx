@@ -1,7 +1,7 @@
-// internal
-import styled from "styled-components";
-import {useState} from "react";
 // external
+import styled from "styled-components";
+import {useSelector} from "react-redux";
+// internal
 import AddLog from "../components/addLog";
 import Calendar from "../components/calendar";
 
