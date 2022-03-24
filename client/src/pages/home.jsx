@@ -9,7 +9,6 @@ const Container = styled.div`
   width: 100vw;
 `;
 
-
 const Home = () => {
   const showAddLog = useSelector((state) => state.log.active);
 
