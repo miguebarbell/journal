@@ -101,7 +101,9 @@ const Day = ({date, month, goal}) => {
   // add a log
   const [addALogForm, setAddALogForm] = useState(false);
   const handleAddLog = () => {
-    setAddALogForm(!addALogForm);
+
+    dispatch(addDraft({date: date, movement: goal, active: true}));
+    dispatch(setActive());
   };
   const goals = useSelector((state) => state.training.goals);
 
