@@ -1,9 +1,11 @@
+// external
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-
-import {fiveColour, threeColour, twoColour} from "../conf";
 import {useState} from "react";
+// internal
 import {addAGoal} from "../redux/goalApiCalls";
+// conf
+import {fiveColour, threeColour, twoColour} from "../conf";
 
 const Container = styled.div`
   display: ${({show}) => show ? 'flex' : 'none'};
