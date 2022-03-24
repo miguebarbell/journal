@@ -1,12 +1,9 @@
 // external
 import styled from "styled-components";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import {useState} from "react";
-
 // internal
-import AddLog from "./addLog";
-
+import {addDraft, setActive} from "../redux/logRedux";
 //conf
 import {threeColour} from "../conf";
 
