@@ -2,8 +2,9 @@
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import CloseIcon from '@mui/icons-material/Close';
+import {useState} from "react";
 // internal
-import {setActive} from "../redux/logRedux";
+import {setActive, updateDraft} from "../redux/logRedux";
 // conf
 import {threeColour, twoColour} from "../conf";
 
@@ -29,7 +30,7 @@ const FormContainer = styled.div`
 `;
 const Title = styled.h1`
   &:after {
-    content: "x"
+    //content: "x"
   }
 `;
 const Form = styled.form`
@@ -61,6 +62,12 @@ const MovementWrapper = styled.div`
   //background-color: green;
   display: flex;
   justify-content: space-between;
+  h1 {
+    color: green;
+    span {
+      font-size: 1.5rem;
+    }
+  }
 `;
 const DataContainer = styled.div`
   //background-color: blue;
@@ -86,7 +93,7 @@ const DataWrap = styled.div`
   &#close {
     cursor: pointer;
     align-items: end;
-    transform: translate(25%, -200%);
+    transform: translate(25%, -400%);
     &:hover {
       color: red;
     }
@@ -121,23 +128,55 @@ const DataWrap = styled.div`
 `;
 
 const AddLog = () => {
+
+
+
   // extract all the data from store
   const goals = useSelector((state) => state.training.goals);
-
+  const drafts = useSelector((state) => state.log.drafts);
+  const activeDraft = drafts.filter(draft => draft.active === true)[0];
   const dispatch = useDispatch();
+  // feed the states
+  const [movementForm, setMovementForm] = useState(activeDraft.movement);
+  const [repsForm, setRepsForm] = useState(activeDraft.reps);
+  const [setsForm, setSetsForm] = useState(activeDraft.sets);
+  const [strainForm, setStrainForm] = useState(activeDraft.strain);
+  const [unitForm, setUnitForm] = useState(activeDraft.unit);
+  const [durationForm, setDurationForm] = useState(activeDraft.duration);
+  const [notesForm, setNotesForm] = useState(activeDraft.notes);
+
+
+
   const handleCancel = () => {
-    // save the draft
+    // save the draft -> draft.active=false
+    // get the index by date and movement
+
+    dispatch(updateDraft({
+        date: activeDraft.date,
+        movement: movementForm,
+        reps: repsForm,
+        sets: setsForm,
+        strain: strainForm,
+        unit: unitForm,
+        duration: durationForm,
+        notes: notesForm,
+        active: false,
+
+    }));
+
+
+
+    // close the form
     dispatch(setActive());
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-
   };
     return (
       <BlurContainer>
         <FormContainer>
           <HeaderWrapper>
-            <Title>DATE</Title>
+            <Title>{activeDraft && (new Date(activeDraft.date)).toDateString()}</Title>
             <CreateMovementButton>Create new goal</CreateMovementButton>
             <DataWrap id="close">
               <CloseIcon onClick={handleCancel}/>
@@ -145,34 +184,36 @@ const AddLog = () => {
           </HeaderWrapper>
           <Form>
             <MovementWrapper>
+              {/*if draft have a movement, select from there, otherwise from goals*/}
+              {activeDraft.movement === "" ? (
               <select>
-                {/* take the movement from redux*/}
                 {goals.map((goal, index) =>
                   <option key={index} value={goal.movement}>{goal.movement} ({goal.unit})</option>
                 )}
               </select>
+              ) : <h1>{activeDraft.movement}<span>({(goals.find(goal => goal.movement === activeDraft.movement)).unit})</span></h1>}
             </MovementWrapper>
             <DataContainer>
               <DataWrap id="strain" >
                 <label>Strain</label>
-                <input placeholder="90"/>
+                <input placeholder="90" onChange={(e) => setStrainForm(e.target.value)}/>
               </DataWrap>
               <DataWrap id="reps" >
                 <label>Reps</label>
-                <input placeholder=""/>
+                <input placeholder="" onChange={(e) => setRepsForm(e.target.value)}/>
               </DataWrap>
               <DataWrap id="sets">
                 <label>Sets</label>
-                <input placeholder=""/>
+                <input placeholder="" onChange={(e) => setSetsForm(e.target.value)}/>
               </DataWrap>
               <DataWrap id="time">
                 <label>Time</label>
-                <input placeholder="10"/>
+                <input placeholder="10" onChange={(e) => setDurationForm(e.target.value)}/>
               </DataWrap>
             </DataContainer>
             <DataWrap id="note">
               <label>Additional note</label>
-              <textarea />
+              <textarea onChange={(e) => setNotesForm(e.target.value)}/>
             </DataWrap>
             <ButtonSubmit submit={handleSubmit}>Register!</ButtonSubmit>
           </Form>
