@@ -1,9 +1,11 @@
+// external
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import {navbarHeight} from "../conf";
 import {useSelector} from "react-redux";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+// conf
+import {navbarHeight} from "../conf";
 
 const Container = styled.div`
   //background-color: dodgerblue;
