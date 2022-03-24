@@ -1,10 +1,13 @@
+// external
 import styled from "styled-components";
-
-import Day from "./day";
 import {useState} from "react";
 import {useSelector} from "react-redux";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+// internal
+import Day from "./day";
+// conf
+import {threeColour} from "../conf";
 
 
 const Container = styled.div`
@@ -82,6 +85,9 @@ const CalendarWrapper = styled.div`
   border-radius: 10px;
 `;
 
+
+
+
 const Calendar = () => {
   const goals = useSelector((state) => state.training.goals);
   const [relativeMonth, setRelativeMonth] = useState(0);
@@ -121,6 +127,8 @@ const Calendar = () => {
   const today = new Date();
 
   let weeks = dateRange(today, 4);
+  // add a new log
+
 
     return (
       <Container>
@@ -144,6 +152,8 @@ const Calendar = () => {
         {relativeMonth !== 0 && <ChangeMonthSpan left={false} onClick={() => setRelativeMonth(relativeMonth + 1)}><ArrowForwardIosIcon/></ChangeMonthSpan>}
           {relativeMonth === 0 && <ChangeMonthSpan disabled={true}><ArrowForwardIosIcon color="disabled"/></ChangeMonthSpan>}
         </CalendarWrapper>
+
+
       </Container>
     );
 };
