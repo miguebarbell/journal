@@ -11,8 +11,8 @@ const Container = styled.div`
 
 
 const Home = () => {
-// todo take the stat from redux
-  const [showAddLog, setShowAddLog] = useState(true);
+  const showAddLog = useSelector((state) => state.log.active);
+
     return (
         <Container>
           {showAddLog && <AddLog/>}
