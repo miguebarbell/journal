@@ -80,12 +80,14 @@ const AddALogContainer = styled.div`
 
 
 const Day = ({date, month, goal}) => {
+  date.setHours(0,0,0,0);
   const logs = useSelector((state) => state.training.logs);
   // console.log(logs);
   // console.log(date);
   // month if for change the month, goal is to display inside the day what was done.
   const monthsArray = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
   const today = new Date();
+  today.setHours(0,0,0,0);
   let isToday = false;
   // check if date is today (so it can change the colour)
   if (date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) isToday = true;
