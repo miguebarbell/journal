@@ -99,7 +99,7 @@ const Day = ({date, month, goal}) => {
   // console.log(movements.filter(movement => movement.movement === goal));
 
   // add a log
-  const [addALogForm, setAddALogForm] = useState(false);
+  const dispatch = useDispatch();
   const handleAddLog = () => {
 
     dispatch(addDraft({date: date, movement: goal, active: true}));
