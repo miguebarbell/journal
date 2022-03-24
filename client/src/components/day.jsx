@@ -115,8 +115,13 @@ const Day = ({date, month, goal}) => {
           </DayContainer>
           <GoalContainer>
             {
-              (goal === "" && (movements.length === 0 ? <Plus><AddCircleOutlineRoundedIcon fontSize="large" onClick={()=>{handleAddLog();}}/></Plus> : movements.map((movement, index )=> (<Strain key={index}>{movement.movement}</Strain>))))
-              || (movements.filter(movement => movement.movement === goal).length === 0 ? <Plus><AddCircleOutlineRoundedIcon fontSize="large" onClick={()=>{handleAddLog();}}/></Plus> : (movements.filter(movement => movement.movement === goal)).map((mov, ind) => (<Strain key={ind}>{mov.strain}{mov.unit}</Strain>)))
+              (goal === "" && (movements.length === 0 ?
+                <Plus><AddCircleOutlineRoundedIcon fontSize="large" onClick={()=>{handleAddLog();}}/></Plus>
+                : movements.map((movement, index )=> (<Strain key={index}>{movement.movement}</Strain>))))
+              ||
+              (movements.filter(movement => movement.movement === goal).length === 0 ?
+                <Plus><AddCircleOutlineRoundedIcon fontSize="large" onClick={()=>{handleAddLog();}}/></Plus>
+                : (movements.filter(movement => movement.movement === goal)).map((mov, ind) => (<Strain key={ind}>{mov.strain}{mov.unit}</Strain>)))
             }
           </GoalContainer>
 
