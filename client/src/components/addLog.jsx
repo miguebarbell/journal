@@ -141,7 +141,7 @@ const AddLog = () => {
   const [repsForm, setRepsForm] = useState(activeDraft.reps);
   const [setsForm, setSetsForm] = useState(activeDraft.sets);
   const [strainForm, setStrainForm] = useState(activeDraft.strain);
-  const [unitForm, setUnitForm] = useState(activeDraft.unit);
+  // const [unitForm, setUnitForm] = useState(activeDraft.unit);
   const [durationForm, setDurationForm] = useState(activeDraft.duration);
   const [notesForm, setNotesForm] = useState(activeDraft.notes);
 
@@ -157,7 +157,7 @@ const AddLog = () => {
         reps: repsForm,
         sets: setsForm,
         strain: strainForm,
-        unit: unitForm,
+        // unit: unitForm,
         duration: durationForm,
         notes: notesForm,
         active: false,
@@ -186,7 +186,7 @@ const AddLog = () => {
             <MovementWrapper>
               {/*if draft have a movement, select from there, otherwise from goals*/}
               {activeDraft.movement === "" ? (
-              <select>
+              <select onChange={(e) => setMovementForm(e.target.value)} value={movementForm}>
                 {goals.map((goal, index) =>
                   <option key={index} value={goal.movement}>{goal.movement} ({goal.unit})</option>
                 )}
@@ -196,24 +196,24 @@ const AddLog = () => {
             <DataContainer>
               <DataWrap id="strain" >
                 <label>Strain</label>
-                <input placeholder="90" onChange={(e) => setStrainForm(e.target.value)}/>
+                <input placeholder="90" onChange={(e) => setStrainForm(e.target.value)} value={strainForm}/>
               </DataWrap>
               <DataWrap id="reps" >
                 <label>Reps</label>
-                <input placeholder="" onChange={(e) => setRepsForm(e.target.value)}/>
+                <input placeholder="" onChange={(e) => setRepsForm(e.target.value)} value={repsForm}/>
               </DataWrap>
               <DataWrap id="sets">
                 <label>Sets</label>
-                <input placeholder="" onChange={(e) => setSetsForm(e.target.value)}/>
+                <input placeholder="" onChange={(e) => setSetsForm(e.target.value)} value={setsForm}/>
               </DataWrap>
               <DataWrap id="time">
                 <label>Time</label>
-                <input placeholder="10" onChange={(e) => setDurationForm(e.target.value)}/>
+                <input placeholder="10" onChange={(e) => setDurationForm(e.target.value)} value={durationForm}/>
               </DataWrap>
             </DataContainer>
             <DataWrap id="note">
               <label>Additional note</label>
-              <textarea onChange={(e) => setNotesForm(e.target.value)}/>
+              <textarea onChange={(e) => setNotesForm(e.target.value)} value={notesForm}/>
             </DataWrap>
             <ButtonSubmit submit={handleSubmit}>Register!</ButtonSubmit>
           </Form>
