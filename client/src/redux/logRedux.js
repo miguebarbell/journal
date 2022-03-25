@@ -15,15 +15,17 @@ const entrySlice = createSlice({
 		},
 		updateDraft: (state, action) => {
 			state.drafts = state.drafts.filter(draft => draft.active === false);
-			// state.drafts = state.drafts.splice(action.payload.index, 1);
 			state.drafts.push(action.payload);
 		},
 		removeDraft: (state, action) => {
 			state.drafts = state.drafts.splice(action.payload.index, 1);
+		},
+		setDraftActive: (state, action) => {
+			state.drafts[action.payload].active = true;
 		}
 	}
 });
 
 
-export const {setActive, addDraft, updateDraft, removeDraft} = entrySlice.actions;
+export const {setActive, addDraft, updateDraft, removeDraft, setDraftActive} = entrySlice.actions;
 export default entrySlice.reducer;

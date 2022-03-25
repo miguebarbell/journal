@@ -26,6 +26,7 @@ const Logo = styled.div`
 
 
 const Navbar = () => {
+  // todo show navbar if user exists
   const {name} = useSelector(state => state.user.currentUser);
     return (
         <Container>

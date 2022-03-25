@@ -3,9 +3,10 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 // internal
-import {addDraft, setActive} from "../redux/logRedux";
+import {addDraft, setActive, setDraftActive} from "../redux/logRedux";
 //conf
 import {threeColour} from "../conf";
+import {useState} from "react";
 
 const Container = styled.div`
   position: relative;
@@ -100,12 +101,24 @@ const Day = ({date, month, goal}) => {
 
   // add a log
   const dispatch = useDispatch();
-  const handleAddLog = () => {
-
-    dispatch(addDraft({date: date, movement: goal, active: true}));
-    dispatch(setActive());
-  };
+  const drafts  =useSelector((state) => state.log.drafts);
   const goals = useSelector((state) => state.training.goals);
+  const handleAddLog = () => {
+    // check if in draft exist a draft of the movement in this day
+    const draftsThisDay = drafts.filter(draft => ((new Date(draft.date)).toDateString() === date.toDateString()) && (draft.movement === goal));
+    if (draftsThisDay.length > 0) {
+      // send the index
+      const index = drafts.findIndex(draft => (draft.movement === goal));
+      dispatch(setDraftActive(index));
+    } else {
+      dispatch(addDraft({date: date, movement: goal, active: true}));
+    }
+    dispatch(setActive());
+
+
+
+  };
+  // console.log(drafts);
 
   return (
         <Container today={isToday} >
@@ -126,7 +139,6 @@ const Day = ({date, month, goal}) => {
                 : (movements.filter(movement => movement.movement === goal)).map((mov, ind) => (<Strain key={ind}>{mov.strain}{mov.unit}</Strain>)))
             }
           </GoalContainer>
-
         </Container>
     );
 };
