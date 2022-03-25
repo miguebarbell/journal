@@ -130,21 +130,20 @@ const DataWrap = styled.div`
 const AddLog = () => {
 
 
-
   // extract all the data from store
   const goals = useSelector((state) => state.training.goals);
   const drafts = useSelector((state) => state.log.drafts);
   const activeDraft = drafts.filter(draft => draft.active === true)[0];
   const dispatch = useDispatch();
   // feed the states
-  const [movementForm, setMovementForm] = useState(activeDraft.movement);
+
+  const [movementForm, setMovementForm] = useState(activeDraft.movement === "" ? goals[0].movement : activeDraft.movement);
   const [repsForm, setRepsForm] = useState(activeDraft.reps);
   const [setsForm, setSetsForm] = useState(activeDraft.sets);
   const [strainForm, setStrainForm] = useState(activeDraft.strain);
-  // const [unitForm, setUnitForm] = useState(activeDraft.unit);
+  const [unitForm, setUnitForm] = useState(activeDraft.unit);
   const [durationForm, setDurationForm] = useState(activeDraft.duration);
   const [notesForm, setNotesForm] = useState(activeDraft.notes);
-
 
 
   const handleCancel = () => {
@@ -157,7 +156,7 @@ const AddLog = () => {
         reps: repsForm,
         sets: setsForm,
         strain: strainForm,
-        // unit: unitForm,
+        unit: unitForm,
         duration: durationForm,
         notes: notesForm,
         active: false,
@@ -171,6 +170,23 @@ const AddLog = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    // check if everything have an integer value
+    if ([+repsForm, +setsForm, +strainForm, +durationForm].includes(NaN)) {
+      alert("Strain, Reps, Sets and Time need a integer value to register");
+      return;
+    }
+    setUnitForm((goals.filter(goal => goal.movement === movementForm))[0].unit);
+    const newLog = {
+      date: activeDraft.date,
+      movement: movementForm,
+      reps: repsForm,
+      sets: setsForm,
+      unit: unitForm,
+      strain: strainForm,
+      duration: durationForm,
+      notes: notesForm,
+    };
+    console.log(newLog);
   };
     return (
       <BlurContainer>
@@ -215,7 +231,7 @@ const AddLog = () => {
               <label>Additional note</label>
               <textarea onChange={(e) => setNotesForm(e.target.value)} value={notesForm}/>
             </DataWrap>
-            <ButtonSubmit submit={handleSubmit}>Register!</ButtonSubmit>
+            <ButtonSubmit onClick={(e) => handleSubmit(e)}>Register!</ButtonSubmit>
           </Form>
         </FormContainer>
       </BlurContainer>
