@@ -5,7 +5,7 @@ Content-Type: application/json
 {
   "user": "admin@debloat.us",
   "movement": "meditation",
-  "rep": 1,
+  "reps": 1,
   "sets": 1,
   "strain": 15,
   "unit": "min",
