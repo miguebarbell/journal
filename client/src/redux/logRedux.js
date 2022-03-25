@@ -22,6 +22,10 @@ const entrySlice = createSlice({
 		},
 		setDraftActive: (state, action) => {
 			state.drafts[action.payload].active = true;
+		},
+		clearDrafts: (state) => {
+			// this should be done once a while
+			state.drafts = [];
 		}
 	}
 });
