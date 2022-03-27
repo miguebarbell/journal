@@ -5,14 +5,21 @@ import {useSelector} from "react-redux";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 // conf
-import {navbarHeight} from "../conf";
+import {fourColour, navbarHeight, twoColour} from "../conf";
 
 const Container = styled.div`
-  //background-color: dodgerblue;
+  color: ${fourColour};
+  background-color: ${twoColour};
   display: flex;
   justify-content: space-between;
   height: ${navbarHeight};
-  padding: 0.5rem;
+  a {
+    color: ${fourColour};
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin: 0 1.5rem;
+  }
 `;
 
 const Logo = styled.div`
@@ -31,11 +38,11 @@ const Navbar = () => {
     return (
         <Container>
           <Link to="/">
-            <Logo><FitnessCenterIcon/> Journal</Logo>
+            <Logo><FitnessCenterIcon/>&nbsp;Journal</Logo>
           </Link>
           {/*<Search placeholder="Search..."/>*/}
           <Link to="/profile">
-            <Logo><AccountBoxIcon/>{name}</Logo>
+            <Logo><AccountBoxIcon/>&nbsp;{name}</Logo>
           </Link>
         </Container>
     );
