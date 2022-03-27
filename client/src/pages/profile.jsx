@@ -6,18 +6,18 @@ import {useState} from "react";
 import AddGoal from "../components/addgoal";
 import {logOut} from "../redux/userRedux";
 // conf and variables
-import {fiveColour, fourColour, navbarHeight, threeColour, twoColour} from "../conf";
+import {COLOR_FIVE, COLOR_FOUR, NAVBAR_HEIGHT, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
 import {profileBanner} from "../components/quotes";
 
 
 const Container = styled.div`
-  color: ${fourColour};
-  background-color: ${twoColour};
+  color: ${COLOR_FOUR};
+  background-color: ${COLOR_TWO};
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  min-height: calc(100vh - ${navbarHeight});
+  min-height: calc(100vh - ${NAVBAR_HEIGHT});
 `;
 
 const Title = styled.h1`
@@ -30,8 +30,12 @@ const EditButton = styled.button`
   cursor: pointer;
   padding: 2px;
   margin: 0 5px;
+  font-weight: bold;
+  background-color: ${PRIMARY};
+  color: ${COLOR_FOUR};
   &:hover { 
-    background-color: ${threeColour};
+    background-color: ${SECONDARY};
+    color: ${COLOR_TWO};
   }
 `;
 
@@ -59,7 +63,7 @@ const ProfilePicture = styled.img`
   border-radius: 50%;
   height: 15vh;
   width: 15vh;
-  background-image: linear-gradient(27deg, blue, darkviolet)
+  background-image: linear-gradient(27deg, ${PRIMARY}, ${SECONDARY})
 `;
 
 const MotivationWrapper = styled.div`
