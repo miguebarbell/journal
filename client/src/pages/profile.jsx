@@ -6,7 +6,7 @@ import {useState} from "react";
 import AddGoal from "../components/addgoal";
 import {logOut} from "../redux/userRedux";
 // conf and variables
-import {fourColour, navbarHeight, threeColour, twoColour} from "../conf";
+import {fiveColour, fourColour, navbarHeight, threeColour, twoColour} from "../conf";
 import {profileBanner} from "../components/quotes";
 
 
@@ -20,7 +20,9 @@ const Container = styled.div`
   min-height: calc(100vh - ${navbarHeight});
 `;
 
-const Title = styled.h1``;
+const Title = styled.h1`
+  font-family: 'Permanent Marker', cursive;
+`;
 
 const EditButton = styled.button`
   border: 1px solid black;
@@ -57,7 +59,7 @@ const ProfilePicture = styled.img`
   border-radius: 50%;
   height: 15vh;
   width: 15vh;
-  background-image: linear-gradient(27deg, red, yellow)
+  background-image: linear-gradient(27deg, blue, darkviolet)
 `;
 
 const MotivationWrapper = styled.div`
@@ -67,11 +69,13 @@ const MotivationWrapper = styled.div`
 `;
 const Quote = styled.span`
   font-style: italic;
-  font-size: 0.75rem;
+  font-size: 1.5rem;
+  font-family: 'Just Another Hand', cursive;
 `;
 const Author = styled.span`
   font-size: 0.75rem;
   font-weight: bold;
+  font-family: 'Cinzel', serif;
 `;
 
 const GoalsContainer = styled.div`
@@ -83,7 +87,17 @@ const GoalCard = styled.div`
   margin: 1rem;
   padding: 1rem;
   border-radius: 10px;
-  
+  div#strain {
+    display: flex;
+    justify-content: space-between;
+    div {
+      span:nth-child(1) {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: ${fiveColour};
+      }
+    }
+  }
   div#movement {
     font-weight: bold;
     font-size: 2rem;
@@ -122,8 +136,14 @@ const Profile = () => {
     const finishDay = new Date(startDay);
     finishDay.setDate(beginDay.getDate() + daysToComplete);
     const daysLeftToComplete = Math.round((finishDay - new Date()) / (1000 * 60 * 60 * 24));
-    const pediod = ``;
-    return Math.round((finishDay - new Date()) / (1000 * 60 * 60 * 24));
+    const weeks = Math.floor(daysLeftToComplete/7);
+    const rest = daysLeftToComplete%7;
+    return {
+      left : daysLeftToComplete,
+      weeks: weeks,
+      rest: rest
+
+    };
   };
 
     return (
@@ -143,12 +163,17 @@ const Profile = () => {
                 <div id="movement">
                   <span>🏅</span>
                   <span>{goal.movement}</span>
-                  <span id="left">{timeFrame(goal.start, goal.timeFrame)} days left</span>
+                  <span id="left">{(timeFrame(goal.start, goal.timeFrame)).left} days left</span>
                 </div>
                 <div id="strain">
-                  <span>{goal.quantity}</span>
-                  <span>{goal.unit}</span>
-                  <span>in 4 months</span>
+                  <div>
+                    <span>{goal.quantity}</span>
+                    &nbsp;
+                    <span>{goal.unit}</span>
+                  </div>
+                  <span>in&nbsp;
+                    {(timeFrame(goal.start, goal.timeFrame)).weeks !== 0 ? `${(timeFrame(goal.start, goal.timeFrame)).rest} weeks ` : ""}
+                    {(timeFrame(goal.start, goal.timeFrame)).rest !== 0 ? `${(timeFrame(goal.start, goal.timeFrame)).rest} days` : ""}</span>
                 </div>
               </GoalCard>
             ))}
