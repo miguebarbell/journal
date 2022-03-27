@@ -1,11 +1,13 @@
 
 // Dimension
-export const footerHeight = '1.5rem';
-export const navbarHeight = '3rem';
+export const FOOTER_HEIGHT = '1.5rem';
+export const NAVBAR_HEIGHT = '3rem';
 
 // Colours
-export const oneColour = '#000000';
-export const twoColour = '#14213D';
-export const threeColour = '#FCA311';
-export const fourColour = '#E5E5E5';
-export const fiveColour = '#FFFFFF';
+export const COLOR_ONE = '#000000';
+export const COLOR_TWO = '#14213D';
+export const COLOR_THREE = '#FCA311';
+export const COLOR_FOUR = '#E5E5E5';
+export const COLOR_FIVE = '#FFFFFF';
+export const PRIMARY = '#9400d3';
+export const SECONDARY = '#00FFFF';
