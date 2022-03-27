@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {footerHeight, fourColour, navbarHeight, oneColour, threeColour, twoColour} from "../conf";
+import {FOOTER_HEIGHT, COLOR_FOUR, NAVBAR_HEIGHT, COLOR_ONE, COLOR_THREE, COLOR_TWO} from "../conf";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../redux/userApiCalls";
@@ -8,8 +8,8 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - ${navbarHeight} - ${footerHeight});
-  background-color: ${threeColour};
+  min-height: calc(100vh - ${NAVBAR_HEIGHT} - ${FOOTER_HEIGHT});
+  background-color: ${COLOR_THREE};
   flex-direction: column;
 `;
 export const FormContainer = styled.form`
@@ -26,26 +26,26 @@ export const FormContainer = styled.form`
 `;
 
 export const Button = styled.button`
-  background-color: ${twoColour};
-  color: ${fourColour};
-  border: 2px solid ${twoColour};
+  background-color: ${COLOR_TWO};
+  color: ${COLOR_FOUR};
+  border: 2px solid ${COLOR_TWO};
   padding: 0.5rem;
   cursor: pointer;
   text-transform: uppercase;
   &:hover {
-    color: ${twoColour};
-    background-color: ${fourColour};
-    border: 2px solid ${twoColour};
+    color: ${COLOR_TWO};
+    background-color: ${COLOR_FOUR};
+    border: 2px solid ${COLOR_TWO};
   }
   
 `;
 
 export const Input = styled.input`
   background-color: inherit;
-  border: 1px solid ${twoColour};
+  border: 1px solid ${COLOR_TWO};
   &:focus {
-    color: ${fourColour};
-    background-color: ${oneColour};
+    color: ${COLOR_FOUR};
+    background-color: ${COLOR_ONE};
   }
 `;
 
@@ -53,13 +53,13 @@ export const Error = styled.span``;
 
 const Login = () => {
   const { isFetching, error } = useSelector(state => state.user);
+  // todo make a loading interface when user is fetching
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const handleClick = (e) => {
     e.preventDefault();
     login(dispatch, {email, password});
-
   };
   console.log(useSelector(state => state.user));
     return (

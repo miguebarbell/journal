@@ -5,7 +5,7 @@ import {useState} from "react";
 // internal
 import {addAGoal} from "../redux/goalApiCalls";
 // conf
-import {fiveColour, threeColour, twoColour} from "../conf";
+import {COLOR_FIVE, COLOR_THREE, COLOR_TWO} from "../conf";
 
 const Container = styled.div`
   display: ${({show}) => show ? 'flex' : 'none'};
@@ -26,7 +26,7 @@ const Form = styled.form`
   flex-direction: column;
   padding: 0.5rem;
   border-radius: 3px;
-  background-color: ${threeColour};
+  background-color: ${COLOR_THREE};
   * {
     margin: 0.25rem;
   }
@@ -39,13 +39,13 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
 `;
 const Button = styled.button`
-  background-color: ${fiveColour};
+  background-color: ${COLOR_FIVE};
   border: none;
   padding: 0.25rem;
   cursor: pointer;
   &:hover {
-    color: ${fiveColour};
-    background-color: ${twoColour};
+    color: ${COLOR_FIVE};
+    background-color: ${COLOR_TWO};
   }
 `;
 

@@ -5,12 +5,11 @@ import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRou
 // internal
 import {addDraft, setActive, setDraftActive} from "../redux/logRedux";
 //conf
-import {threeColour} from "../conf";
-import {useState} from "react";
+import {COLOR_THREE} from "../conf";
 
 const Container = styled.div`
   position: relative;
-  background-color: ${({today}) => today ? threeColour + "50" : "inherit"};
+  background-color: ${({today}) => today ? COLOR_THREE + "50" : "inherit"};
   border: 1px solid gray;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
@@ -65,7 +64,7 @@ const Strain = styled.span`
 
 const AddALogContainer = styled.div`
   position: fixed;
-  background-color: ${threeColour + "50"};
+  background-color: ${COLOR_THREE + "50"};
   display: ${({show}) => show ? "flex" : "none"};
   width: 100vw;
   height: 100vh;

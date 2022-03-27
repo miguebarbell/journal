@@ -5,16 +5,16 @@ import {useSelector} from "react-redux";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 // conf
-import {fourColour, navbarHeight, twoColour} from "../conf";
+import {COLOR_FOUR, NAVBAR_HEIGHT, COLOR_TWO} from "../conf";
 
 const Container = styled.div`
-  color: ${fourColour};
-  background-color: ${twoColour};
+  color: ${COLOR_FOUR};
+  background-color: ${COLOR_TWO};
   display: flex;
   justify-content: space-between;
-  height: ${navbarHeight};
+  height: ${NAVBAR_HEIGHT};
   a {
-    color: ${fourColour};
+    color: ${COLOR_FOUR};
     text-decoration: none;
     display: flex;
     align-items: center;

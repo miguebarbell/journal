@@ -6,7 +6,7 @@ import {useState} from "react";
 // internal
 import {setActive, updateDraft} from "../redux/logRedux";
 // conf
-import {threeColour, twoColour} from "../conf";
+import {COLOR_THREE, COLOR_TWO} from "../conf";
 
 
 const BlurContainer = styled.div`
@@ -79,13 +79,13 @@ const DataWrap = styled.div`
   flex-direction: column;
   width: 4rem;
   &:hover:after {
-    color: ${twoColour};
+    color: ${COLOR_TWO};
     position: absolute;
     background: white;
     max-width: 6rem;
     font-size: 0.85rem;
     display: block;
-    border: 1px solid ${threeColour};
+    border: 1px solid ${COLOR_THREE};
     border-radius: 10px;
     padding: 0.5rem;
     transform: translate(-25%, -100%);
