@@ -1,7 +1,7 @@
 
 // Dimension
 export const footerHeight = '1.5rem';
-export const navbarHeight = '2rem';
+export const navbarHeight = '3rem';
 
 // Colours
 export const oneColour = '#000000';
