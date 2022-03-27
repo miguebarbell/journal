@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import Navbar from "./components/navbar";
 import Home from "./pages/home";
-import Footer from "./components/footer";
+// import Footer from "./components/footer";
 import Day from "./pages/day";
 import Login from "./pages/login";
 import About from "./pages/about";
@@ -20,13 +20,14 @@ function App() {
   return (
     <Router>
       <Navbar/>
+      {/*if no user, redirect everything to register or login*/}
       <Routes>
-        <Route exact path="/" element={<Home/>}/>
-        <Route path="/day" element={<Day/>}/>
-        <Route path="/login" element={<Login/>}/>
+        <Route exact path="/" element={user ? <Home/> : <Login/>}/>
+        <Route path="/day" element={user ? <Day/> : <Login/>}/>
+        <Route path="/login" element={user ? <Profile/> : <Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/about" element={<About/>}/>
-        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/profile" element={user ? <Profile/> : <Login/>}/>
       </Routes>
       {/*<Footer/>*/}
     </Router>
