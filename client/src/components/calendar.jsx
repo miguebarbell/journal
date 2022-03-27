@@ -7,7 +7,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 // internal
 import Day from "./day";
 // conf
-import {threeColour} from "../conf";
+import {navbarHeight, threeColour} from "../conf";
 
 
 const Container = styled.div`
@@ -15,6 +15,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  min-height: calc(100vh - ${navbarHeight});
 `;
 const GridContainer = styled.div`
   //background-color: yellow;

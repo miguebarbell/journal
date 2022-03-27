@@ -6,11 +6,19 @@ import {useState} from "react";
 import AddGoal from "../components/addgoal";
 import {logOut} from "../redux/userRedux";
 // conf and variables
-import {threeColour} from "../conf";
+import {fourColour, navbarHeight, threeColour, twoColour} from "../conf";
 import {profileBanner} from "../components/quotes";
 
 
-const Container = styled.div``;
+const Container = styled.div`
+  color: ${fourColour};
+  background-color: ${twoColour};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: calc(100vh - ${navbarHeight});
+`;
 
 const Title = styled.h1``;
 
@@ -39,7 +47,7 @@ const InfoWrapper = styled.div`
   display: flex;
   //justify-content: flex-start;
   align-items: center;
-  border: 1px solid black;
+  border-bottom: 1px groove black;
   * {
     margin: 1rem;
   }
@@ -57,14 +65,43 @@ const MotivationWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-const Quote = styled.span``;
+const Quote = styled.span`
+  font-style: italic;
+  font-size: 0.75rem;
+`;
 const Author = styled.span`
   font-size: 0.75rem;
   font-weight: bold;
 `;
 
+const GoalsContainer = styled.div`
+  padding: 1rem;
+`;
+
+const GoalCard = styled.div`
+  background-color: ${threeColour};
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  
+  div#movement {
+    font-weight: bold;
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
+    span:nth-child(2) {
+      text-transform: capitalize;
+      margin: 0 1rem;
+  }
+    span#left {
+      font-size: 1rem;
+      font-weight: lighter;
+    }
+  }
+`;
+
 const Profile = () => {
-  const motivationquote = profileBanner[Math.floor(Math.random() * profileBanner.length)];
+  const motivationQuote = profileBanner[Math.floor(Math.random() * profileBanner.length)];
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logOut());
@@ -78,14 +115,15 @@ const Profile = () => {
   const goals = useSelector((state) => state.training.goals);
 
 
-  const daysLeft = (startDay, daysToComplete) => {
+  const timeFrame = (startDay, daysToComplete) => {
     const stringDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const stringMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const beginDay = new Date(startDay);
     const finishDay = new Date(startDay);
     finishDay.setDate(beginDay.getDate() + daysToComplete);
-    const daysLeft = Math.round((finishDay - new Date()) / (1000 * 60 * 60 * 24));
-    return `${stringDays[finishDay.getDay()]} ${finishDay.getDate()}  / ${stringMonths[finishDay.getMonth()]} / ${finishDay.getFullYear()} --> ${daysLeft} days left`;
+    const daysLeftToComplete = Math.round((finishDay - new Date()) / (1000 * 60 * 60 * 24));
+    const pediod = ``;
+    return Math.round((finishDay - new Date()) / (1000 * 60 * 60 * 24));
   };
 
     return (
@@ -94,19 +132,27 @@ const Profile = () => {
             <ProfilePicture src={`https://avatars.dicebear.com/api/bottts/${user.email}.svg`}/>
             <Title>Hi {user.name}</Title>
             <MotivationWrapper>
-
-              <Quote>{motivationquote.text}</Quote>
-              <Author>{motivationquote.author}</Author>
+              <Quote>{motivationQuote.text}</Quote>
+              <Author>{motivationQuote.author}</Author>
             </MotivationWrapper>
           </InfoWrapper>
-          <span>Here you can set new fitness goals and review your journey.</span>
-          <ul>Goals
+          <GoalsContainer>
             <EditButton onClick={() => {addGoal();}}>ADD A NEW GOAL</EditButton>
             {goals.map((goal, index) => (
-              <li key={index}>{goal.movement} {goal.quantity} {goal.unit} before {daysLeft(goal.start, goal.timeFrame)}
-              </li>
+              <GoalCard key={index}>
+                <div id="movement">
+                  <span>🏅</span>
+                  <span>{goal.movement}</span>
+                  <span id="left">{timeFrame(goal.start, goal.timeFrame)} days left</span>
+                </div>
+                <div id="strain">
+                  <span>{goal.quantity}</span>
+                  <span>{goal.unit}</span>
+                  <span>in 4 months</span>
+                </div>
+              </GoalCard>
             ))}
-          </ul>
+          </GoalsContainer>
           <span>you should focus in one at time</span>
           <h2>Last 30 days:</h2>
           <h3>Time</h3>

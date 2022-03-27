@@ -187,6 +187,7 @@ const AddLog = () => {
       notes: notesForm,
     };
     console.log(newLog);
+    // todo send to mongo and slice
   };
     return (
       <BlurContainer>
