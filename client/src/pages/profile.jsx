@@ -26,9 +26,9 @@ const Title = styled.h1`
 
 const EditButton = styled.button`
   border: 1px solid black;
-  border-radius: 2px;
+  border-radius: 5px;
   cursor: pointer;
-  padding: 2px;
+  padding: 0.5rem;
   margin: 0 5px;
   font-weight: bold;
   background-color: ${PRIMARY};
@@ -87,19 +87,32 @@ const GoalsContainer = styled.div`
 `;
 
 const GoalCard = styled.div`
-  background-color: ${threeColour};
+  box-shadow: 0 0 5px ${COLOR_FOUR};
+  background-color: ${COLOR_THREE};
   margin: 1rem;
   padding: 1rem;
   border-radius: 10px;
   div#strain {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    
+    color: ${COLOR_TWO};
+    &:nth-child(2) {
+      font-family: 'Share Tech Mono', monospace;
+      text-align: end;
+    }
     div {
+
       span:nth-child(1) {
         font-weight: bold;
         font-size: 1.5rem;
-        color: ${fiveColour};
       }
+      span:nth-child(2), 
+      span:nth-child(1){
+        font-family: 'Permanent Marker', cursive;
+      }
+
     }
   }
   div#movement {
@@ -108,9 +121,14 @@ const GoalCard = styled.div`
     display: flex;
     justify-content: space-between;
     span:nth-child(2) {
+      font-family: 'Rock Salt', cursive;
       text-transform: capitalize;
       margin: 0 1rem;
   }
+    span:nth-child(3) {    
+      font-family: 'Share Tech Mono', monospace;
+      color: ${COLOR_TWO};
+    }
     span#left {
       font-size: 1rem;
       font-weight: lighter;
@@ -161,7 +179,6 @@ const Profile = () => {
             </MotivationWrapper>
           </InfoWrapper>
           <GoalsContainer>
-            <EditButton onClick={() => {addGoal();}}>ADD A NEW GOAL</EditButton>
             {goals.map((goal, index) => (
               <GoalCard key={index}>
                 <div id="movement">
