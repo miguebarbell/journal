@@ -199,6 +199,7 @@ const Profile = () => {
               </GoalCard>
             ))}
           </GoalsContainer>
+          <EditButton onClick={() => {addGoal();}}>ADD A NEW GOAL</EditButton>
           <span>you should focus in one at time</span>
           <h2>Last 30 days:</h2>
           <h3>Time</h3>
