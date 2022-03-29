@@ -5,12 +5,13 @@ import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRou
 // internal
 import {addDraft, setActive, setDraftActive} from "../redux/logRedux";
 //conf
-import {COLOR_THREE} from "../conf";
+import {COLOR_THREE, PRIMARY, PRIMARY_DISABLED} from "../conf";
 
 const Container = styled.div`
+  font-family: 'Comfortaa', cursive;
   position: relative;
   background-color: ${({today}) => today ? COLOR_THREE + "50" : "inherit"};
-  border: 1px solid gray;
+  border: 1px solid ${PRIMARY_DISABLED};
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: 1fr 2fr 1fr;
@@ -25,15 +26,16 @@ const Container = styled.div`
 const DayContainer = styled.span`
   grid-area: day;
   text-align: end;
-  color: green;
+  color: ${COLOR_THREE};
   font-weight: bold;
   font-size: 0.75rem;
 `;
 
 const MonthContainer = styled.span`
   grid-area: month;
+  font-family: 'Cinzel', serif;
   text-transform: uppercase;
-  color: red;
+  color: ${PRIMARY};
   font-size: 0.75rem;
   font-weight: bold;
 `;
@@ -48,9 +50,9 @@ const GoalContainer = styled.span`
 `;
 
 const Plus = styled.span`
-  color: gray;
+  color: ${PRIMARY_DISABLED};
   &:hover {
-    color: green;
+    color: ${PRIMARY};
   }
 `;
 
@@ -100,10 +102,11 @@ const Day = ({date, month, goal}) => {
 
   // add a log
   const dispatch = useDispatch();
-  const drafts  =useSelector((state) => state.log.drafts);
+  const drafts  = useSelector((state) => state.log.drafts);
   const goals = useSelector((state) => state.training.goals);
   const handleAddLog = () => {
     // check if in draft exist a draft of the movement in this day
+    console.log(drafts);
     const draftsThisDay = drafts.filter(draft => ((new Date(draft.date)).toDateString() === date.toDateString()) && (draft.movement === goal));
     if (draftsThisDay.length > 0) {
       // send the index

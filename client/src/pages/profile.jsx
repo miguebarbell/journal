@@ -171,6 +171,7 @@ const Profile = () => {
     return (
         <Container>
           <InfoWrapper>
+            {/*<ProfilePicture src={`https://avatars.dicebear.com/api/bottts/quickm49@gmail.com.svg`}/>*/}
             <ProfilePicture src={`https://avatars.dicebear.com/api/bottts/${user.email}.svg`}/>
             <Title>Hi {user.name}</Title>
             <MotivationWrapper>

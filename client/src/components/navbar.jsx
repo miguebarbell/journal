@@ -8,6 +8,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import {COLOR_FOUR, NAVBAR_HEIGHT, COLOR_TWO} from "../conf";
 
 const Container = styled.div`
+  font-family: 'Comfortaa', cursive;
   color: ${COLOR_FOUR};
   background-color: ${COLOR_TWO};
   display: flex;

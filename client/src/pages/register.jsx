@@ -7,7 +7,6 @@ const Register = () => {
     return (
         <Container>
           <FormContainer>
-
             Register
             <Input type="text" placeholder="email"/>
             <Input type="password" placeholder="password"/>

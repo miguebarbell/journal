@@ -11,3 +11,4 @@ export const COLOR_FOUR = '#E5E5E5';
 export const COLOR_FIVE = '#FFFFFF';
 export const PRIMARY = '#9400d3';
 export const SECONDARY = '#00FFFF';
+export const PRIMARY_DISABLED = '#36454f';

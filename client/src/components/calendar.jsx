@@ -7,10 +7,12 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 // internal
 import Day from "./day";
 // conf
-import {NAVBAR_HEIGHT} from "../conf";
+import {COLOR_FIVE, COLOR_FOUR, COLOR_ONE, COLOR_TWO, NAVBAR_HEIGHT, PRIMARY, PRIMARY_DISABLED} from "../conf";
 
 
 const Container = styled.div`
+  background-color: ${COLOR_TWO};
+  color: ${COLOR_FOUR};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,16 +59,16 @@ const LabelContainer = styled.div`
 const GoalSpan = styled.span`
   cursor: pointer;
   text-decoration-thickness: 7px;
-  text-decoration: ${({goal}) => goal ? "underline red" : "none" } ;
-  background: ${({goal}) => goal ? "inherit" : "rgba(153, 170, 181, 0.7)"};
+  text-decoration: ${({goal}) => goal ? "underline" + PRIMARY : "none" } ;
+  background-color: ${({goal}) => goal ? "inherit" : PRIMARY_DISABLED};
   //font-weight: ${({goal}) => goal ? "bold" : "normal"};
-  border: 1px solid black;
+  border: 1px solid ${PRIMARY_DISABLED};
   border-radius: 10px 10px 0 0;
   text-transform: capitalize;
   //margin: 2rem;
   padding: 0.25rem 0.5rem 0 0.5rem;
   &:hover {
-    background: white;
+    background-color: ${COLOR_ONE};
   }
   `;
 
@@ -82,7 +84,7 @@ const CalendarWrapper = styled.div`
   align-items: center;
   //background-color: red;
   padding: 1rem;
-  border: 1px solid black;
+  border: 1px solid ${PRIMARY_DISABLED};
   border-radius: 10px;
 `;
 

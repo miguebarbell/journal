@@ -8,10 +8,11 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - ${NAVBAR_HEIGHT} - ${FOOTER_HEIGHT});
+  min-height: calc(100vh - ${NAVBAR_HEIGHT});
   background-color: ${COLOR_THREE};
   flex-direction: column;
 `;
+
 export const FormContainer = styled.form`
   border: 1px solid;
   display: flex;
@@ -22,7 +23,6 @@ export const FormContainer = styled.form`
   }
   padding: 1.5rem;
   border-radius: 3px;
-  
 `;
 
 export const Button = styled.button`
@@ -37,7 +37,6 @@ export const Button = styled.button`
     background-color: ${COLOR_FOUR};
     border: 2px solid ${COLOR_TWO};
   }
-  
 `;
 
 export const Input = styled.input`
@@ -61,7 +60,7 @@ const Login = () => {
     e.preventDefault();
     login(dispatch, {email, password});
   };
-  console.log(useSelector(state => state.user));
+  // console.log(useSelector(state => state.user));
     return (
         <Container>
           <FormContainer>
@@ -71,7 +70,6 @@ const Login = () => {
             <Button onClick={handleClick}>Login</Button>
             {error && <Error>Something went wrong...</Error>}
           </FormContainer>
-
         </Container>
     );
 };
