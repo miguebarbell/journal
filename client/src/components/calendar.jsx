@@ -104,11 +104,8 @@ const Calendar = () => {
     firstMon.setDate(day.getDate() - day.getDay() + 1 - (weeks * 7));
     // relativeMonth === 0 && firstMon.setDate(day.getDate() - day.getDay() + 1 - (weeks * 7));
     firstMon.setMonth(firstMon.getMonth() + relativeMonth);
+    console.log(relativeMonth);
     relativeMonth !== 0 && firstMon.setDate(firstMon.getDate() - firstMon.getDay() + 1);
-    // console.log(firstMon);
-    // console.log(firstMon.getDate());
-    // console.log(firstMon.getDay());
-    // console.log(firstMon.setDate(firstMon.getDate() - firstMon.getDay()));
     // pass if change the month
     let month = true;
     for (let i = 0; i < weeks*7 + 7; i++) {
@@ -127,6 +124,7 @@ const Calendar = () => {
         month: month
       });
       if (month) month = false;
+      // this makes stop the calendar at today
       if (dayToPush.getDate() === day.getDate() && dayToPush.getMonth() === day.getMonth() && dayToPush.getFullYear() === day.getFullYear()) break;
     }
     return calendar;
@@ -134,6 +132,7 @@ const Calendar = () => {
   const today = new Date();
 
   let weeks = dateRange(today, 4);
+  console.log(weeks);
   // add a new log
     return (
       <Container>
