@@ -5,7 +5,7 @@ import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRou
 // internal
 import {addDraft, setActive, setDraftActive} from "../redux/logRedux";
 //conf
-import {COLOR_THREE, PRIMARY, PRIMARY_DISABLED} from "../conf";
+import {COLOR_THREE, PRIMARY, PRIMARY_DISABLED, SECONDARY} from "../conf";
 
 const Container = styled.div`
   font-family: 'Comfortaa', cursive;
@@ -19,6 +19,7 @@ const Container = styled.div`
   cursor: pointer;
   &:hover {
     background-color: rgba(0, 0, 0, 0.2);
+    border-color: ${SECONDARY};
     
   }
 `;
@@ -123,21 +124,21 @@ const Day = ({date, month, goal}) => {
   // console.log(drafts);
 
   return (
-        <Container today={isToday} >
+        <Container today={isToday} onClick={()=>{handleAddLog();}} >
           <MonthContainer>
             {month && monthsArray[date.getMonth()]}
           </MonthContainer>
           <DayContainer>
             {date.getDate()}
           </DayContainer>
-          <GoalContainer>
+          <GoalContainer >
             {
               (goal === "" && (movements.length === 0 ?
-                <Plus><AddCircleOutlineRoundedIcon fontSize="large" onClick={()=>{handleAddLog();}}/></Plus>
+                <Plus><AddCircleOutlineRoundedIcon fontSize="large"/></Plus>
                 : movements.map((movement, index )=> (<Strain key={index}>{movement.movement}</Strain>))))
               ||
               (movements.filter(movement => movement.movement === goal).length === 0 ?
-                <Plus><AddCircleOutlineRoundedIcon fontSize="large" onClick={()=>{handleAddLog();}}/></Plus>
+                <Plus><AddCircleOutlineRoundedIcon fontSize="large" /></Plus>
                 : (movements.filter(movement => movement.movement === goal)).map((mov, ind) => (<Strain key={ind}>{mov.strain}{mov.unit}</Strain>)))
             }
           </GoalContainer>

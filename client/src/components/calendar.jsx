@@ -76,6 +76,10 @@ const ChangeMonthSpan = styled.span`
   cursor: ${({disabled}) => disabled ? "default" : "pointer"};
   //top: 50%;
   //position: absolute;
+  border: 1px solid transparent;
+  &:hover {
+    color: ${PRIMARY};
+  }
 `;
 
 
@@ -104,7 +108,7 @@ const Calendar = () => {
     firstMon.setDate(day.getDate() - day.getDay() + 1 - (weeks * 7));
     // relativeMonth === 0 && firstMon.setDate(day.getDate() - day.getDay() + 1 - (weeks * 7));
     firstMon.setMonth(firstMon.getMonth() + relativeMonth);
-    console.log(relativeMonth);
+    // console.log(relativeMonth);
     relativeMonth !== 0 && firstMon.setDate(firstMon.getDate() - firstMon.getDay() + 1);
     // pass if change the month
     let month = true;
@@ -114,8 +118,8 @@ const Calendar = () => {
       // why twice? this is a bug
       dayToPush.setMonth(firstMon.getMonth());
       dayToPush.setMonth(firstMon.getMonth());
-      console.log(firstMon.getMonth());
-      console.log(dayToPush.getMonth());
+      // console.log(firstMon.getMonth());
+      // console.log(dayToPush.getMonth());
       dayToPush.setDate(firstMon.getDate() + i);
       // check if change the month in this day dayToPush.getDay === 0 ? month = true;
       if (calendar.length > 0 && dayToPush.getMonth() !== calendar[calendar.length - 1].date.getMonth()) month = true;
@@ -132,7 +136,7 @@ const Calendar = () => {
   const today = new Date();
 
   let weeks = dateRange(today, 4);
-  console.log(weeks);
+  // console.log(weeks);
   // add a new log
     return (
       <Container>
