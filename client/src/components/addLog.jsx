@@ -7,6 +7,7 @@ import {useState} from "react";
 import {setActive, updateDraft} from "../redux/logRedux";
 // conf
 import {COLOR_THREE, COLOR_TWO} from "../conf";
+import {sendLog} from "../redux/logApiCalls";
 
 
 const BlurContainer = styled.div`
@@ -141,7 +142,6 @@ const AddLog = () => {
   const [repsForm, setRepsForm] = useState(activeDraft.reps);
   const [setsForm, setSetsForm] = useState(activeDraft.sets);
   const [strainForm, setStrainForm] = useState(activeDraft.strain);
-  const [unitForm, setUnitForm] = useState(activeDraft.unit);
   const [durationForm, setDurationForm] = useState(activeDraft.duration);
   const [notesForm, setNotesForm] = useState(activeDraft.notes);
 
@@ -156,15 +156,12 @@ const AddLog = () => {
         reps: repsForm,
         sets: setsForm,
         strain: strainForm,
-        unit: unitForm,
+        unit: (goals.filter(goal => goal.movement === movementForm))[0].unit,
         duration: durationForm,
         notes: notesForm,
         active: false,
 
     }));
-
-
-
     // close the form
     dispatch(setActive());
   };
@@ -175,19 +172,20 @@ const AddLog = () => {
       alert("Strain, Reps, Sets and Time need a integer value to register");
       return;
     }
-    setUnitForm((goals.filter(goal => goal.movement === movementForm))[0].unit);
     const newLog = {
+      user: goals[0].user,
       date: activeDraft.date,
       movement: movementForm,
       reps: repsForm,
       sets: setsForm,
-      unit: unitForm,
+      unit: (goals.filter(goal => goal.movement === movementForm))[0].unit,
       strain: strainForm,
       duration: durationForm,
-      notes: notesForm,
+      notes: notesForm || '',
     };
-    console.log(newLog);
-    // todo send to mongo and slice
+    // send to mongo and slice
+    sendLog(dispatch, newLog);
+
   };
     return (
       <BlurContainer>

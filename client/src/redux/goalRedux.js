@@ -17,9 +17,13 @@ const goalSlice = createSlice({
 		setLogs: (state, action) => {
 			state.logs = action.payload;
 		},
+		addLog: (state, action) => {
+			state.logs.push(action.payload);
+
+		}
 
 	}
 });
 
-export const {setGoals, addGoal, setLogs} = goalSlice.actions;
+export const {setGoals, addGoal, setLogs, addLog} = goalSlice.actions;
 export default goalSlice.reducer;

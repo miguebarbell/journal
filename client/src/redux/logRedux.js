@@ -26,10 +26,13 @@ const entrySlice = createSlice({
 		clearDrafts: (state) => {
 			// this should be done once a while
 			state.drafts = [];
+		},
+		clearActiveDrafts: (state) => {
+			state.drafts = state.drafts.filter(draft => draft.active === false);
 		}
 	}
 });
 
 
-export const {setActive, addDraft, updateDraft, removeDraft, setDraftActive} = entrySlice.actions;
+export const {setActive, addDraft, updateDraft, removeDraft, setDraftActive, clearActiveDrafts} = entrySlice.actions;
 export default entrySlice.reducer;
