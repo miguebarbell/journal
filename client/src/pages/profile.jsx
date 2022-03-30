@@ -41,10 +41,17 @@ const EditButton = styled.button`
 
 const LogoutButton = styled.button`
   border: 1px solid black;
-  border-radius: 2px;
+  border-radius: 5px;
   cursor: pointer;
+  padding: 0.5rem;
+  margin: 0 5px;
+  background-color: red;
+  font-weight: bold;
+  color: ${COLOR_FOUR};
+
   &:hover {
-    background-color: red;
+    background-color: ${SECONDARY};
+    color: ${COLOR_TWO};
   }
 `;
 
