@@ -114,7 +114,11 @@ const Calendar = () => {
     for (let i = 0; i < weeks*7 + 7; i++) {
       const dayToPush = new Date();
       dayToPush.setFullYear(firstMon.getFullYear());
+      // why twice? this is a bug
       dayToPush.setMonth(firstMon.getMonth());
+      dayToPush.setMonth(firstMon.getMonth());
+      console.log(firstMon.getMonth());
+      console.log(dayToPush.getMonth());
       dayToPush.setDate(firstMon.getDate() + i);
       // check if change the month in this day dayToPush.getDay === 0 ? month = true;
       if (calendar.length > 0 && dayToPush.getMonth() !== calendar[calendar.length - 1].date.getMonth()) month = true;
@@ -131,8 +135,6 @@ const Calendar = () => {
 
   let weeks = dateRange(today, 4);
   // add a new log
-
-
     return (
       <Container>
         <GoalsWrapper>
