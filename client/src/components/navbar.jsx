@@ -14,6 +14,8 @@ const Container = styled.div`
   display: ${({show}) => show ? "flex" : "none"};
   justify-content: space-between;
   height: ${NAVBAR_HEIGHT};
+  position: sticky;
+  top: 0;
   a {
     color: ${COLOR_FOUR};
     text-decoration: none;
@@ -34,9 +36,8 @@ const Logo = styled.div`
 
 
 const Navbar = () => {
-  // todo show navbar if user exists
+  // show navbar if user exists
   const {name} = useSelector(state => state.user.currentUser);
-  console.log(name);
     return (
         <Container show={name}>
           <Link to="/">
