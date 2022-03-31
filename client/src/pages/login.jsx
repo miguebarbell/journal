@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {FOOTER_HEIGHT, COLOR_FOUR, NAVBAR_HEIGHT, COLOR_ONE, COLOR_THREE, COLOR_TWO} from "../conf";
+import {COLOR_FOUR, COLOR_ONE, COLOR_THREE, COLOR_TWO} from "../conf";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../redux/userApiCalls";
@@ -8,7 +8,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - ${NAVBAR_HEIGHT});
+  min-height: 100vh;
   background-color: ${COLOR_THREE};
   flex-direction: column;
 `;
