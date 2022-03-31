@@ -7,7 +7,8 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 // internal
 import Day from "./day";
 // conf
-import {COLOR_FIVE, COLOR_FOUR, COLOR_ONE, COLOR_TWO, NAVBAR_HEIGHT, PRIMARY, PRIMARY_DISABLED} from "../conf";
+import {COLOR_FOUR, COLOR_ONE, COLOR_TWO, NAVBAR_HEIGHT, PRIMARY, PRIMARY_DISABLED} from "../conf";
+import DayDetails from "./daydetails";
 
 
 const Container = styled.div`
