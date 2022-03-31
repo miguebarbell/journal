@@ -2,12 +2,24 @@
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import PageviewIcon from '@mui/icons-material/Pageview';
+
 // internal
 import {addDraft, setActive, setDraftActive} from "../redux/logRedux";
 //conf
 import {COLOR_THREE, PRIMARY, PRIMARY_DISABLED, SECONDARY} from "../conf";
 
 const Container = styled.div`
+  svg {
+    display: none;
+  }
+  &:hover {
+    svg {
+      display: inherit;
+      &:hover {
+      }
+    }
+  }
   font-family: 'Comfortaa', cursive;
   position: relative;
   background-color: ${({today}) => today ? COLOR_THREE + "50" : "inherit"};
@@ -18,9 +30,7 @@ const Container = styled.div`
   grid-template-areas: "month center1 day" "goal goal goal" "check center2 behind";
   cursor: pointer;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.2);
     border-color: ${SECONDARY};
-    
   }
 `;
 
@@ -30,6 +40,7 @@ const DayContainer = styled.span`
   color: ${COLOR_THREE};
   font-weight: bold;
   font-size: 0.75rem;
+  z-index: 1;
 `;
 
 const MonthContainer = styled.span`
@@ -39,6 +50,7 @@ const MonthContainer = styled.span`
   color: ${PRIMARY};
   font-size: 0.75rem;
   font-weight: bold;
+  z-index: 1;
 `;
 
 const GoalContainer = styled.span`
@@ -53,7 +65,8 @@ const GoalContainer = styled.span`
 const Plus = styled.span`
   color: ${PRIMARY_DISABLED};
   &:hover {
-    color: ${PRIMARY};
+    color: ${SECONDARY};
+    
   }
 `;
 
@@ -64,17 +77,16 @@ const Strain = styled.span`
   font-size: 0.75rem;
 `;
 
-
-const AddALogContainer = styled.div`
-  position: fixed;
-  background-color: ${COLOR_THREE + "50"};
-  display: ${({show}) => show ? "flex" : "none"};
-  width: 100vw;
-  height: 100vh;
+const ButtonsContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: ${({center}) => center ? "center" : "space-between"};
+  position: absolute;
   align-items: center;
-  justify-content: center;
-  z-index: 10;
-  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
 `;
 
 
@@ -107,7 +119,6 @@ const Day = ({date, month, goal}) => {
   const goals = useSelector((state) => state.training.goals);
   const handleAddLog = () => {
     // check if in draft exist a draft of the movement in this day
-    console.log(drafts);
     const draftsThisDay = drafts.filter(draft => ((new Date(draft.date)).toDateString() === date.toDateString()) && (draft.movement === goal));
     if (draftsThisDay.length > 0) {
       // send the index
@@ -121,16 +132,19 @@ const Day = ({date, month, goal}) => {
 
 
   };
-  // console.log(drafts);
 
   return (
-        <Container today={isToday} onClick={()=>{handleAddLog();}} >
+        <Container today={isToday} >
           <MonthContainer>
             {month && monthsArray[date.getMonth()]}
           </MonthContainer>
           <DayContainer>
             {date.getDate()}
           </DayContainer>
+          <ButtonsContainer center={(movements.length === 0)}>
+            <Plus><AddCircleOutlineRoundedIcon fontSize="large" onClick={()=>{handleAddLog();}}  /></Plus>
+            {(movements.length === 0 ? "" : <Plus><PageviewIcon fontSize="large"/></Plus>)}
+          </ButtonsContainer>
           <GoalContainer >
             {
               (goal === "" && (movements.length === 0 ?
