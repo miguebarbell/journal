@@ -21,10 +21,8 @@ const Container = styled.div`
   min-height: calc(100vh - ${NAVBAR_HEIGHT});
 `;
 const GridContainer = styled.div`
-  //background-color: yellow;
   padding: 1rem;
   display: grid;
-  //grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: "day day day day day day day";
   gap: 3px;
   justify-items: center;
@@ -41,19 +39,15 @@ const GoalsWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  //width: 100%;
 `;
 
 const LabelContainer = styled.div`
   text-transform: uppercase;
   font-weight: bold;
-  //text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  
-  //grid-area: day;
   
 `;
 
@@ -62,11 +56,9 @@ const GoalSpan = styled.span`
   text-decoration-thickness: 7px;
   text-decoration: ${({goal}) => goal ? "underline" + PRIMARY : "none" } ;
   background-color: ${({goal}) => goal ? "inherit" : PRIMARY_DISABLED};
-  //font-weight: ${({goal}) => goal ? "bold" : "normal"};
   border: 1px solid ${PRIMARY_DISABLED};
   border-radius: 10px 10px 0 0;
   text-transform: capitalize;
-  //margin: 2rem;
   padding: 0.25rem 0.5rem 0 0.5rem;
   &:hover {
     background-color: ${COLOR_ONE};
@@ -75,8 +67,6 @@ const GoalSpan = styled.span`
 
 const ChangeMonthSpan = styled.span`
   cursor: ${({disabled}) => disabled ? "default" : "pointer"};
-  //top: 50%;
-  //position: absolute;
   border: 1px solid transparent;
   &:hover {
     color: ${PRIMARY};
@@ -87,7 +77,6 @@ const ChangeMonthSpan = styled.span`
 const CalendarWrapper = styled.div`
   display: flex;
   align-items: center;
-  //background-color: red;
   padding: 1rem;
   border: 1px solid ${PRIMARY_DISABLED};
   border-radius: 10px;
@@ -109,7 +98,6 @@ const Calendar = () => {
     firstMon.setDate(day.getDate() - day.getDay() + 1 - (weeks * 7));
     // relativeMonth === 0 && firstMon.setDate(day.getDate() - day.getDay() + 1 - (weeks * 7));
     firstMon.setMonth(firstMon.getMonth() + relativeMonth);
-    // console.log(relativeMonth);
     relativeMonth !== 0 && firstMon.setDate(firstMon.getDate() - firstMon.getDay() + 1);
     // pass if change the month
     let month = true;
@@ -119,8 +107,6 @@ const Calendar = () => {
       // why twice? this is a bug
       dayToPush.setMonth(firstMon.getMonth());
       dayToPush.setMonth(firstMon.getMonth());
-      // console.log(firstMon.getMonth());
-      // console.log(dayToPush.getMonth());
       dayToPush.setDate(firstMon.getDate() + i);
       // check if change the month in this day dayToPush.getDay === 0 ? month = true;
       if (calendar.length > 0 && dayToPush.getMonth() !== calendar[calendar.length - 1].date.getMonth()) month = true;
@@ -137,7 +123,6 @@ const Calendar = () => {
   const today = new Date();
 
   let weeks = dateRange(today, 4);
-  // console.log(weeks);
   // add a new log
     return (
       <Container>
