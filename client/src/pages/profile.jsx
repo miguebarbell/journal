@@ -6,7 +6,7 @@ import {useState} from "react";
 import AddGoal from "../components/addgoal";
 import {logOut} from "../redux/userRedux";
 // conf and variables
-import {COLOR_FIVE, COLOR_FOUR, NAVBAR_HEIGHT, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
+import {COLOR_FOUR, NAVBAR_HEIGHT, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
 import {profileBanner} from "../components/quotes";
 
 
@@ -58,15 +58,13 @@ const LogoutButton = styled.button`
 const InfoWrapper = styled.div`
   max-height: 30vh;
   display: flex;
-  //justify-content: flex-start;
   align-items: center;
-  border-bottom: 1px groove black;
+  border-bottom: 1px groove ${COLOR_FOUR};
   * {
     margin: 1rem;
   }
 `;
 const ProfilePicture = styled.img`
-  //border: 1px solid liner-gradient(blue, white);
   border-radius: 50%;
   height: 15vh;
   width: 15vh;
@@ -178,7 +176,6 @@ const Profile = () => {
     return (
         <Container>
           <InfoWrapper>
-            {/*<ProfilePicture src={`https://avatars.dicebear.com/api/bottts/quickm49@gmail.com.svg`}/>*/}
             <ProfilePicture src={`https://avatars.dicebear.com/api/bottts/${user.email}.svg`}/>
             <Title>Hi {user.name}</Title>
             <MotivationWrapper>
