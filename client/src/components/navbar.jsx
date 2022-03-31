@@ -11,7 +11,7 @@ const Container = styled.div`
   font-family: 'Comfortaa', cursive;
   color: ${COLOR_FOUR};
   background-color: ${COLOR_TWO};
-  display: flex;
+  display: ${({show}) => show ? "flex" : "none"};
   justify-content: space-between;
   height: ${NAVBAR_HEIGHT};
   a {
@@ -36,8 +36,9 @@ const Logo = styled.div`
 const Navbar = () => {
   // todo show navbar if user exists
   const {name} = useSelector(state => state.user.currentUser);
+  console.log(name);
     return (
-        <Container>
+        <Container show={name}>
           <Link to="/">
             <Logo><FitnessCenterIcon/>&nbsp;Journal</Logo>
           </Link>
