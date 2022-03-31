@@ -147,9 +147,9 @@ const Day = ({date, month, goal}) => {
           </ButtonsContainer>
           <GoalContainer >
             {
-              (goal === "" && (movements.length === 0 ?
-                <Plus><AddCircleOutlineRoundedIcon fontSize="large"/></Plus>
-                : movements.map((movement, index )=> (<Strain key={index}>{movement.movement}</Strain>))))
+              (goal === "" && (movements.length === 0 ? ""
+                  : [...new Set(movements.map(movement => movement.movement))].map((mov, index) => (<Strain key={index}>{mov}</Strain>))
+              ))
               ||
               (movements.filter(movement => movement.movement === goal).length === 0 ?
                 <Plus><AddCircleOutlineRoundedIcon fontSize="large" /></Plus>
