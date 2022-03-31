@@ -89,13 +89,9 @@ const ButtonsContainer = styled.div`
   }
 `;
 
-
-
 const Day = ({date, month, goal}) => {
   date.setHours(0,0,0,0);
   const logs = useSelector((state) => state.training.logs);
-  // console.log(logs);
-  // console.log(date);
   // month if for change the month, goal is to display inside the day what was done.
   const monthsArray = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
   const today = new Date();
@@ -108,10 +104,6 @@ const Day = ({date, month, goal}) => {
       && (new Date(log.date)).getMonth() === date.getMonth()
       && (new Date(log.date)).getFullYear() === date.getFullYear()
     ));
-    // console.log(logs.map(log => (new Date(log.date)).getDate()));
-    // console.log(date.getDate());
-    // console.log(movements);
-  // console.log(movements.filter(movement => movement.movement === goal));
 
   // add a log
   const dispatch = useDispatch();
@@ -129,8 +121,6 @@ const Day = ({date, month, goal}) => {
     }
     dispatch(setActive());
 
-
-
   };
 
   return (
@@ -146,6 +136,7 @@ const Day = ({date, month, goal}) => {
             {(movements.length === 0 ? "" : <Plus><PageviewIcon fontSize="large"/></Plus>)}
           </ButtonsContainer>
           <GoalContainer >
+
             {
               (goal === "" && (movements.length === 0 ? ""
                   : [...new Set(movements.map(movement => movement.movement))].map((mov, index) => (<Strain key={index}>{mov}</Strain>))
