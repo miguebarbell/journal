@@ -160,7 +160,7 @@ const Calendar = () => {
         {relativeMonth !== 0 && <ChangeMonthSpan left={false} onClick={() => setRelativeMonth(relativeMonth + 1)}><ArrowForwardIosIcon/></ChangeMonthSpan>}
           {relativeMonth === 0 && <ChangeMonthSpan disabled={true}><ArrowForwardIosIcon color="disabled"/></ChangeMonthSpan>}
         </CalendarWrapper>
-
+        <DayDetails goal={goal}/>
 
       </Container>
     );
