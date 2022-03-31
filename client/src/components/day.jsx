@@ -151,8 +151,7 @@ const Day = ({date, month, goal}) => {
                   : [...new Set(movements.map(movement => movement.movement))].map((mov, index) => (<Strain key={index}>{mov}</Strain>))
               ))
               ||
-              (movements.filter(movement => movement.movement === goal).length === 0 ?
-                <Plus><AddCircleOutlineRoundedIcon fontSize="large" /></Plus>
+              (movements.filter(movement => movement.movement === goal).length === 0 ? ""
                 : (movements.filter(movement => movement.movement === goal)).map((mov, ind) => (<Strain key={ind}>{mov.strain}{mov.unit}</Strain>)))
             }
           </GoalContainer>
