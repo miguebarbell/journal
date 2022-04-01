@@ -5,6 +5,7 @@ const entrySlice = createSlice({
 	initialState: {
 		active: false,
 		drafts: [],
+		day: false
 	},
 	reducers: {
 		setActive: (state) => {
@@ -29,10 +30,14 @@ const entrySlice = createSlice({
 		},
 		clearActiveDrafts: (state) => {
 			state.drafts = state.drafts.filter(draft => draft.active === false);
+		},
+		setActiveDay: (state, action) => {
+			state.day = action.payload;
 		}
+
 	}
 });
 
 
-export const {setActive, addDraft, updateDraft, removeDraft, setDraftActive, clearActiveDrafts} = entrySlice.actions;
+export const {setActive, addDraft, updateDraft, removeDraft, setDraftActive, clearActiveDrafts, setActiveDay} = entrySlice.actions;
 export default entrySlice.reducer;
