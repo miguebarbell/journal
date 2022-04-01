@@ -137,9 +137,11 @@ const Day = ({date, month, goal}) => {
           <DayContainer>
             {date.getDate()}
           </DayContainer>
-          <ButtonsContainer center={(movements.length === 0)}>
+          <ButtonsContainer spread={goalThatDay || (movementThatDay && goal === "")}>
             <Plus><AddCircleOutlineRoundedIcon fontSize="large" onClick={()=>{handleAddLog();}}  /></Plus>
-            {(movements.length === 0 ? "" : <Plus><PageviewIcon fontSize="large"/></Plus>)}
+            {(goalThatDay  // this check if the goal is in the day
+              || (goal === "" && movementThatDay) ? // this check if the general view and you got logs on that day
+              <Plus><PageviewIcon fontSize="large" onClick={()=>{handleViewLog();}}/></Plus> : null)}
           </ButtonsContainer>
           <GoalContainer >
 
