@@ -29,6 +29,7 @@ const Container = styled.div`
   grid-template-rows: 1fr 2fr 1fr;
   grid-template-areas: "month center1 day" "goal goal goal" "check center2 behind";
   cursor: pointer;
+  border-color: ${({selected}) => selected ? SECONDARY : "none"};
   &:hover {
     border-color: ${SECONDARY};
   }
@@ -109,6 +110,7 @@ const Day = ({date, month, goal}) => {
   const dispatch = useDispatch();
   const drafts  = useSelector((state) => state.log.drafts);
   const goals = useSelector((state) => state.training.goals);
+  const selectedDay = useSelector((state) => state.log.day);
   const handleAddLog = () => {
     // check if in draft exist a draft of the movement in this day
     const draftsThisDay = drafts.filter(draft => ((new Date(draft.date)).toDateString() === date.toDateString()) && (draft.movement === goal));
@@ -130,7 +132,7 @@ const Day = ({date, month, goal}) => {
   console.log(goal);
 
   return (
-        <Container today={isToday} >
+        <Container today={isToday} selected={(selectedDay === date.toDateString())}>
           <MonthContainer>
             {month && monthsArray[date.getMonth()]}
           </MonthContainer>
