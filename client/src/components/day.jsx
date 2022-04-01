@@ -129,7 +129,8 @@ const Day = ({date, month, goal}) => {
   };
   const goalThatDay = (movements.map(mov => mov.movement).filter(mo => mo === goal).length > 0);
   const movementThatDay = (movements.length > 0);
-  console.log(goal);
+
+
 
   return (
         <Container today={isToday} selected={(selectedDay === date.toDateString())}>
@@ -148,7 +149,7 @@ const Day = ({date, month, goal}) => {
           <GoalContainer >
 
             {
-              (goal === "" && (movements.length === 0 ? ""
+              (goal === "" && (!movementThatDay ? ""
                   : [...new Set(movements.map(movement => movement.movement))].map((mov, index) => (<Strain key={index}>{mov}</Strain>))
               ))
               ||
