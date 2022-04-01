@@ -5,7 +5,7 @@ import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRou
 import PageviewIcon from '@mui/icons-material/Pageview';
 
 // internal
-import {addDraft, setActive, setDraftActive} from "../redux/logRedux";
+import {addDraft, setActive, setActiveDay, setDraftActive} from "../redux/logRedux";
 //conf
 import {COLOR_THREE, PRIMARY, PRIMARY_DISABLED, SECONDARY} from "../conf";
 
@@ -120,7 +120,10 @@ const Day = ({date, month, goal}) => {
       dispatch(addDraft({date: date, movement: goal, active: true}));
     }
     dispatch(setActive());
-
+  };
+  const handleViewLog = () => {
+    // change the store
+    dispatch(setActiveDay(date.toDateString()));
   };
   const goalThatDay = (movements.map(mov => mov.movement).filter(mo => mo === goal).length > 0);
   const movementThatDay = (movements.length > 0);
