@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 // conf
-import {COLOR_FOUR, NAVBAR_HEIGHT, COLOR_TWO} from "../conf";
+import {COLOR_FOUR, NAVBAR_HEIGHT, COLOR_TWO, SECONDARY, PRIMARY} from "../conf";
 
 const Container = styled.div`
   font-family: 'Comfortaa', cursive;
@@ -32,6 +32,10 @@ const Logo = styled.div`
   display: flex;
   align-items: center;
   text-decoration: none;
+  &:hover {
+    color: ${SECONDARY};
+    // text-decoration: underline ${PRIMARY};
+  }
 `;
 
 

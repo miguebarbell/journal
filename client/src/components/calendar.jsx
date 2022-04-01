@@ -7,7 +7,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 // internal
 import Day from "./day";
 // conf
-import {COLOR_FOUR, COLOR_ONE, COLOR_TWO, NAVBAR_HEIGHT, PRIMARY, PRIMARY_DISABLED} from "../conf";
+import {COLOR_FOUR, COLOR_ONE, COLOR_TWO, NAVBAR_HEIGHT, PRIMARY, PRIMARY_DISABLED, SECONDARY} from "../conf";
 import DayDetails from "./daydetails";
 
 
@@ -62,6 +62,7 @@ const GoalSpan = styled.span`
   padding: 0.25rem 0.5rem 0 0.5rem;
   &:hover {
     background-color: ${COLOR_ONE};
+    color: ${SECONDARY};
   }
   `;
 
@@ -69,7 +70,8 @@ const ChangeMonthSpan = styled.span`
   cursor: ${({disabled}) => disabled ? "default" : "pointer"};
   border: 1px solid transparent;
   &:hover {
-    color: ${PRIMARY};
+    //color: ${PRIMARY};
+    color: ${SECONDARY};
   }
 `;
 
