@@ -81,7 +81,7 @@ const ButtonsContainer = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: ${({center}) => center ? "center" : "space-between"};
+  justify-content: ${({spread}) => spread ? "space-between" : "center"};
   position: absolute;
   align-items: center;
   &:hover {
@@ -122,6 +122,9 @@ const Day = ({date, month, goal}) => {
     dispatch(setActive());
 
   };
+  const goalThatDay = (movements.map(mov => mov.movement).filter(mo => mo === goal).length > 0);
+  const movementThatDay = (movements.length > 0);
+  console.log(goal);
 
   return (
         <Container today={isToday} >
