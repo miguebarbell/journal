@@ -90,27 +90,11 @@ const TitleWrapper = styled.div`
 `;
 
 const DayDetails = ({goal}) => {
-  const relativeIntensity = (reps, strain) => {
-    // this returns the realtive intensity of the set
-    if (reps === 1) {
-      return strain;
-    } else {
-      return (reps * 0.03333 * strain) + strain;
-    }
-  };
+	const show = useSelector((state) => state.log.day);
+	const logs = useSelector((state) => state.training.logs);
+	const goals = useSelector((state) => state.training.goals);
+	const typeOfStrain = goals.filter(el => el.movement === goal);
 
-    // const checkDays = (date1, date2) => {
-    //   // check if two string dates are the same day return boolean
-    //   const firstDate = new Date(date1);
-    //   const secondDate = new Date(date2);
-    //   return (
-    //     firstDate.getDate() === secondDate.getDate()
-    //   && firstDate.getMonth() === secondDate.getMonth()
-    //   && firstDate.getFullYear() === secondDate.getFullYear()
-    //   );
-    // };
-    const show = useSelector((state) => state.log.day);
-    const logs = useSelector((state) => state.training.logs);
 
 	return (
 		<Container show={show}>
