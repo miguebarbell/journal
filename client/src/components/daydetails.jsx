@@ -1,5 +1,9 @@
+// external
 import styled from "styled-components";
 import {useSelector} from "react-redux";
+//internal
+import {checkDays} from "./helper";
+//conf
 import {COLOR_FOUR, COLOR_THREE} from "../conf";
 import {checkDays} from "./helper";
 
