@@ -5,8 +5,7 @@ import {useSelector} from "react-redux";
 import {checkDays, epleyFormula, brzyckiFormula, accumulatedDistanceFormula} from "./helper";
 import {DISTANCE_ACCUMULATED, RELATIVE_INTENSITY, REPS, SETS, STRAIN} from "./definitions";
 //conf
-import {COLOR_FOUR, COLOR_THREE} from "../conf";
-import {checkDays} from "./helper";
+import {COLOR_FOUR, COLOR_THREE, COLOR_TWO} from "../conf";
 
 
 const Container = styled.div`
@@ -16,12 +15,12 @@ const Container = styled.div`
   flex-direction: column;
   border-bottom: 1px solid ${COLOR_FOUR};
   margin: 10px;
-  max-width: calc((6rem * 7) + (3px * 12) ); // this is the width of the calendar
-  
+  max-width: calc((6rem * 7) + (3px * 12)); // this is the width of the calendar
+
   div {
     display: grid;
-    grid-template-areas: "movement sets reps strain relint";
-    grid-template-columns: 3fr 1fr 1fr 1fr 3fr;
+    grid-template-areas: "sets reps strain relint";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     max-width: 100%;
 	  &#grid {
 			  margin: 0.1rem 0;
