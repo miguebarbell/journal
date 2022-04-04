@@ -8,3 +8,20 @@ export const checkDays = (date1, date2) => {
 		&& firstDate.getFullYear() === secondDate.getFullYear()
 	);
 };
+
+
+
+// formulas for calculate the 1RM or relative intensity for the set, it returns a rounded value
+// eplayFormula for < 5RM, else brzyckiFormula
+export const epleyFormula = (strain, reps) => {
+	if (reps <= 1) return strain;
+	return Math.round(strain * (1 + (reps/30)));
+};
+
+export const brzyckiFormula = (strain, reps) => {
+	return Math.round(strain * (36 / (37 - reps)));
+};
+
+export const accumulatedDistanceFormula = (strain, sets, reps) => {
+	return strain * reps * sets;
+};
