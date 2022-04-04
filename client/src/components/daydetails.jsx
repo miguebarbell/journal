@@ -15,7 +15,8 @@ const Container = styled.div`
   flex-direction: column;
   border-bottom: 1px solid ${COLOR_FOUR};
   margin: 10px;
-  //padding: 0 5rem;
+  max-width: calc((6rem * 7) + (3px * 12) ); // this is the width of the calendar
+  
   div {
     display: grid;
     grid-template-areas: "movement sets reps strain relint";
