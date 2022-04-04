@@ -67,17 +67,27 @@ const Container = styled.div`
     }
   }
 `;
-
 const TitleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   font-weight: bold;
   border-bottom: 1px solid ${COLOR_THREE};
   margin-bottom: 1rem;
   padding: 0 3rem;
+	display: flex;
+	align-items: flex-end;
   * {
     text-transform: capitalize;
   }
+
+  div#day {
+	  font-size: 0.75rem;
+	  grid: "sets reps";
+  }
+
+  div#goal {
+	  color: ${COLOR_THREE};
+	  grid: "strain relint";
+  }
+
 `;
 
 const DayDetails = ({goal}) => {
