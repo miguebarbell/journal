@@ -10,7 +10,7 @@ import {COLOR_THREE, COLOR_TWO} from "../conf";
 import {sendLog} from "../redux/logApiCalls";
 
 
-const BlurContainer = styled.div`
+export const BlurContainer = styled.div`
   position: fixed;
   display: flex;
   justify-content: center;
@@ -28,6 +28,7 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 20rem;
+
 `;
 const Title = styled.h1`
   &:after {
@@ -51,12 +52,13 @@ const CreateMovementButton = styled.button`
 const ButtonSubmit = styled.button`
   cursor: pointer;
 `;
-const HeaderWrapper = styled.div`
+export const HeaderWrapper = styled.div`
   display: flex;
   //flex-direction: column;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+
 `;
 
 const MovementWrapper = styled.div`
@@ -75,7 +77,7 @@ const DataContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const DataWrap = styled.div`
+export const DataWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 4rem;
