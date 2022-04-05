@@ -10,7 +10,7 @@ import {checkDays, epleyFormula, brzyckiFormula, accumulatedDistanceFormula} fro
 import {DISTANCE_ACCUMULATED, RELATIVE_INTENSITY, REPS, SETS, STRAIN} from "./definitions";
 import {editLog} from "../redux/goalRedux";
 //conf
-import {COLOR_FOUR, COLOR_THREE, COLOR_TWO} from "../conf";
+import {COLOR_FOUR, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
 
 
 const Container = styled.div`
@@ -27,8 +27,29 @@ const Container = styled.div`
     grid-template-areas: "sets reps strain relint";
     grid-template-columns: 1fr 1fr 1fr 1fr;
     max-width: 100%;
+	  cursor: pointer;
+	  padding: 0.05rem 0;
+	  border: 1px solid transparent;
+	  border-radius: 5px;
 	  &#grid {
-			  margin: 0.1rem 0;
+			  margin: 0.1rem 0.1rem;
+		  	padding: 0.15rem 0.25rem;
+		  
+			  svg {
+				  position: absolute;
+				  display: none;
+				  color: ${SECONDARY};
+				  transform: translate(-150%, 0);
+			  
+		  }
+		  &:hover {
+		  	background-color: ${PRIMARY+"50"};
+			  border-color: ${SECONDARY};
+			  //color: ${COLOR_TWO};
+			  svg {
+				  display: inherit;
+			  }
+	  }
 	  }
 
     span:hover:after {
@@ -91,16 +112,14 @@ const TitleWrapper = styled.div`
 	  color: ${COLOR_THREE};
 	  grid: "strain relint";
   }
-
 `;
 
 const DayDetails = ({goal}) => {
 	const show = useSelector((state) => state.log.day);
 	const logs = useSelector((state) => state.training.logs);
 	const goals = useSelector((state) => state.training.goals);
+	const dispatch = useDispatch();
 	const typeOfStrain = goals.filter(el => el.movement === goal);
-
-
 	return (
 		<Container show={show}>
 			<TitleWrapper>
@@ -113,7 +132,7 @@ const DayDetails = ({goal}) => {
 				<span id="sets">sets</span>
 				<span id="reps">reps</span>
 				<span id="strain">strain</span>
-				{goal === "" ? null : ["kgs", "lbs"].includes(typeOfStrain[0].unit) ? <span id="relint">Rel Int</span> : <span>Accum</span>}
+				{goal === "" ? null : ["kgs", "lbs"].includes(typeOfStrain[0].unit) ? <span id="relint">Rel Int</span> : <span id="accdist">Accum</span>}
 			</div>
 			{logs.map((log, index) =>
 				// this is the detail view for the specific goal
@@ -132,7 +151,7 @@ const DayDetails = ({goal}) => {
 						}
 						{
 							["mts", "kms", "mi", "ft"].includes(log.unit) ?
-								<span id="accdist">{accumulatedDistanceFormula(log.strain, log.sets, log.reps)}</span>
+								<span>{accumulatedDistanceFormula(log.strain, log.sets, log.reps)}</span>
 								: ""
 						}
 					</div>)
@@ -150,5 +169,7 @@ const DayDetails = ({goal}) => {
 		</Container>
 	);
 };
+
+
 
 export default DayDetails;
