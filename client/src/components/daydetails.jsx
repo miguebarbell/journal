@@ -1,9 +1,14 @@
 // external
 import styled from "styled-components";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import EditIcon from '@mui/icons-material/Edit';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import {useState} from "react";
 //internal
 import {checkDays, epleyFormula, brzyckiFormula, accumulatedDistanceFormula} from "./helper";
 import {DISTANCE_ACCUMULATED, RELATIVE_INTENSITY, REPS, SETS, STRAIN} from "./definitions";
+import {editLog} from "../redux/goalRedux";
 //conf
 import {COLOR_FOUR, COLOR_THREE, COLOR_TWO} from "../conf";
 
@@ -114,7 +119,8 @@ const DayDetails = ({goal}) => {
 				// this is the detail view for the specific goal
 				(checkDays(log.date, show) &&
 					log.movement === goal &&
-					<div key={index} id="grid">
+					<div key={index} id="grid" onClick={() => {dispatch(editLog(log));}}>
+						<RemoveRedEyeIcon/>
 						{goal === "" ? <span id="movement">{log.movement}</span> : null}
 						{/*<span id="movement">{goal === "" ? log.movement + " " : ""}</span>*/}
 						<span>{log.sets !== 1 ? log.sets + " times " : ""}</span>
@@ -132,7 +138,8 @@ const DayDetails = ({goal}) => {
 					</div>)
 				// this is the detail in the general view
 				|| (goal === "" && checkDays(log.date, show) &&
-					<div key={index} id="grid">
+					<div key={index} id="grid" onClick={() => {dispatch(editLog(log));}}>
+						<RemoveRedEyeIcon/>
 						<span id="movement">{goal === "" ? log.movement + " " : ""}</span>
 						<span>{log.sets !== 1 ? log.sets + " times " : ""}</span>
 						<span> {log.reps !== 1 ? log.reps + " reps " : ""}</span>
