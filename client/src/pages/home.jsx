@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 // internal
 import AddLog from "../components/addLog";
 import Calendar from "../components/calendar";
+import ModifyLog from "../components/modifyLog";
 
 const Container = styled.div`
   width: 100vw;
@@ -11,10 +12,12 @@ const Container = styled.div`
 
 const Home = () => {
   const showAddLog = useSelector((state) => state.log.active);
+  const showLog = useSelector((state) => state.training.showing);
 
     return (
         <Container>
           {showAddLog && <AddLog/>}
+          {showLog && <ModifyLog/>}
           <Calendar/>
         </Container>
     );
