@@ -134,7 +134,7 @@ const Day = ({date, month, goal}) => {
 
 
   return (
-        <Container today={isToday} selected={(selectedDay === date.toDateString())}>
+        <Container today={isToday} selected={checkDays(selectedDay, date.toDateString())}>
           <MonthContainer>
             {month && monthsArray[date.getMonth()]}
           </MonthContainer>
