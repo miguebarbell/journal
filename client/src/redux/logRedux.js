@@ -33,8 +33,7 @@ const entrySlice = createSlice({
 		},
 		setActiveDay: (state, action) => {
 			state.day = action.payload;
-		}
-
+		},
 	}
 });
 
