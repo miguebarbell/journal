@@ -16,6 +16,7 @@ const Container = styled.div`
   height: ${NAVBAR_HEIGHT};
   position: sticky;
   top: 0;
+  z-index: 10;
   a {
     color: ${COLOR_FOUR};
     text-decoration: none;
