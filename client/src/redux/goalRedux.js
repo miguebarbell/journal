@@ -23,6 +23,13 @@ const goalSlice = createSlice({
 		},
 		editLog: (state, action) => {
 			state.showing = action.payload;
+		},
+		saveEdittedLog: (state, action) => {
+			console.log(action.payload);
+			const newLogs = state.logs.filter(log => log._id !== action.payload._id);
+			newLogs.push(action.payload);
+			console.log(newLogs);
+			state.logs = newLogs;
 		}
 
 	}

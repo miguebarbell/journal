@@ -22,7 +22,10 @@ router.put("/:id", async (req, res) => {
 				$set: req.body
 			}
 		);
-		return res.status(200).json(`${req.params.id} successfully edited.`)
+		return res.status(200).json({
+			message: `${req.params.id} successfully edited.`,
+			log: await Log.findById(req.params.id)
+		})
 	} catch (err) {
 		return res.status(500).json(err)
 	}
