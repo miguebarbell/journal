@@ -32,8 +32,13 @@ const Container = styled.div`
     transform: translate(0, -50%);
   }
   span {
-    margin: 1rem;
+    margin: 0.25rem 1rem;
     cursor: pointer;
+    display: inline-block;
+    text-justify: inter-word;
+    font-size: 0.85rem;
+    font-weight: 100;
+    letter-spacing: -0.06rem;
     &:hover {
       &:before {
         content: "click to edit";
@@ -50,6 +55,10 @@ const Container = styled.div`
         display: inherit;
       }
     }
+    &#span-strain {
+    }
+    &#span-notes {
+    }
   }
   
 
@@ -63,12 +72,13 @@ const GoalHeader = styled.div`
   border: 1px solid ${SECONDARY};
   span {
     text-transform: capitalize;
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: ${COLOR_THREE};
   }
   span.goal {
     text-decoration: underline ${PRIMARY};
+    letter-spacing: 0.15rem;
   }
 `;
 const FormContainer = styled.div`
@@ -130,7 +140,6 @@ const HeaderContainer = styled.div`
   }
   &:before {
     content: "goal";
-    //position: absolute;
     transform: translate(0, 1px);
     background-color: ${COLOR_TWO};
     color: ${SECONDARY};
@@ -140,6 +149,11 @@ const HeaderContainer = styled.div`
     z-index: 1;
     border: 1px solid ${SECONDARY};
     border-bottom: none;
+    
+    font-size: 0.625rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
   }
 `;
 
@@ -160,16 +174,25 @@ const EditDialog = styled.div`
     cursor: pointer;
   }
 `;
+const Error = styled.span`
+  color: red;
+  transform: translate(0, -1.3rem);
+  position: absolute;
+  font-weight: bold;
+  font-size: 0.75rem;
+`;
 
 const ModifyLog = () => {
   const dispatch = useDispatch();
   const [edited, setEdited] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const goals = useSelector((state) => state.training.goals);
   const handleCancel = () => {
     setChange(0);
     if (showDialog) {
       setShowDialog(false);
+      setErrorMessage(null);
     } else {
       dispatch(editLog(false));
     }
@@ -196,7 +219,6 @@ const ModifyLog = () => {
   };
   const handleEdit = (param) => {
     // todo check if the value is changed
-    // todo check if the value is valid
     setSaveDraft(param);
     switch (param) {
       case 'strain':
@@ -220,18 +242,27 @@ const ModifyLog = () => {
     setConnectChange(param);
   };
   const handleSave = () => {
-    handleChange(change);
     if (showDialog) {
+      // validation of the input
+      if (!isNaN(+change) || saveDraft === 'notes') {
+        handleChange(change);
+        setShowDialog(false);
+        setErrorMessage(null);
+      } else {
+        // trigers the invalid value
+        if (saveDraft !== 'notes') setErrorMessage('Should be integer value');
+      }
       // here is pressed save to save the edited field
-      setShowDialog(false);
     } else {
       // here is pressed save to save the log
+      handleChange(change);
       setChange(0);
       editedLog['_id'] = log._id;
       updateLog(dispatch, editedLog);
     }
   };
   const handleDelete = () => {
+    // todo: this
     alert("delete");
   };
   const log = useSelector((state) => state.training.showing);
@@ -250,11 +281,16 @@ const ModifyLog = () => {
     return (
       <BlurContainer>
         <EditDialog show={showDialog}>
-          <div className="dialogHeader">{saveDraft} {saveDraft === 'strain' ? "in " + log.unit : null}<CloseIcon onClick={handleCancel}/></div>
+          <div className="dialogHeader">
+            {saveDraft} {saveDraft === 'strain' ? "in " + log.unit : null}
+            {errorMessage ? <Error>Error: {errorMessage}</Error> : null}
+            <CloseIcon onClick={handleCancel}/>
+          </div>
           <div>
             <input
               onChange={(e) => setChange(e.target.value)}
               value={change}
+              required
             />
             <button onClick={handleSave}>save</button><button onClick={handleCancel}>cancel</button>
           </div>
@@ -272,15 +308,15 @@ const ModifyLog = () => {
             {/*<h4>{prettierDate(log.date)}</h4>*/}
             <h4>{(new Date(log.date)).toDateString()}</h4>
             <div>
-              <span onClick={()=>{handleEdit('strain');}}>strain: {strain}{log.unit}<EditIcon/></span>
+              <span id="span-strain" onClick={()=>{handleEdit('strain');}}>strain: {strain}{log.unit}<EditIcon/></span>
             </div>
             <div>
-              <span onClick={()=>{handleEdit('sets');}}>{sets} sets<EditIcon/></span>
-              <span onClick={()=>{handleEdit('reps');}}>of {reps} reps<EditIcon/></span>
-              <span onClick={()=>{handleEdit('duration');}}>in {duration} min.<EditIcon/></span>
+              <span id="span-sets" onClick={()=>{handleEdit('sets');}}>{sets} sets<EditIcon/></span>
+              <span id="span-reps" onClick={()=>{handleEdit('reps');}}>of {reps} reps<EditIcon/></span>
+              <span id="span-duration" onClick={()=>{handleEdit('duration');}}>in {duration} min.<EditIcon/></span>
             </div>
             <div>
-              <span onClick={()=>{handleEdit('notes');}}>{notes ? notes : "You didn't save any note"}<EditIcon/></span>
+              <span id="span-notes" onClick={()=>{handleEdit('notes');}}>{notes ? notes : "You didn't save any note"}<EditIcon/></span>
             </div>
           </Container>
           {edited ? <button id="saveBtn" onClick={handleSave}>save</button> : null}
