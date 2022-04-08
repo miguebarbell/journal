@@ -226,9 +226,7 @@ const ModifyLog = () => {
       setShowDialog(false);
     } else {
       // here is pressed save to save the log
-      alert('cp');
       setChange(0);
-      // dispatch(editLog(false));
       editedLog['_id'] = log._id;
       updateLog(dispatch, editedLog);
     }
