@@ -28,8 +28,11 @@ const goalSlice = createSlice({
 			const newLogs = state.logs.filter(log => log._id !== action.payload._id);
 			newLogs.push(action.payload);
 			state.logs = newLogs;
+		},
+		deleteActiveLog: (state) => {
+			state.logs = state.logs.filter(log => log._id !== state.log.showing._id);
+			state.log.showing = false;
 		}
-
 	}
 });
 
