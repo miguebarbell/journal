@@ -30,11 +30,11 @@ const goalSlice = createSlice({
 			state.logs = newLogs;
 		},
 		deleteActiveLog: (state) => {
-			state.logs = state.logs.filter(log => log._id !== state.log.showing._id);
-			state.log.showing = false;
+			state.logs = state.logs.filter(log => log._id !== state.showing._id);
+			state.showing = false;
 		}
 	}
 });
 
-export const {setGoals, addGoal, setLogs, addLog, editLog, saveEdittedLog} = goalSlice.actions;
+export const {setGoals, addGoal, setLogs, addLog, editLog, saveEdittedLog, deleteActiveLog} = goalSlice.actions;
 export default goalSlice.reducer;

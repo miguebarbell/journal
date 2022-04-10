@@ -30,3 +30,7 @@ Content-Type: application/json
 {
   "movement": "Clean and Jerk"
 }
+
+### delete a log
+DELETE https://localhost:5000/api/log/622637d5c7180
+content-type: application/json

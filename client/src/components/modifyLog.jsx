@@ -9,9 +9,8 @@ import {useState} from "react";
 // conf
 import {COLOR_FOUR, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
 import {editLog} from "../redux/goalRedux";
-import {goalExpiration} from "./helper";
-import {updateLog} from "../redux/logApiCalls";
-
+import {goalExpiration, prettierDate} from "./helper";
+import {deleteLog, updateLog} from "../redux/logApiCalls";
 
 const Container = styled.div`
   padding: 0 0 1rem 0;
@@ -156,7 +155,6 @@ const HeaderContainer = styled.div`
     letter-spacing: 0.3rem;
   }
 `;
-
 const EditDialog = styled.div`
   display: ${({show}) => show ? 'flex' : 'none'};
   background-color: white;
@@ -181,13 +179,75 @@ const Error = styled.span`
   font-weight: bold;
   font-size: 0.75rem;
 `;
-
+const ConfirmDialog = styled.div`
+  display: ${({show}) => show ? 'flex' : 'none'};
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  span {
+    padding: 1rem;
+  }
+  button {
+    cursor: pointer;
+    padding: 0.15rem 0.35rem;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 0.25rem 0.5rem;
+    width: 4rem;
+    &#cancelBtn {
+      background-color: ${COLOR_THREE};
+      border: solid 2px ${COLOR_THREE};
+      &:hover {
+        color: ${COLOR_THREE};
+        background-color: ${SECONDARY};
+      }
+    }
+    &#saveBtn {
+      background-color: green;
+      border: solid 2px green;
+      &:hover {
+        color: green;
+        background-color: ${SECONDARY};
+      }
+    }
+    &#deleteBtn {
+      background-color: red;
+      border: solid 2px red;
+      &:hover {
+        color: red;
+        background-color: ${SECONDARY};
+      }
+    }
+  }
+`;
 const ModifyLog = () => {
   const dispatch = useDispatch();
+  const log = useSelector((state) => state.training.showing);
+  const [confirmDeleteDialog, setConfirmDeleteDialog] = useState(false);
+  const [strain, setStrain] = useState(log.strain);
+  const [sets, setSets] = useState(log.sets);
+  const [reps, setReps] = useState(log.reps);
+  const [duration, setDuration] = useState(log.duration);
+  const [notes, setNotes] = useState(log.notes);
+  const [connectChange, setConnectChange] = useState(null);
+  const [change, setChange] = useState('');
+  const [saveDraft, setSaveDraft] = useState(false);
+  // show the save button
   const [edited, setEdited] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const goals = useSelector((state) => state.training.goals);
+  const handleConfirmDelete = () => {
+    deleteLog(dispatch, log);
+    // reset everything
+    setConfirmDeleteDialog(false);
+    setChange(0);
+    setShowDialog(false);
+    setErrorMessage(null);
+    setEdited(false);
+  };
   const handleCancel = () => {
     setChange(0);
     if (showDialog) {
@@ -197,6 +257,7 @@ const ModifyLog = () => {
       dispatch(editLog(false));
     }
     setEdited(false);
+    setConfirmDeleteDialog(false);
   };
   const handleChange = (event) => {
       switch (connectChange) {
@@ -218,7 +279,6 @@ const ModifyLog = () => {
       }
   };
   const handleEdit = (param) => {
-    // todo check if the value is changed
     setSaveDraft(param);
     switch (param) {
       case 'strain':
@@ -261,19 +321,15 @@ const ModifyLog = () => {
       updateLog(dispatch, editedLog);
     }
   };
-  const handleDelete = () => {
-    // todo: this
-    alert("delete");
+  const handleCancelDelete = () => {
+    setConfirmDeleteDialog(false);
   };
-  const log = useSelector((state) => state.training.showing);
-  const [strain, setStrain] = useState(log.strain);
-  const [sets, setSets] = useState(log.sets);
-  const [reps, setReps] = useState(log.reps);
-  const [duration, setDuration] = useState(log.duration);
-  const [notes, setNotes] = useState(log.notes);
-  const [connectChange, setConnectChange] = useState(null);
-  const [change, setChange] = useState('');
-  const [saveDraft, setSaveDraft] = useState(false);
+  const handleDelete = () => {
+    if (confirmDeleteDialog) {
+      handleConfirmDelete();
+    }
+    setConfirmDeleteDialog(true);
+  };
   let editedLog = { sets, strain, reps, duration, notes, };
 
   const goal = goals ? goals.filter(goal => goal.movement ===  log.movement)[0] : goals[0];
@@ -295,7 +351,14 @@ const ModifyLog = () => {
             <button onClick={handleSave}>save</button><button onClick={handleCancel}>cancel</button>
           </div>
         </EditDialog>
-        <FormContainer show={!showDialog}>
+        <ConfirmDialog show={confirmDeleteDialog}>
+          <span>Do you really want to delete?</span>
+          <div>
+            <button id="cancelBtn" onClick={handleCancelDelete}>cancel</button>
+            <button id="deleteBtn" onClick={handleDelete}>delete</button>
+          </div>
+        </ConfirmDialog>
+        <FormContainer show={!showDialog && !confirmDeleteDialog}>
           <HeaderContainer>
             <CloseIcon onClick={handleCancel}/>
           </HeaderContainer>
@@ -319,6 +382,7 @@ const ModifyLog = () => {
               <span id="span-notes" onClick={()=>{handleEdit('notes');}}>{notes ? notes : "You didn't save any note"}<EditIcon/></span>
             </div>
           </Container>
+
           {edited ? <button id="saveBtn" onClick={handleSave}>save</button> : null}
           <div>
             <button id="cancelBtn" onClick={handleCancel}>cancel</button>

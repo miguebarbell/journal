@@ -1,10 +1,9 @@
-import {addLog, editLog, saveEdittedLog} from "./goalRedux";
+import {addLog, deleteActiveLog, editLog, saveEdittedLog} from "./goalRedux";
 import {clearActiveDrafts, setActive} from "./logRedux";
 import {publicRequest} from "../requestMethods";
 
 
 export const sendLog = async (dispatch, log) => {
-	console.log(log);
 	try {
 		const newLog = await publicRequest.post('api/log', log);
 		dispatch(addLog(newLog.data));
@@ -25,5 +24,17 @@ export const updateLog = async (dispatch, log) => {
 		return newLog;
 	} catch (err) {
 		return err;
+	}
+};
+
+export const deleteLog = async (dispatch, log) => {
+	try {
+		const response = await publicRequest.delete(`api/log/${log._id}`);
+		if (response.status === 200) {
+			await dispatch(deleteActiveLog());
+		}
+	} catch (err) {
+		return err;
+
 	}
 };
