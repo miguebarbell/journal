@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Home = () => {
-  const showAddLog = useSelector((state) => state.log.active);
+  const showAddLog = (useSelector((state) => state.log.active) !== false);
   const showLog = useSelector((state) => state.training.showing);
 
     return (
