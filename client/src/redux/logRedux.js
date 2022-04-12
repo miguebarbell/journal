@@ -8,8 +8,8 @@ const entrySlice = createSlice({
 		day: false
 	},
 	reducers: {
-		setActive: (state) => {
-			state.active = !state.active;
+		setActive: (state, action) => {
+			state.active = action.payload;
 		},
 		addDraft: (state, action) => {
 			state.drafts.push(action.payload);
