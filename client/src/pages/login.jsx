@@ -83,8 +83,7 @@ export const Input = styled.input`
 export const Error = styled.span``;
 
 const Login = () => {
-  const { isFetching, error } = useSelector(state => state.user);
-  // todo make a loading interface when user is fetching
+  const {error} = useSelector(state => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -92,7 +91,6 @@ const Login = () => {
     e.preventDefault();
     login(dispatch, {email, password});
   };
-  // console.log(useSelector(state => state.user));
     return (
         <Container bg={img}>
           <FormContainer>
