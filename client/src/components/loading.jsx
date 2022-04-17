@@ -17,6 +17,7 @@ const Container = styled.div`
   flex-direction: column;
 `
 const Loading = () => {
+  // todo: check if this feature is working
   let show = true;
   return (
     <Container show={show}>

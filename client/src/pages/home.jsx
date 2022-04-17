@@ -15,7 +15,7 @@ const Container = styled.div`
 const Home = () => {
   const showAddLog = (useSelector((state) => state.log.active) !== false);
   const showLog = useSelector((state) => state.training.showing);
-  const user = useSelector((state) => state.user)
+  const user = useSelector((state) => state.user);
 
     return (
         <Container>
