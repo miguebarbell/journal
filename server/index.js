@@ -10,7 +10,7 @@ const logRoute = require('./routes/log');
 const movRoute = require('./routes/movement');
 const goalRoute = require('./routes/goal');
 
-const app = express();
+export const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoute);
