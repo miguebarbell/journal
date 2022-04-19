@@ -6,7 +6,7 @@ import {useState} from "react";
 // internal
 import {setActive, updateDraft} from "../redux/logRedux";
 // conf
-import {COLOR_THREE, COLOR_TWO} from "../conf";
+import {COLOR_FIVE, COLOR_THREE, COLOR_TWO} from "../conf";
 import {sendLog} from "../redux/logApiCalls";
 
 
@@ -103,7 +103,7 @@ export const DataWrap = styled.div`
   &#close {
     cursor: pointer;
     align-items: end;
-    transform: translate(25%, -400%);
+    //transform: translate(25%, -400%);
 
     &:hover {
       color: red;
@@ -222,9 +222,6 @@ const AddLog = () => {
 	const handleChange = (mov) => {
     // bug is one draft change behind
 		setMovementForm(mov);
-		// console.log(mov);
-		// console.log(drafts);
-		// change the activedraft
 		const newActiveDraft = drafts.filter(el => (el.date === activeDraft.date) && (el.movement === mov));
 		console.log(newActiveDraft);
     let emptyDraft = {
