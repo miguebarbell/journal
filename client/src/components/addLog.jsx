@@ -64,7 +64,6 @@ export const HeaderWrapper = styled.div`
   flex-wrap: wrap;
 
 `;
-
 const MovementWrapper = styled.div`
   //background-color: green;
   display: flex;
@@ -146,6 +145,16 @@ export const DataWrap = styled.div`
     }
   }
 `;
+const Error = styled.span`
+  position: absolute;
+  border: 1px solid ${COLOR_THREE};
+  background-color: ${COLOR_FIVE + "95"};
+  backdrop-filter: blur(2px);
+  padding: 1rem;
+  border-radius: 5px;
+  width: 18rem;
+  font-weight: bold;
+`;
 
 const AddLog = () => {
 	// todo get the values from draft
@@ -157,7 +166,7 @@ const AddLog = () => {
 	// let activeDraft = drafts.filter(draft => draft.active === true)[0];
 	const [activeDraft, setActiveDraft] = useState(drafts.filter(draft => draft.active === true)[0]);
 	const activeDraftGoal = useSelector((state) => state.log.active);
-
+	const [errorMessage, setErrorMessage] = useState(null);
 	const dispatch = useDispatch();
 	// feed the states
 
@@ -183,7 +192,6 @@ const AddLog = () => {
 			duration: durationForm,
 			notes: notesForm,
 			active: false,
-
 		}));
 		// close the form
 		dispatch(setActive(false));
@@ -192,8 +200,8 @@ const AddLog = () => {
 		e.preventDefault();
 		// check if everything have an integer value
 		if ([+repsForm, +setsForm, +strainForm, +durationForm].includes(NaN)) {
-			// todo make a better error dialog, pseudo element for the button, that dissapear in 2 seconds
-			alert("Strain, Reps, Sets and Time need a integer value to register");
+			setErrorMessage('ERROR: The input is invalid, must be an integer.');
+			setTimeout(setErrorMessage, 2000, null);
 			return;
 		}
 		const newLog = {
@@ -279,6 +287,7 @@ const AddLog = () => {
 						<label>Additional note</label>
 						<textarea onChange={(e) => setNotesForm(e.target.value)} value={notesForm}/>
 					</DataWrap>
+					{errorMessage ? <Error>{errorMessage}</Error> : null}
 					<ButtonSubmit onClick={(e) => handleSubmit(e)}>Register!</ButtonSubmit>
 				</Form>
 			</FormContainer>
