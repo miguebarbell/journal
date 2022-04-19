@@ -9,6 +9,10 @@ const entrySlice = createSlice({
 	},
 	reducers: {
 		setActive: (state, action) => {
+			/**
+			 * change the active draft
+			 * @type {[boolean, string]}
+			 */
 			state.active = action.payload;
 		},
 		addDraft: (state, action) => {
