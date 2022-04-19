@@ -141,12 +141,14 @@ const Profile = () => {
     dispatch(logOut());
   };
   const [displayingGoal, setDisplayingGoal] = useState(false);
+  const timeReview = 30;
   const addGoal = () => {
     setDisplayingGoal(true);
     document.title = "Adding goal.";
   };
   const user = useSelector((state) => state.user.currentUser);
   const goals = useSelector((state) => state.training.goals);
+  const logs = useSelector((state) => state.training.logs)
 
 
   const timeFrame = (startDay, daysToComplete) => {
@@ -156,26 +158,48 @@ const Profile = () => {
     const finishDay = new Date(startDay);
     finishDay.setDate(beginDay.getDate() + daysToComplete);
     const daysLeftToComplete = Math.round((finishDay - new Date()) / (1000 * 60 * 60 * 24));
-    const weeks = Math.floor(daysLeftToComplete/7);
-    const rest = daysLeftToComplete%7;
+    const weeks = Math.floor(daysLeftToComplete / 7);
+    const rest = daysLeftToComplete % 7;
     return {
-      left : daysLeftToComplete,
+      left: daysLeftToComplete,
       weeks: weeks,
       rest: rest
-
     };
   };
-
-    return (
-        <Container>
-          <InfoWrapper>
-            <ProfilePicture src={`https://avatars.dicebear.com/api/bottts/${user.email}.svg`}/>
-            <Title>Hi {user.name}</Title>
-            <MotivationWrapper>
-              <Quote>{motivationQuote.text}</Quote>
-              <Author>{motivationQuote.author}</Author>
-            </MotivationWrapper>
-          </InfoWrapper>
+  const accumulative = (goal, days) => {
+    // accept goal string and return a number
+    let logsForGoal;
+    if (days === 0) logsForGoal = logs.filter(log => log.movement === goal);
+    else logsForGoal = logs.filter(log => (log.movement === goal) && (new Date(log.date) >= (new Date()).setDate(new Date().getDate() - days)));
+    const response = {
+      goal: goal,
+      strain: 0,
+      sets: 0,
+      reps: 0,
+      duration: 0,
+      avgStrainPerSet: 0,
+    }
+    logsForGoal.forEach((log) => {
+      response.strain += log.strain
+      response.sets += log.sets
+      response.reps += log.reps
+      response.duration += log.duration
+    })
+    response.avgStrainPerSet = isNaN(response.strain / response.sets) ? 0 : Math.round(response.strain / response.sets);
+    return response;
+  };
+  const accumulatedGoals = goals.map(goal => accumulative(goal.movement, timeReview))
+  console.log(accumulatedGoals);
+  return (
+    <Container>
+      <InfoWrapper>
+        <ProfilePicture src={`https://avatars.dicebear.com/api/bottts/${user.email}.svg`}/>
+        <Title>Hi {user.name}</Title>
+        <MotivationWrapper>
+          <Quote>{motivationQuote.text}</Quote>
+          <Author>{motivationQuote.author}</Author>
+        </MotivationWrapper>
+      </InfoWrapper>
           <GoalsContainer>
             {goals.map((goal, index) => (
               <GoalCard key={index}>
@@ -197,20 +221,28 @@ const Profile = () => {
                   <span>
                     {(timeFrame(goal.start, goal.timeFrame)).weeks > 0 ? "in " : ""}
                     {(timeFrame(goal.start, goal.timeFrame)).weeks > 0 ? `${(timeFrame(goal.start, goal.timeFrame)).rest} weeks ` : ""}
-                    {(timeFrame(goal.start, goal.timeFrame)).rest > 0 ? `${(timeFrame(goal.start, goal.timeFrame)).rest} days` : ""}</span>
+                    {(timeFrame(goal.start, goal.timeFrame)).rest > 0 ? `${(timeFrame(goal.start, goal.timeFrame)).rest} days` : ""}
+                  </span>
                 </div>
               </GoalCard>
+
             ))}
           </GoalsContainer>
-          <EditButton onClick={() => {addGoal();}}>ADD A NEW GOAL</EditButton>
-          <span>you should focus in one at time</span>
-          <h2>Last 30 days:</h2>
-          <h3>Time</h3>
-          <h3>Distance</h3>
-          <h3>Weight</h3>
-          { displayingGoal ? <AddGoal/> : null}
-          <LogoutButton onClick={() => {handleLogout();}}>Log Out</LogoutButton>
-        </Container>
+      <EditButton onClick={() => {
+        addGoal();
+      }}>ADD A NEW GOAL</EditButton>
+      <span>you should focus in one at time</span>
+      <h2>Last {timeReview} days:</h2>
+      <h3>Time</h3>
+      {accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} : {goal.duration}</span>)}
+      <h3>Distance</h3>
+      <h3>Strain</h3>
+      {accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} : {goal.strain}</span>)}
+      {displayingGoal ? <AddGoal/> : null}
+      <LogoutButton onClick={() => {
+        handleLogout();
+      }}>Log Out</LogoutButton>
+    </Container>
     );
 };
 
