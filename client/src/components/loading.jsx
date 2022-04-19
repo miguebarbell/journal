@@ -16,13 +16,10 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
 `
-const Loading = () => {
-  // todo: check if this feature is working
-  let show = true;
+const Loading = ({show}) => {
   return (
     <Container show={show}>
       <ReactLoading type="spinningBubbles" color={COLOR_FOUR}/>
-      <span>Loading...</span>
     </Container>
   )
 }
