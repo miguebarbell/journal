@@ -17,7 +17,6 @@ router.post("/register", async (req, res) => {
 		const {password, name, email, ...others} = savedUser._doc;
 		return res.status(200).json({status:'Created new user.',name:name,email:email})
 	} catch (err) {
-		console.error(err);
 		return res.status(500).json(err)
 	}
 })
@@ -30,11 +29,11 @@ router.post("/login", async (req, res) => {
 			email: req.body.email
 		});
 		// check the email if the user exist
-		!user && res.status(401).json("Wrong Credentials.");
+		if (!user) return res.status(401).json("Wrong Credentials.");
 		// user exists, now check the password
 		const hashedPassword = CryptoJS.AES.decrypt(user.password, process.env.PASS_SEC);
 		const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-		originalPassword !== req.body.password && res.status(401).json("Wrong Credentials.");
+		if (originalPassword !== req.body.password) return res.status(401).json("Wrong Credentials.");
 		// create the token
 		const accessToken = jwt.sign({
 			id: user.email,
@@ -43,7 +42,6 @@ router.post("/login", async (req, res) => {
 		const {password, ...others} = user._doc;
 		return res.status(200).json({...others, accessToken})
 	} catch (err) {
-		console.log(err);
 		return res.status(500).json(err)
 	}
 })
@@ -52,13 +50,26 @@ router.post("/login", async (req, res) => {
 router.put("/", async (req, res) => {
 	try {
 		const user = await User.findOne({
-			email: req.body.user.email
+			email: req.body.email
 		});
-		user.name = req.body.user.name
+		user.name = req.body.name
 		const savedUser = await user.save();
-		res.status(200).json({savedUser})
+		return res.status(200).json({savedUser})
 	} catch (err) {
-		res.status(500).json(err)
+		return res.status(500).json(err)
+	}
+})
+
+router.delete("/", async (req, res) => {
+	try {
+		const user = await User.findOne({
+			email: req.body.email
+		})
+		await user.delete();
+		return res.status(200).json(`${req.body.email} deleted.`)
+	} catch (err) {
+		return res.status(500).json(err)
+
 	}
 })
 
