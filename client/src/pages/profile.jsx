@@ -1,4 +1,4 @@
-// external libs
+// external
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
@@ -19,11 +19,9 @@ const Container = styled.div`
   flex-direction: column;
   min-height: calc(100vh - ${NAVBAR_HEIGHT});
 `;
-
 const Title = styled.h1`
   font-family: 'Permanent Marker', cursive;
 `;
-
 const EditButton = styled.button`
   border: 1px solid black;
   border-radius: 5px;
@@ -38,7 +36,6 @@ const EditButton = styled.button`
     color: ${COLOR_TWO};
   }
 `;
-
 const LogoutButton = styled.button`
   border: 1px solid black;
   border-radius: 5px;
@@ -54,7 +51,6 @@ const LogoutButton = styled.button`
     color: ${COLOR_TWO};
   }
 `;
-
 const InfoWrapper = styled.div`
   max-height: 30vh;
   display: flex;
@@ -70,7 +66,6 @@ const ProfilePicture = styled.img`
   width: 15vh;
   background-image: linear-gradient(27deg, ${PRIMARY}, ${SECONDARY})
 `;
-
 const MotivationWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -86,11 +81,9 @@ const Author = styled.span`
   font-weight: bold;
   font-family: 'Cinzel', serif;
 `;
-
 const GoalsContainer = styled.div`
   padding: 1rem;
 `;
-
 const GoalCard = styled.div`
   box-shadow: 0 0 5px ${COLOR_FOUR};
   background-color: ${COLOR_THREE};
@@ -140,8 +133,8 @@ const GoalCard = styled.div`
     }
   }
 `;
-
 const Profile = () => {
+  // todo a way to delete or edit goals
   const motivationQuote = profileBanner[Math.floor(Math.random() * profileBanner.length)];
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -189,7 +182,11 @@ const Profile = () => {
                 <div id="movement">
                   <span>🏅</span>
                   <span>{goal.movement}</span>
-                  <span id="left">{(timeFrame(goal.start, goal.timeFrame)).left} days left</span>
+                  <span id="left">{
+                    (timeFrame(goal.start, goal.timeFrame)).left > 0 ?
+                      `${(timeFrame(goal.start, goal.timeFrame)).left} days left` :
+                      "expired"
+                  }</span>
                 </div>
                 <div id="strain">
                   <div>
@@ -197,9 +194,10 @@ const Profile = () => {
                     &nbsp;
                     <span>{goal.unit}</span>
                   </div>
-                  <span>in&nbsp;
-                    {(timeFrame(goal.start, goal.timeFrame)).weeks !== 0 ? `${(timeFrame(goal.start, goal.timeFrame)).rest} weeks ` : ""}
-                    {(timeFrame(goal.start, goal.timeFrame)).rest !== 0 ? `${(timeFrame(goal.start, goal.timeFrame)).rest} days` : ""}</span>
+                  <span>
+                    {(timeFrame(goal.start, goal.timeFrame)).weeks > 0 ? "in " : ""}
+                    {(timeFrame(goal.start, goal.timeFrame)).weeks > 0 ? `${(timeFrame(goal.start, goal.timeFrame)).rest} weeks ` : ""}
+                    {(timeFrame(goal.start, goal.timeFrame)).rest > 0 ? `${(timeFrame(goal.start, goal.timeFrame)).rest} days` : ""}</span>
                 </div>
               </GoalCard>
             ))}
