@@ -49,10 +49,10 @@ const Form = styled.form`
     }
   }
 `;
-const CreateMovementButton = styled.button`
-  //height: 2rem;
-  cursor: pointer;
-`;
+// const CreateMovementButton = styled.button`
+//   //height: 2rem;
+//   cursor: pointer;
+// `;
 const ButtonSubmit = styled.button`
   cursor: pointer;
 `;
@@ -232,7 +232,7 @@ const AddLog = () => {
       setActiveDraft(newActiveDraft[0]);
     } else {
       setActiveDraft(emptyDraft);
-    };
+		}
     setNotesForm(activeDraft.notes ? activeDraft.notes : "");
     setStrainForm(activeDraft.strain ? activeDraft.strain : "");
     setSetsForm(activeDraft.sets ? activeDraft.sets : "");
@@ -244,7 +244,7 @@ const AddLog = () => {
 			<FormContainer>
 				<HeaderWrapper>
 					<Title>{activeDraft && (new Date(activeDraft.date)).toDateString()}</Title>
-					<CreateMovementButton>Create new goal</CreateMovementButton>
+					{/*<CreateMovementButton>Create new goal</CreateMovementButton>*/}
 					<DataWrap id="close">
 						<CloseIcon onClick={handleCancel}/>
 					</DataWrap>
