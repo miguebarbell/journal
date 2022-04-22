@@ -22,6 +22,7 @@ describe('/api/auth', () => {
 			expect(response.body.email).toBe(newUser.email);
 		})
 	})
+	let accessToken;
 	describe('POST /login', () => {
 		it('should return error, wrong password', async () => {
 			const newUser = {
@@ -41,6 +42,7 @@ describe('/api/auth', () => {
 			const response = await request(app).post('/api/auth/login')
 				.send(newUser)
 			expect(response.statusCode).toBe(200);
+			accessToken = response.body.accessToken;
 		})
 
 	})
@@ -49,11 +51,18 @@ describe('/api/auth', () => {
 			const user = {
 				email: 'test@supertest.js'
 			}
+			const userReq = {
+				'id': 'test@supertest.js',
+			}
 			const response = await request(app).delete('/api/auth/')
 				.send(user)
+				.set('token', `Bearer ${accessToken}`)
+				.set(userReq)
+			console.log(response.body)
 			expect(response.statusCode).toBe(200);
 			expect(response.body).toBe(`${user.email} deleted.`)
 		})
 	})
+
 
 })
