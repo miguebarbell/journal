@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 // internal
 import AddGoal from "../components/addgoal";
 import {logOut} from "../redux/userRedux";
@@ -122,14 +123,54 @@ const GoalCard = styled.div`
       font-family: 'Rock Salt', cursive;
       text-transform: capitalize;
       margin: 0 1rem;
+      padding: 0 0.25rem;
+      cursor: pointer;
+      //border: 2px solid transparent;
+      border-radius: 5px;
+      &:after {
+        display: none;
+        content: "display it.";
+        position: absolute;
+        transform: translate(0, 1.5rem);
+        padding: 0.25rem 0.5rem;
+        font-size: 0.85rem;
+        font-family: 'Comfortaa', cursive;
+        //border: 2px solid transparent;
+        border-radius: 0 5px 5px 0;
+        border-left: 0;
+        z-index: 1;
+      }
+      &:hover {
+        //border-color: blue;
+        background-image: linear-gradient(${SECONDARY + "90"}, ${PRIMARY + "85"});
+        &:after {
+          display: inline-block;
+          //background-image: linear-gradient(${PRIMARY}, ${SECONDARY});
+          //border-color: blue;
+        }
+      }
   }
-    span:nth-child(3) {    
+    span:nth-child(4) {    
       font-family: 'Share Tech Mono', monospace;
       color: ${COLOR_TWO};
     }
     span#left {
       font-size: 1rem;
       font-weight: lighter;
+    }
+    svg {
+      display: none;
+      position: absolute;
+      transform: translate(5rem, -0.5rem);
+      color: red;
+      cursor: pointer;
+      &:after {
+        content: "edit";
+        position: absolute;
+      }
+    }
+    &:hover svg {
+      display: block;
     }
   }
 `;
@@ -146,11 +187,15 @@ const Profile = () => {
     setDisplayingGoal(true);
     document.title = "Adding goal.";
   };
+  const handleEditGoal = () => {
+    alert('editing goal')
+  }
+  const handleDisplayGoal = () => {
+    alert('display goal')
+  }
   const user = useSelector((state) => state.user.currentUser);
   const goals = useSelector((state) => state.training.goals);
   const logs = useSelector((state) => state.training.logs)
-
-
   const timeFrame = (startDay, daysToComplete) => {
     const stringDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const stringMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -189,7 +234,6 @@ const Profile = () => {
     return response;
   };
   const accumulatedGoals = goals.map(goal => accumulative(goal.movement, timeReview))
-  console.log(accumulatedGoals);
   return (
     <Container>
       <InfoWrapper>
@@ -205,7 +249,8 @@ const Profile = () => {
               <GoalCard key={index}>
                 <div id="movement">
                   <span>🏅</span>
-                  <span>{goal.movement}</span>
+                  <span onClick={handleDisplayGoal}>{goal.movement}</span>
+                  <EditOutlinedIcon onClick={handleEditGoal}/>
                   <span id="left">{
                     (timeFrame(goal.start, goal.timeFrame)).left > 0 ?
                       `${(timeFrame(goal.start, goal.timeFrame)).left} days left` :
