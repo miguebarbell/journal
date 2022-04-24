@@ -110,7 +110,7 @@ const Day = ({date, month, goal}) => {
   // add a log
   const dispatch = useDispatch();
   const drafts  = useSelector((state) => state.log.drafts);
-  // const goals = useSelector((state) => state.training.goals);
+  const goals = useSelector((state) => state.training.goals);
   const selectedDay = useSelector((state) => state.log.day);
   const handleAddLog = () => {
     // check if in draft exist a draft of the movement in this day
@@ -122,7 +122,7 @@ const Day = ({date, month, goal}) => {
     } else {
       dispatch(addDraft({date: date, movement: goal, active: true}));
     }
-    dispatch(setActive(goal));
+    dispatch(setActive());
   };
   const handleViewLog = () => {
     // change the store

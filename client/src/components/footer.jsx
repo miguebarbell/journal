@@ -10,6 +10,7 @@ const Footer = () => {
     return (
         <Container>
             Footer component
+
         </Container>
     );
 };
