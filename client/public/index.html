@@ -20,6 +20,30 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
+      noscript  div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+        background-image: linear-gradient(25deg, violet, blue);
+        color: black;
+        position: absolute;
+        top: 0;
+      }
+      noscript div a {
+        /*text-decoration: none;*/
+        color: black;
+        font-size: 2rem;
+        padding: 0.5rem 0;
+        font-family: 'Confortaa', italic;
+      }
+      noscript div marquee {
+        font-weight: bold;
+        font-size: 3rem;
+        padding: 0.5rem 0;
+      }
 
       code {
         font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -28,7 +52,12 @@
     </style>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run Journal app =(</noscript>
+    <noscript>
+      <div>
+        <marquee>You need to enable JavaScript to run Journal app =(</marquee>
+        <a href="https://enablejavascript.co">more information here</a>
+      </div>
+    </noscript>
     <div id="root"></div>
   </body>
 </html>
