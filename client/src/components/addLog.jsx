@@ -264,7 +264,7 @@ const AddLog = () => {
 					</MovementWrapper>
 					<DataContainer>
 						<DataWrap id="strain">
-							<label>Strain</label>
+							<label>{activeDraft.movement !== "" ? goals.find(goal => goal.movement === activeDraft.movement).unit : "Strain"}</label>
 							<input placeholder="90" onChange={(e) => setStrainForm(e.target.value)} value={strainForm}/>
 						</DataWrap>
 						<DataWrap id="reps">
