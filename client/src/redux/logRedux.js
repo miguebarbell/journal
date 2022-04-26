@@ -19,7 +19,8 @@ const entrySlice = createSlice({
 			state.drafts.push(action.payload);
 		},
 		updateDraft: (state, action) => {
-			state.drafts = state.drafts.filter(draft => draft.active === false);
+			// state.drafts = state.drafts.filter(draft => !draft.active)
+			state.drafts = state.drafts.filter(draft => draft.date !== action.payload.date && draft.movement !== action.payload.movement);
 			state.drafts.push(action.payload);
 		},
 		removeDraft: (state, action) => {
