@@ -199,9 +199,10 @@ const GoalChart = ({goal}) => {
 	return (
 		<Container>
 			<Line
+				type='line'
 				data={data}
 				options={options}
-				type='bar'/>
+			/>
 		</Container>
 	)
 }
