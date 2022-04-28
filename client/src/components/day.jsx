@@ -120,7 +120,7 @@ const Day = ({date, month, goal}) => {
       const index = drafts.findIndex(draft => (draft.movement === goal));
       dispatch(setDraftActive(index));
     } else {
-      dispatch(addDraft({date: date, movement: goal, active: true}));
+      dispatch(addDraft({date: date.toDateString(), movement: goal, active: true}));
     }
     dispatch(setActive(goal));
   };
