@@ -143,25 +143,27 @@ const GoalChart = ({goal}) => {
 	// 	return arrayWithAccumulated
 	// }
 	let data = {}
+	const labels = allDays();
+	const logStats = accumulationForDay();
 	if (goal.plan === "accu") {
 		data = {
-			labels: allDays(),
+			labels,
 			datasets: [
 				{
 					label: 'Volume per day',
-					data: accumulationForDay().dailyVol,
+					data: logStats.dailyVol,
 					backgroundColor: 'rgba(53, 162, 235, 0.5)',
 					borderColor: 'rgb(53, 162, 235)',
 				},
 				{
 					label: 'Accumulated',
-					data: accumulationForDay().accVol,
+					data: logStats.accVol,
 					backgroundColor: 'rgba(53, 62, 235, 0.5)',
 					borderColor: 'rgb(53, 62, 235)',
 				},
 				{
 					label: 'Goal',
-					data: accumulationForDay().dailyVol.map(el => goal.quantity),
+					data: logStats.dailyVol.map(() => goal.quantity),
 					backgroundColor: 'rgba(255, 99, 132, 0.5)',
 					borderColor: 'rgb(255, 99, 132)',
 				},
@@ -170,23 +172,23 @@ const GoalChart = ({goal}) => {
 	}
 	else if (goal.plan === "test") {
 		data = {
-			labels: allDays(),
+			labels,
 			datasets: [
 				{
 					label: 'Max Abs Int / day',
-					data: accumulationForDay().dailyAbsInt,
+					data: logStats.dailyAbsInt,
 					backgroundColor: 'rgba(53, 62, 235, 0.5)',
 					borderColor: 'rgb(53, 62, 235)',
 				},
 				{
 					label: 'Max Rel Int / day',
-					data: accumulationForDay().dailyRelInt,
+					data: logStats.dailyRelInt,
 					backgroundColor: 'rgba(53, 162, 235, 0.5)',
 					borderColor: 'rgb(53, 162, 235)',
 				},
 				{
 					label: 'Goal',
-					data: accumulationForDay().dailyVol.map(el => goal.quantity),
+					data: logStats.dailyVol.map(() => goal.quantity),
 					backgroundColor: 'rgba(255, 99, 132, 0.5)',
 					borderColor: 'rgb(255, 99, 132)',
 				},
