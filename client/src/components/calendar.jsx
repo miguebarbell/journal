@@ -10,7 +10,6 @@ import Day from "./day";
 import {COLOR_FOUR, COLOR_ONE, COLOR_TWO, NAVBAR_HEIGHT, PRIMARY, PRIMARY_DISABLED, SECONDARY} from "../conf";
 import DayDetails from "./daydetails";
 
-
 const Container = styled.div`
   background-color: ${COLOR_TWO};
   color: ${COLOR_FOUR};
@@ -34,13 +33,11 @@ const GridContainer = styled.div`
     padding: 0.25rem;
   }
 `;
-
 const GoalsWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 `;
-
 const LabelContainer = styled.div`
   text-transform: uppercase;
   font-weight: bold;
@@ -50,7 +47,6 @@ const LabelContainer = styled.div`
   justify-content: flex-end;
   
 `;
-
 const GoalSpan = styled.span`
   cursor: pointer;
   text-decoration-thickness: 7px;
@@ -65,7 +61,6 @@ const GoalSpan = styled.span`
     color: ${SECONDARY};
   }
   `;
-
 const ChangeMonthSpan = styled.span`
   cursor: ${({disabled}) => disabled ? "default" : "pointer"};
   border: 1px solid transparent;
@@ -74,8 +69,6 @@ const ChangeMonthSpan = styled.span`
     color: ${SECONDARY};
   }
 `;
-
-
 const CalendarWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -83,10 +76,6 @@ const CalendarWrapper = styled.div`
   border: 1px solid ${PRIMARY_DISABLED};
   border-radius: 10px;
 `;
-
-
-
-
 const Calendar = () => {
   const goals = useSelector((state) => state.training.goals);
   const [relativeMonth, setRelativeMonth] = useState(0);
@@ -123,7 +112,6 @@ const Calendar = () => {
     return calendar;
   };
   const today = new Date();
-
   let weeks = dateRange(today, 4);
   // add a new log
     return (
