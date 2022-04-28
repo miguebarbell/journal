@@ -7,7 +7,7 @@ export const sendLog = async (dispatch, log) => {
 	try {
 		const newLog = await publicRequest.post('api/log', log);
 		dispatch(addLog(newLog.data));
-		dispatch(setActive());
+		dispatch(setActive(false));
 		dispatch(clearActiveDrafts());
 		return newLog;
 	} catch (err) {
