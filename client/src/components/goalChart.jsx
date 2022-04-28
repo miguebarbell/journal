@@ -75,7 +75,6 @@ const GoalChart = ({goal}) => {
 		}
 		return arrayOfDays;
 	}
-	// console.log(allDays());
 	const accumulationForDay = () => {
 		const arrayOfAcummulatedStrain = [];
 		const arrayOfAcummulatedVolume = [];
@@ -121,27 +120,6 @@ const GoalChart = ({goal}) => {
 			dailyAbsInt: arrayOfMaxAbsInt
 		};
 	}
-	// const maxRelIntForDay = () => {
-	// 	const arrayOfMaxRelIntPerDay = [];
-	//
-	// }
-	// const maxRelAbsForDay = () => {
-	//
-	// }
-	// const accumulatedStrainForDay = () => {
-	// 	const arrayWithValuesPerDay = accumulationForDay().dailyVol
-	// 	let arrayWithAccumulated = []
-	// 	for (let i = 0; i < arrayWithValuesPerDay.length; i++) {
-	// 		if (i === 0) {
-	// 			arrayWithAccumulated.push(arrayWithValuesPerDay[i])
-	// 			continue
-	// 		}
-	// 		arrayWithAccumulated.push(arrayWithAccumulated[i-1] + arrayWithValuesPerDay[i])
-	//
-	// 	}
-	//
-	// 	return arrayWithAccumulated
-	// }
 	let data = {}
 	const labels = allDays();
 	const logStats = accumulationForDay();
