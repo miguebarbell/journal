@@ -220,24 +220,24 @@ const AddLog = () => {
 
 	};
 	const handleChange = (mov) => {
-    // bug is one draft change behind
 		setMovementForm(mov);
 		const newActiveDraft = drafts.filter(el => (el.date === activeDraft.date) && (el.movement === mov));
 		console.log(newActiveDraft);
-    let emptyDraft = {
-      active: true,
-      date: activeDraft.date,
-    };
+		let emptyDraft = {
+			movement: mov,
+			active: true,
+			date: activeDraft.date,
+		};
 		if (newActiveDraft.length > 0) {
-      setActiveDraft(newActiveDraft[0]);
-    } else {
-      setActiveDraft(emptyDraft);
+			setActiveDraft(newActiveDraft[0]);
+		} else {
+			setActiveDraft(emptyDraft);
 		}
-    setNotesForm(activeDraft.notes ? activeDraft.notes : "");
-    setStrainForm(activeDraft.strain ? activeDraft.strain : "");
-    setSetsForm(activeDraft.sets ? activeDraft.sets : "");
-    setRepsForm(activeDraft.reps ? activeDraft.reps : "");
-    setDurationForm(activeDraft.duration ? activeDraft.duration : "");
+		setNotesForm(activeDraft.notes ? activeDraft.notes : "");
+		setStrainForm(activeDraft.strain ? activeDraft.strain : "");
+		setSetsForm(activeDraft.sets ? activeDraft.sets : "");
+		setRepsForm(activeDraft.reps ? activeDraft.reps : "");
+		setDurationForm(activeDraft.duration ? activeDraft.duration : "");
 	};
 	return (
 		<BlurContainer>
