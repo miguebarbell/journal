@@ -23,8 +23,11 @@ ChartJS.register(
 	Legend
 );
 
-const Container = styled.div``
-const GoalChart = ({goal}) => {
+const Container = styled.div`
+	display: ${({show}) => show ? 'block' : 'none'};
+  transition: all .2s ease-out;
+`
+const GoalChart = ({goal, show}) => {
 	const logsData = useSelector(state => state.training.logs)
 		.filter(log => log.movement === goal.movement)
 		.sort((a, b) => {
@@ -175,12 +178,12 @@ const GoalChart = ({goal}) => {
 	}
 
 	return (
-		<Container>
+		<Container show={(goal.movement === show)}>
 			<Line
-				type='line'
+				// type='line'
 				data={data}
 				options={options}
-			/>
+			  type={'line'}/>
 		</Container>
 	)
 }
