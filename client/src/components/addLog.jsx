@@ -87,6 +87,10 @@ export const DataWrap = styled.div`
   flex-direction: column;
   width: 4rem;
 
+  label {
+    text-transform: capitalize;
+  }
+
   &:hover:after {
     color: ${COLOR_TWO};
     position: absolute;

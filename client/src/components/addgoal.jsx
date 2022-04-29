@@ -39,14 +39,26 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
 `;
 const Button = styled.button`
-  background-color: ${COLOR_FIVE};
+  background-color: ${({color}) => color === "" ? COLOR_FIVE : "red"};
   border: none;
   padding: 0.25rem;
   cursor: pointer;
   &:hover {
     color: ${COLOR_FIVE};
-    background-color: ${COLOR_TWO};
+    background-color: ${({color}) => color === "" ? COLOR_TWO : "red"};
   }
+`;
+const Error = styled.div`
+  color: red;
+  font-weight: bold;
+  height: 100%;
+  width: 100%;
+  text-transform: capitalize;
+  text-align: center;
+  //position: absolute;
+  //background-color: rgba(0, 0, 0, 0.5);
+  //display: flex;
+  //align-items: center;
 `;
 
 const AddGoal = () => {
@@ -54,18 +66,27 @@ const AddGoal = () => {
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   // const user = useSelector((state) => state.user.currentUser);
-  const [movement, setMovement] = useState("snatch");
-  const [quantity, setQuantity] = useState("95");
+  const [movement, setMovement] = useState("");
+  const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState("kgs");
   const [plan, setPlan] = useState("test");
   const [timeFrame, setTimeFrame] = useState("90");
   const [start, setStart] = useState(new Date());
   const [notes, setNotes] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const handleError = (message) => {
+    setErrorMessage(message);
+    window.setTimeout(()=> {
+      setErrorMessage("")
+    }, 2000)
 
+  }
   const handleCancel = () => {
+    //fixme: this doesnt work properly
+    setDisplayingForm(false);
   };
   const handleSave = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const newGoal = {
       user: user.email,
       movement: movement,
@@ -76,15 +97,17 @@ const AddGoal = () => {
       start: start,
       notes: notes
     };
-    console.log(newGoal);
-
+    // console.log(newGoal);
+    if (unit === null || quantity === null) {
+      handleError("select a quantity")
+      return
+    }
     addAGoal(dispatch, newGoal);
     setDisplayingForm(false);
-
-
   };
     return (
       <Container show={displayingForm}>
+
           <Form>
             <label>Movement</label>
             <Input placeholder="Back-Squat" onChange={(e)=> setMovement(e.target.value)} required value={movement}/>
@@ -98,6 +121,8 @@ const AddGoal = () => {
                 <option value="mts">meters</option>
                 <option value="mi">miles</option>
                 <option value="fts">feets</option>
+                <option value="min">minutes</option>
+                <option value="hrs">hours</option>
               </select>
               <label >Plan</label>
               <select onChange={(e) => setPlan(e.target.value)} required value={plan}>
@@ -113,10 +138,10 @@ const AddGoal = () => {
               <Input placeholder="2023-mar-10" onChange={(e)=> setStart(e.target.value)}/>
             </div>
             <label>Notes</label>
-            <textarea placeholder="You can write why you want this." onChange={(e)=>setNotes(e.target.value)}/>
-
+            <textarea placeholder="You can add here what is your motivation here." onChange={(e)=>setNotes(e.target.value)}/>
             <ButtonWrapper>
-              <Button onClick={handleSave}>Save</Button>
+              <Button onClick={handleSave} color={errorMessage}>Save</Button>
+              <Error>{errorMessage}</Error>
               <Button onClick={handleCancel}>Cancel</Button>
             </ButtonWrapper>
           </Form>

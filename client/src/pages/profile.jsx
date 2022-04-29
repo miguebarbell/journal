@@ -139,10 +139,11 @@ const GoalCard = styled.div`
         border-radius: 0 5px 5px 0;
         border-left: 0;
         z-index: 1;
+        color: ${COLOR_TWO};
       }
       &:hover {
         //border-color: blue;
-        background-image: linear-gradient(${SECONDARY + "90"}, ${PRIMARY + "85"});
+        //background-image: linear-gradient(${SECONDARY + "90"}, ${PRIMARY + "85"});
         &:after {
           display: inline-block;
           //background-image: linear-gradient(${PRIMARY}, ${SECONDARY});
