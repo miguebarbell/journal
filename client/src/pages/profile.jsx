@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 // internal
 import AddGoal from "../components/addgoal";
 import {logOut} from "../redux/userRedux";
@@ -10,8 +11,15 @@ import {logOut} from "../redux/userRedux";
 import {COLOR_FOUR, NAVBAR_HEIGHT, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
 import {profileBanner} from "../components/quotes";
 import GoalChart from "../components/goalChart";
+import {BlurContainer, DataWrap, FormContainer, HeaderWrapper} from "../components/addLog";
+import {prettierDate} from "../components/helper";
 
 
+const Author = styled.span`
+  font-size: 0.75rem;
+  font-weight: bold;
+  font-family: 'Cinzel', serif;
+`;
 const Container = styled.div`
   color: ${COLOR_FOUR};
   background-color: ${COLOR_TWO};
@@ -20,10 +28,11 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   min-height: calc(100vh - ${NAVBAR_HEIGHT});
+  div#edit-container {
+    color: black;
+  }
 `;
-const Title = styled.h1`
-  font-family: 'Permanent Marker', cursive;
-`;
+
 const EditButton = styled.button`
   border: 1px solid black;
   border-radius: 5px;
@@ -37,6 +46,11 @@ const EditButton = styled.button`
     background-color: ${SECONDARY};
     color: ${COLOR_TWO};
   }
+`;
+
+
+const Title = styled.h1`
+  font-family: 'Permanent Marker', cursive;
 `;
 const LogoutButton = styled.button`
   border: 1px solid black;
@@ -77,11 +91,6 @@ const Quote = styled.span`
   font-style: italic;
   font-size: 1.5rem;
   font-family: 'Just Another Hand', cursive;
-`;
-const Author = styled.span`
-  font-size: 0.75rem;
-  font-weight: bold;
-  font-family: 'Cinzel', serif;
 `;
 const GoalsContainer = styled.div`
   padding: 1rem;
@@ -176,6 +185,61 @@ const GoalCard = styled.div`
     }
   }
 `;
+const EditGoalContainer = styled.div`
+  h3 {
+    span {
+      cursor: pointer;
+      &:before {
+        font-weight: normal;
+        background-color: white;
+        content: "Edit";
+        position: absolute;
+        transform: translate(0, -2rem);
+        display: none;
+        padding: 0.15rem 0.25rem;
+        border: 1px solid ${COLOR_THREE};
+        border-radius: 5px;
+      }
+      &:hover {
+        color: ${COLOR_TWO};
+        text-decoration: underline;
+        &:before {
+          display: inline-block;
+        }
+      }
+    }
+    
+  }
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  button {
+    text-transform: capitalize;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.15rem 0.5rem;
+    border-radius: 5px;
+    &#save {
+      border: 2px solid green;
+      background-color: green;
+      &:hover {
+        background-color: white;
+        color: green;
+      }
+    }
+    &#cancel {
+      border: 2px solid red;
+      background-color: red;
+      &:hover {
+        background-color: white;
+        color: red;
+      }
+    }
+  }
+`;
+
 const Profile = () => {
   // todo a way to delete or edit goals
   const motivationQuote = profileBanner[Math.floor(Math.random() * profileBanner.length)];
@@ -185,14 +249,25 @@ const Profile = () => {
   };
   const [displayingGoal, setDisplayingGoal] = useState(false);
   const [displayingGraph, setDisplayingGraph] = useState(false);
+  const [goalEdit, setGoalEdit] = useState(false);
+  const [goalPlan, setGoalPlan] = useState(goalEdit.plan);
+  const [goalQuantity, setGoalQuantity] = useState(goalEdit.quantity);
+  const [goalUnit, setGoalUnit] = useState(goalEdit.unit);
+  const [goalMovement, setGoalMovement] = useState(goalEdit.movement);
+  const [goalTimeFrame, setGoalTimeFrame] = useState(goalEdit.timeFrame);
+  const [goalNotes, setGoalNotes] = useState(goalEdit.notes);
+  const [editedGoal, setGoalEdited] = useState(false)
   const timeReview = 30;
   const addGoal = () => {
     setDisplayingGoal(true);
     document.title = "Adding goal.";
   };
-  const handleEditGoal = () => {
-    alert('editing goal')
-  }
+  const handleEditGoal = (goal) => {
+    setGoalEdit(goal)
+  };
+  const handleCancel = () => {
+    setGoalEdit(false)
+  };
   const user = useSelector((state) => state.user.currentUser);
   const goals = useSelector((state) => state.training.goals);
   const logs = useSelector((state) => state.training.logs);
@@ -236,6 +311,42 @@ const Profile = () => {
   const accumulatedGoals = goals.map(goal => accumulative(goal.movement, timeReview))
   return (
     <Container>
+    <BlurContainer show={goalEdit} id="edit-container">
+      <FormContainer>
+        <HeaderWrapper>
+          <h2>editing {goalEdit.movement} goal</h2>
+          <DataWrap id="close">
+            <CloseIcon onClick={handleCancel}/>
+          </DataWrap>
+        </HeaderWrapper>
+        <EditGoalContainer>
+          <h3>
+            <span>{goalPlan ? goalPlan : goalEdit.plan}</span>
+            &nbsp;
+            <span>{goalMovement ? goalMovement : goalEdit.movement}</span>
+            &nbsp;
+            <span>{goalQuantity ? goalQuantity : goalEdit.quantity}</span>
+            &nbsp;
+            <span>{goalUnit ? goalUnit : goalEdit.unit}</span>
+          </h3>
+          <h3>
+            <span>{goalTimeFrame ? goalTimeFrame : goalEdit.timeFrame} days from {
+              goalTimeFrame ?
+              prettierDate(goalTimeFrame)
+              : prettierDate(goalEdit.start)
+            }</span>
+          </h3>
+          <h3>
+            <span>{goalNotes ? goalNotes : goalEdit.notes}</span>
+          </h3>
+        </EditGoalContainer>
+        <ButtonContainer>
+          <button id="save">save</button>
+          <button id="cancel">cancel</button>
+        </ButtonContainer>
+      </FormContainer>
+    </BlurContainer>
+
       <InfoWrapper>
         <ProfilePicture src={`https://avatars.dicebear.com/api/bottts/${user.email}.svg`}/>
         <Title>Hi {user.name}</Title>
@@ -251,7 +362,7 @@ const Profile = () => {
                 <div id="movement">
                   <span>🏅</span>
                   <span onClick={() => setDisplayingGraph(goal.movement)}>{goal.movement}</span>
-                  <EditOutlinedIcon onClick={handleEditGoal}/>
+                  <EditOutlinedIcon onClick={() => handleEditGoal(goal)}/>
                   <span id="left">{
                     (timeFrame(goal.start, goal.timeFrame)).left > 0 ?
                       `${(timeFrame(goal.start, goal.timeFrame)).left} days left` :
