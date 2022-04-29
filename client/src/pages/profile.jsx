@@ -9,6 +9,7 @@ import {logOut} from "../redux/userRedux";
 // conf and variables
 import {COLOR_FOUR, NAVBAR_HEIGHT, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
 import {profileBanner} from "../components/quotes";
+import GoalChart from "../components/goalChart";
 
 
 const Container = styled.div`
@@ -182,6 +183,7 @@ const Profile = () => {
     dispatch(logOut());
   };
   const [displayingGoal, setDisplayingGoal] = useState(false);
+  const [displayingGraph, setDisplayingGraph] = useState(false);
   const timeReview = 30;
   const addGoal = () => {
     setDisplayingGoal(true);
@@ -190,15 +192,12 @@ const Profile = () => {
   const handleEditGoal = () => {
     alert('editing goal')
   }
-  const handleDisplayGoal = () => {
-    alert('display goal')
-  }
   const user = useSelector((state) => state.user.currentUser);
   const goals = useSelector((state) => state.training.goals);
-  const logs = useSelector((state) => state.training.logs)
+  const logs = useSelector((state) => state.training.logs);
   const timeFrame = (startDay, daysToComplete) => {
-    const stringDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const stringMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    // const stringDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    // const stringMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const beginDay = new Date(startDay);
     const finishDay = new Date(startDay);
     finishDay.setDate(beginDay.getDate() + daysToComplete);
@@ -217,14 +216,14 @@ const Profile = () => {
     if (days === 0) logsForGoal = logs.filter(log => log.movement === goal);
     else logsForGoal = logs.filter(log => (log.movement === goal) && (new Date(log.date) >= (new Date()).setDate(new Date().getDate() - days)));
     const response = {
-      goal: goal,
+      goal,
       strain: 0,
       sets: 0,
       reps: 0,
       duration: 0,
       avgStrainPerSet: 0,
-    }
-    logsForGoal.forEach((log) => {
+    };
+    logsForGoal.forEach(log => {
       response.strain += log.strain
       response.sets += log.sets
       response.reps += log.reps
@@ -246,10 +245,11 @@ const Profile = () => {
       </InfoWrapper>
           <GoalsContainer>
             {goals.map((goal, index) => (
-              <GoalCard key={index}>
+              <div key={index}>
+              <GoalCard>
                 <div id="movement">
                   <span>🏅</span>
-                  <span onClick={handleDisplayGoal}>{goal.movement}</span>
+                  <span onClick={() => setDisplayingGraph(goal.movement)}>{goal.movement}</span>
                   <EditOutlinedIcon onClick={handleEditGoal}/>
                   <span id="left">{
                     (timeFrame(goal.start, goal.timeFrame)).left > 0 ?
@@ -270,6 +270,8 @@ const Profile = () => {
                   </span>
                 </div>
               </GoalCard>
+                <GoalChart goal={goal} show={displayingGraph}/>
+              </div>
 
             ))}
           </GoalsContainer>
