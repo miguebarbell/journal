@@ -113,6 +113,7 @@ const Day = ({date, month, goal}) => {
   // const goals = useSelector((state) => state.training.goals);
   const selectedDay = useSelector((state) => state.log.day);
   const handleAddLog = () => {
+    // todo don't allow add a log before the first day for the goal
     // check if in draft exist a draft of the movement in this day
     const draftsThisDay = drafts.filter(draft => ((new Date(draft.date)).toDateString() === date.toDateString()) && (draft.movement === goal));
     if (draftsThisDay.length > 0) {
