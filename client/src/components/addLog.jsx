@@ -14,7 +14,7 @@ export const BlurContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  display: flex;
+  display: ${({show}) => show !== false ? 'flex' : 'none'};
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -23,7 +23,7 @@ export const BlurContainer = styled.div`
   backdrop-filter: blur(5px);
   z-index: 10;
 `;
-const FormContainer = styled.div`
+export const FormContainer = styled.div`
   background-color: white;
   padding: 3rem;
   border-radius: 1rem;
@@ -224,9 +224,9 @@ const AddLog = () => {
 
 	};
 	const handleChange = (mov) => {
+    // bug is one draft change behind
 		setMovementForm(mov);
 		const newActiveDraft = drafts.filter(el => (el.date === activeDraft.date) && (el.movement === mov));
-		console.log(newActiveDraft);
 		let emptyDraft = {
 			movement: mov,
 			active: true,
@@ -244,7 +244,7 @@ const AddLog = () => {
 		setDurationForm(activeDraft.duration ? activeDraft.duration : "");
 	};
 	return (
-		<BlurContainer>
+		<BlurContainer show={true}>
 			<FormContainer>
 				<HeaderWrapper>
 					<Title>{activeDraft && (new Date(activeDraft.date)).toDateString()}</Title>
@@ -263,7 +263,12 @@ const AddLog = () => {
 									)}
 								</select>
 							) :
-							<h1>{activeDraft.movement}<span>({(goals.find(goal => goal.movement === activeDraft.movement)).unit})</span>
+							<h1>{activeDraft.movement}
+								<span>({
+									activeDraft.movement === "" ?
+										null
+									: (goals.find(goal => goal.movement === activeDraft.movement)).unit
+								})</span>
 							</h1>}
 					</MovementWrapper>
 					<DataContainer>
