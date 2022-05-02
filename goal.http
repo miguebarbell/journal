@@ -20,3 +20,14 @@ content-type: application/json
 {
   "email": "admin@debloat.us"
 }
+
+### edit a goal
+PUT http://localhost:5000/api/goal
+content-type: application/json
+
+{
+  "user": "admin@debloat.us",
+  "movement": "run",
+  "quantity": "8000"
+
+}
