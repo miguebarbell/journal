@@ -83,12 +83,14 @@ const GoalChart = ({goal, show}) => {
 		const arrayOfAcummulatedVolume = [];
 		const arrayOfMaxRelInt = [];
 		const arrayOfMaxAbsInt = [];
+		const arrayOfTimes = [];
 		const firstDay = new Date(goal.start);
 		let accumulationForDay = {
 			date: firstDay,
 			value: 0,
 			relInt: 0,
-			absInt: 0
+			absInt: 0,
+			times: 0
 		};
 		for (let i = 0; i < logsData.length; i++) {
 			const workingDay = new Date(logsData[i].date);
@@ -98,29 +100,35 @@ const GoalChart = ({goal, show}) => {
 				arrayOfAcummulatedVolume.push(accumulationForDay.value);
 				arrayOfMaxRelInt.push(accumulationForDay.relInt);
 				arrayOfMaxAbsInt.push(accumulationForDay.absInt);
+				arrayOfMaxAbsInt.push(accumulationForDay.times);
 			}
 			if (workingDay.toDateString() === accumulationForDay.date.toDateString()) {
+
 				accumulationForDay.value += logsData[i].strain * logsData[i].sets * logsData[i].reps
 				if (logsData.length === 1) arrayOfAcummulatedStrain.push(accumulationForDay.value)
 				if (accumulationForDay.relInt < epleyFormula(logsData[i].strain, logsData[i].reps)) accumulationForDay.relInt = epleyFormula(logsData[i].strain, logsData[i].reps)
 				if (accumulationForDay.absInt < logsData[i].strain) accumulationForDay.absInt = logsData[i].strain
+				accumulationForDay.times += logsData[i].sets * logsData[i].reps
 				continue
 			} else {
 				accumulationForDay.date = workingDay
 				accumulationForDay.value = logsData[i].strain * logsData[i].sets * logsData[i].reps
 				accumulationForDay.relInt = epleyFormula(logsData[i].strain, logsData[i].reps)
 				accumulationForDay.absInt = logsData[i].strain
+				accumulationForDay.times = logsData[i].sets * logsData[i].reps
 			}
 			arrayOfAcummulatedStrain.push(accumulationForDay.value)
 			arrayOfAcummulatedVolume.push(accumulationForDay.value + arrayOfAcummulatedVolume[arrayOfAcummulatedVolume.length - 1])
 			arrayOfMaxRelInt.push(accumulationForDay.relInt)
 			arrayOfMaxAbsInt.push(accumulationForDay.absInt)
+			arrayOfTimes.push(accumulationForDay.times)
 		}
 		return {
 			dailyVol: arrayOfAcummulatedStrain,
 			accVol: arrayOfAcummulatedVolume,
 			dailyRelInt: arrayOfMaxRelInt,
-			dailyAbsInt: arrayOfMaxAbsInt
+			dailyAbsInt: arrayOfMaxAbsInt,
+			dailyTimes: arrayOfTimes
 		};
 	}
 	let data = {}
@@ -167,6 +175,31 @@ const GoalChart = ({goal, show}) => {
 					backgroundColor: 'rgba(53, 162, 235, 0.5)',
 					borderColor: 'rgb(53, 162, 235)',
 				},
+				{
+					label: 'Goal',
+					data: logStats.dailyVol.map(() => goal.quantity),
+					backgroundColor: 'rgba(255, 99, 132, 0.5)',
+					borderColor: 'rgb(255, 99, 132)',
+				},
+			],
+		};
+	}
+	else if (goal.plan === "habit") {
+		data = {
+			labels,
+			datasets: [
+				{
+					label: 'Times / day',
+					data: logStats.dailyAbsInt,
+					backgroundColor: 'rgba(53, 62, 235, 0.5)',
+					borderColor: 'rgb(53, 62, 235)',
+				},
+				// {
+				// 	label: 'Vol / day',
+				// 	data: logStats.dailyVol,
+				// 	backgroundColor: 'rgba(53, 162, 235, 0.5)',
+				// 	borderColor: 'rgb(53, 162, 235)',
+				// },
 				{
 					label: 'Goal',
 					data: logStats.dailyVol.map(() => goal.quantity),
