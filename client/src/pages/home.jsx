@@ -17,7 +17,9 @@ const Home = () => {
   const showLog = useSelector((state) => state.training.showing);
   const user = useSelector((state) => state.user);
 
-    return (
+  document.title =  `Journal App - ${user.currentUser.name} Calendar Overview.`;
+
+  return (
         <Container>
           <Loading show={user.isFetching}/>
           {showAddLog && <AddLog/>}

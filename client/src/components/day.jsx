@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import PageviewIcon from '@mui/icons-material/Pageview';
-import {checkDays} from "./helper";
+import {checkDays, prettierDate} from "./helper";
 
 // internal
 import {addDraft, setActive, setActiveDay, setDraftActive} from "../redux/logRedux";
@@ -115,6 +115,7 @@ const Day = ({date, month, goal}) => {
   const handleAddLog = () => {
     // todo don't allow add a log before the first day for the goal
     // check if in draft exist a draft of the movement in this day
+    document.title =  `Journal App - adding ${goal} ${prettierDate(date.toDateString())}`;
     const draftsThisDay = drafts.filter(draft => ((new Date(draft.date)).toDateString() === date.toDateString()) && (draft.movement === goal));
     if (draftsThisDay.length > 0) {
       // send the index
@@ -127,6 +128,8 @@ const Day = ({date, month, goal}) => {
   };
   const handleViewLog = () => {
     // change the store
+
+    document.title =  `Journal App - ${prettierDate(date.toDateString())}`;
     dispatch(setActiveDay(date.toDateString()));
   };
   const goalThatDay = (movements.map(mov => mov.movement).filter(mo => mo === goal).length > 0);

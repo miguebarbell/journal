@@ -344,10 +344,12 @@ const Profile = () => {
 		document.title = "Adding goal.";
 	};
 	const handleEditGoal = (goal) => {
+		document.title =  `Editting ${goal.movement}.`;
 		setGoalEdit(goal)
 		resetGoal(goal)
 	};
 	const handleCancel = () => {
+		document.title =  `Journal App - Goals.`;
 		setGoalEdit(false)
 	};
 	const user = useSelector((state) => state.user.currentUser);
@@ -409,6 +411,7 @@ const Profile = () => {
 		}
 		editThisGoal(dispatch, editedGoal)
 		handleCancel()
+		document.title =  `Journal App - Goals.`;
 	}
 	return (
 		<Container>

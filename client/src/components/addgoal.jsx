@@ -93,6 +93,10 @@ const AddGoal = ({show}) => {
     }, 2000)
 
   }
+  const handleCancel = () => {
+    show(false);
+    document.title =  `Journal App - Goals.`;
+  }
   const handleSave = () => {
     // e.preventDefault();
     const newGoal = {
@@ -110,7 +114,8 @@ const AddGoal = ({show}) => {
       return
     }
     addAGoal(dispatch, newGoal);
-    show(false)
+    show(false);
+    document.title =  `Journal App - Goals.`;
   };
     return (
         <Container>
@@ -153,7 +158,7 @@ const AddGoal = ({show}) => {
             <ButtonWrapper>
               <Button onClick={handleSave} color={errorMessage}>Save</Button>
               <Error>{errorMessage}</Error>
-              <Button onClick={() => show(false)}>Cancel</Button>
+              <Button onClick={handleCancel}>Cancel</Button>
             </ButtonWrapper>
           </Form>
         </Container>
