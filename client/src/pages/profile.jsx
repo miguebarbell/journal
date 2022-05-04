@@ -314,7 +314,6 @@ const Plan = styled.select`
 `;
 
 const Profile = () => {
-	// todo a way to delete or edit goals
 	const motivationQuote = profileBanner[Math.floor(Math.random() * profileBanner.length)];
 	const dispatch = useDispatch();
 	const handleLogout = () => {
@@ -398,7 +397,6 @@ const Profile = () => {
 			plan: goalPlan ? goalPlan : goalEdit.plan,
 			notes: goalNotes ? goalNotes : goalEdit.notes,
 		}
-		// console.log(editedGoal)
 		editThisGoal(dispatch, editedGoal)
 		handleCancel()
 	}
@@ -415,7 +413,6 @@ const Profile = () => {
 					<EditGoalContainer>
 						<div className="container">
 							<h3>Goal</h3>
-							{/*<input value={goalPlan ? goalPlan : goalEdit.plan} rems={goalEdit.plan}/>*/}
 							<div>
 
 							<Plan
@@ -484,7 +481,6 @@ const Profile = () => {
 							<span>days from</span>
 							<Input
 								value={goalStartTime ? goalStartTime : prettierDate(goalEdit.start)}
-								// value={goalStartTime}
 								rems={prettierDate(goalEdit.start)}
 								placeholder={prettierDate(goalEdit.start)}
 								onChange={(e) => {
