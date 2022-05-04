@@ -1,6 +1,6 @@
 
 import {publicRequest, userRequest} from "../requestMethods";
-import {addGoal} from "./goalRedux";
+import {addGoal, editGoal} from "./goalRedux";
 
 
 export const addAGoal = async (dispatch, goal) => {
@@ -16,13 +16,13 @@ export const addAGoal = async (dispatch, goal) => {
 	}
 };
 
-export const getGoals = async (dispatch) => {};
-
-export const editgoals = async (dispatch, goals) => {
+export const editThisGoal = async (dispatch, goal) => {
 	try {
-		const newGoals = await publicRequest.post("api/", goals);
+		const editedGoal = await publicRequest.put("api/goal/", goal);
+		dispatch(editGoal(editedGoal.data))
+		return editedGoal;
 	} catch (err) {
-
+		return err
 	}
 
 };

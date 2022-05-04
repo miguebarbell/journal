@@ -25,7 +25,6 @@ router.post("/add",
 
 router.post("/", async (req, res) => {
 	// return all goals for user
-	// console.log(req.body)
 	try {
 		const goals = await Goal.find({
 			"user": req.body.email
@@ -38,16 +37,15 @@ router.post("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
 	try {
-		console.log(req.body)
-		const goal = await Goal.updateOne({
+		await Goal.updateOne({
 			movement: req.body.movement,
 			user: req.body.user,
 		},
 			{
 				$set: {
-					quantity: req.body.quantity,
+					quantity: +req.body.quantity,
 					unit: req.body.unit,
-					timeFrame: req.body.timeFrame,
+					timeFrame: +req.body.timeFrame,
 					start: req.body.start,
 					done: req.body.done,
 					gaveUp: req.body.gaveUp,
@@ -55,7 +53,8 @@ router.put("/", async (req, res) => {
 					notes: req.body.notes,
 				}
 			})
-		return res.status(200).json(goal)
+		const newGoal = await Goal.findOne({user: req.body.user, movement: req.body.movement})
+		return res.status(200).json(newGoal)
 	} catch (err) {
 		return res.status(500).json(err)
 	}

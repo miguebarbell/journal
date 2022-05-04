@@ -15,6 +15,10 @@ const goalSlice = createSlice({
 		addGoal: (state, action) => {
 			state.goals.push(action.payload.data);
 		},
+		editGoal: (state, action) => {
+			// update in place
+			state.goals[state.goals.findIndex(goal => goal.movement === action.payload.movement)] = action.payload;
+		},
 		setLogs: (state, action) => {
 			state.logs = action.payload;
 		},
@@ -36,5 +40,5 @@ const goalSlice = createSlice({
 	}
 });
 
-export const {setGoals, addGoal, setLogs, addLog, editLog, saveEdittedLog, deleteActiveLog} = goalSlice.actions;
+export const {setGoals, addGoal, setLogs, addLog, editLog, saveEdittedLog, deleteActiveLog, editGoal} = goalSlice.actions;
 export default goalSlice.reducer;
