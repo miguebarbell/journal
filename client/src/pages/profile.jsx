@@ -330,12 +330,22 @@ const Profile = () => {
 	const [goalNotes, setGoalNotes] = useState(goalEdit.notes);
 	const [editedGoal, setGoalEdited] = useState(false)
 	const timeReview = 30;
+	const resetGoal = (goal) => {
+		setGoalPlan(goal.plan)
+		setGoalQuantity(goal.quantity)
+		setGoalUnit(goal.unit)
+		setGoalTimeFrame(goal.timeFrame)
+		setGoalStartTime(prettierDate(goal.start))
+		setGoalNotes(goal.notes)
+
+	}
 	const addGoal = () => {
 		setDisplayingGoal(true);
 		document.title = "Adding goal.";
 	};
 	const handleEditGoal = (goal) => {
 		setGoalEdit(goal)
+		resetGoal(goal)
 	};
 	const handleCancel = () => {
 		setGoalEdit(false)
@@ -392,7 +402,7 @@ const Profile = () => {
 			user: user.email,
 			quantity: goalQuantity ? goalQuantity : goalEdit.quantity,
 			unit: goalUnit ? goalUnit : goalEdit.unit,
-			timeFrame: goalTimeFrame ? goalUnit : goalEdit.timeFrame,
+			timeFrame: goalTimeFrame ? goalTimeFrame : goalEdit.timeFrame,
 			start: goalStartTime ? goalStartTime : goalEdit.start,
 			plan: goalPlan ? goalPlan : goalEdit.plan,
 			notes: goalNotes ? goalNotes : goalEdit.notes,
@@ -558,7 +568,7 @@ const Profile = () => {
 			<h3>Distance</h3>
 			<h3>Strain</h3>
 			{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} : {goal.strain}</span>)}
-			{displayingGoal ? <AddGoal/> : null}
+			{displayingGoal ? <AddGoal show={setDisplayingGoal}/> : null}
 			<LogoutButton onClick={() => {
 				handleLogout();
 			}}>Log Out</LogoutButton>
