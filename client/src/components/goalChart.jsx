@@ -100,7 +100,7 @@ const GoalChart = ({goal, show}) => {
 				arrayOfAcummulatedVolume.push(accumulationForDay.value);
 				arrayOfMaxRelInt.push(accumulationForDay.relInt);
 				arrayOfMaxAbsInt.push(accumulationForDay.absInt);
-				arrayOfMaxAbsInt.push(accumulationForDay.times);
+				arrayOfTimes.push(accumulationForDay.times);
 			}
 			if (workingDay.toDateString() === accumulationForDay.date.toDateString()) {
 
