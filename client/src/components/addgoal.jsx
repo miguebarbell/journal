@@ -8,11 +8,11 @@ import {addAGoal} from "../redux/goalApiCalls";
 import {COLOR_FIVE, COLOR_THREE, COLOR_TWO} from "../conf";
 
 const Container = styled.div`
-  display: ${({show}) => show ? 'flex' : 'none'};
+  display: flex;
   height: 100vh;
   width: 100vw;
   position: fixed;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;
   -webkit-backdrop-filter: blur(10px);
@@ -20,6 +20,9 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  color: ${COLOR_TWO};
+  font-family: 'Cantarell', sans-serif;
+  font-weight: bold;
 `;
 const Form = styled.form`
   display: flex;
@@ -30,22 +33,36 @@ const Form = styled.form`
   * {
     margin: 0.25rem;
   }
+  textarea,
+  div select {
+    background-color: ${COLOR_THREE};
+    border: 1px solid ${COLOR_TWO};
+    border-radius: 5px;
+    font-family: 'Cantarell', sans-serif;
+  }
 `;
 const Input = styled.input`
-  
+  background-color: ${COLOR_THREE};
+  border: 1px solid ${COLOR_TWO};
+  border-radius: 5px;
+  margin-left: 0.5rem;
 `;
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 const Button = styled.button`
-  background-color: ${({color}) => color === "" ? COLOR_FIVE : "red"};
-  border: none;
-  padding: 0.25rem;
+  background-color: ${({color}) => color === "" ? "green" : "red"};
+  border: 2px solid ${({color}) => color === "" ? "green" : "red"};
+  //border: none;
+  padding: 0.25rem 0.5rem;
   cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
   &:hover {
-    color: ${COLOR_FIVE};
-    background-color: ${({color}) => color === "" ? COLOR_TWO : "red"};
+    //color: ${COLOR_FIVE};
+    color: ${({color}) => color === "" ? "green" : "red"};
+    background-color: ${({color}) => color === "" ? "white" : "white"};
   }
 `;
 const Error = styled.div`
@@ -55,17 +72,12 @@ const Error = styled.div`
   width: 100%;
   text-transform: capitalize;
   text-align: center;
-  //position: absolute;
-  //background-color: rgba(0, 0, 0, 0.5);
-  //display: flex;
-  //align-items: center;
 `;
 
-const AddGoal = () => {
-  const [displayingForm, setDisplayingForm] = useState(true);
+const AddGoal = ({show}) => {
+  // const [displayingForm, setDisplayingForm] = useState(true);
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user.currentUser);
   const [movement, setMovement] = useState("");
   const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState("kgs");
@@ -81,11 +93,7 @@ const AddGoal = () => {
     }, 2000)
 
   }
-  const handleCancel = () => {
-    //fixme: this doesnt work properly
-    setDisplayingForm(false);
-  };
-  const handleSave = (e) => {
+  const handleSave = () => {
     // e.preventDefault();
     const newGoal = {
       user: user.email,
@@ -97,16 +105,15 @@ const AddGoal = () => {
       start: start,
       notes: notes
     };
-    // console.log(newGoal);
     if (unit === null || quantity === null) {
       handleError("select a quantity")
       return
     }
     addAGoal(dispatch, newGoal);
-    setDisplayingForm(false);
+    show(false)
   };
     return (
-      <Container show={displayingForm}>
+        <Container>
 
           <Form>
             <label>Movement</label>
@@ -116,18 +123,22 @@ const AddGoal = () => {
               <Input placeholder="180" onChange={(e)=> setQuantity(e.target.value)} required value={quantity}/>
               <label>Unit</label>
               <select onChange={(e) => setUnit(e.target.value)} required value={unit}>
-                <option value="kgs">kilos</option>
-                <option value="lbs">pounds</option>
-                <option value="mts">meters</option>
-                <option value="mi">miles</option>
-                <option value="fts">feets</option>
-                <option value="min">minutes</option>
-                <option value="hrs">hours</option>
+                <option value="kgs">Kilos</option>
+                <option value="lbs">Pounds</option>
+                <option value="mts">Meters</option>
+                {/*<option value="mi">miles</option>*/}
+                <option value="fts">Feet</option>
+                <option value="min">Minutes</option>
+                {/*<option value="hrs">hours</option>*/}
+                {
+                  plan === 'habit' || plan === 'accu' ? <option value="times">Times</option> : null
+                }
               </select>
               <label >Plan</label>
               <select onChange={(e) => setPlan(e.target.value)} required value={plan}>
                 <option value="test">Max Attempt</option>
-                <option value="accu">Accumulation</option>
+                <option value="accu">Accumulate</option>
+                <option value="habit">Every Day</option>
               </select>
             </div>
 
@@ -142,7 +153,7 @@ const AddGoal = () => {
             <ButtonWrapper>
               <Button onClick={handleSave} color={errorMessage}>Save</Button>
               <Error>{errorMessage}</Error>
-              <Button onClick={handleCancel}>Cancel</Button>
+              <Button onClick={() => show(false)}>Cancel</Button>
             </ButtonWrapper>
           </Form>
         </Container>
