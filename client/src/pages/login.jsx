@@ -89,6 +89,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const handleClick = (e) => {
     e.preventDefault();
+    // fixme this should send {user: "the@email.foo", password: "yesThePa$$"}
     login(dispatch, {email, password});
   };
     return (

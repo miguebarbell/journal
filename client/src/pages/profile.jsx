@@ -314,6 +314,7 @@ const Plan = styled.select`
 `;
 
 const Profile = () => {
+	// todo: a delete goal method
 	const motivationQuote = profileBanner[Math.floor(Math.random() * profileBanner.length)];
 	const dispatch = useDispatch();
 	const handleLogout = () => {
@@ -448,8 +449,8 @@ const Profile = () => {
 							<Input
 								value={goalQuantity ? goalQuantity : goalEdit.quantity}
 								rems={goalQuantity ?
-									`${goalQuantity}`.split("").length < `${goalEdit.quantity}+`.split("").length ? `${goalQuantity}+` : `${goalEdit.quantity}+`
-									: `${goalEdit.quantity}+`}
+									`${goalQuantity}`.split("").length < `${goalEdit.quantity}++`.split("").length ? `${goalQuantity}++` : `${goalEdit.quantity}++`
+									: `${goalEdit.quantity}++`}
 								placeholder={goalEdit.quantity}
 								type="number"
 								onChange={(e) => {

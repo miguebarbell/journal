@@ -4,7 +4,8 @@
   "description": "Server side of the application for track a fitness journey.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "jest --watchAll --verbose --detectOpenHandles"
   },
   "keywords": [
