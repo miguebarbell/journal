@@ -23,8 +23,8 @@ Most Important, it will be **always free**.
   daily have to log in, if you don't clean it, you will always log in your session.
 - You can visualize the logs, from a general perspective or a goal specific.
 
-<img src="/doc/images/general-overview.png" alt="View of the general interface" heigth="300"/>
-<img src="/doc/images/goal-overview.png" alt="View of the goal interface" heigth="300"/>
+<img src="/doc/images/general-overview.png" alt="View of the general interface" height="300"/>
+<img src="/doc/images/goal-overview.png" alt="View of the goal interface" height="300"/>
 
 - You can select the type of the goal, iex: if you want to test your maximun deadlift, it will calculate your relative
   intensity with the Epsley formula, otherwise if your goal is an accumulation goal, like run 80000 mts in 30 days, it
