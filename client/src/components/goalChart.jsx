@@ -34,11 +34,12 @@ const GoalChart = ({goal, show}) => {
 			if (new Date(a.date) >= new Date(b.date)) return 1;
 			else return -1;
 		})
-
-
 	const options = {
 		responsive: true,
 		plugins: {
+			// filler: {
+			// 	propagate: true
+			// },
 			legend: {
 				position: 'top',
 			},
@@ -58,11 +59,11 @@ const GoalChart = ({goal, show}) => {
 			const firstDay = new Date(goal.start);
 			// should check every month change
 			// first day must be string indicating the day and month iex: May 20
-			if (i === 0) {
-				// 0 must be the initial goal date in the timeframe
-				arrayOfDays.push(`${stringMonths[firstDay.getMonth()]} ${firstDay.getDate()}`)
-				workingMonth = firstDay.getMonth()
-			}
+			// if (i === 0) {
+			// 	// 0 must be the initial goal date in the timeframe
+			// 	arrayOfDays.push(`${stringMonths[firstDay.getMonth()]} ${firstDay.getDate()}`)
+			// 	workingMonth = firstDay.getMonth()
+			// }
 			// check the month change
 			const workingDay = new Date(logsData[i].date);
 			if (workingDay.getMonth() !== workingMonth) {
@@ -80,30 +81,28 @@ const GoalChart = ({goal, show}) => {
 	}
 	const accumulationForDay = () => {
 		const arrayOfAcummulatedStrain = [];
-		const arrayOfAcummulatedVolume = [];
 		const arrayOfMaxRelInt = [];
 		const arrayOfMaxAbsInt = [];
 		const arrayOfTimes = [];
+		const arrayOfRange = [];
 		const firstDay = new Date(goal.start);
 		let accumulationForDay = {
 			date: firstDay,
 			value: 0,
 			relInt: 0,
 			absInt: 0,
-			times: 0
+			times: 0,
+			inRange: false
 		};
+		function isInRange(date) {
+			const firstDate = new Date(goal.start)
+			const lastDate = new Date(goal.start)
+			lastDate.setDate(lastDate.getDate() + goal.timeFrame)
+			return (date <= lastDate && date >= firstDate)
+		}
 		for (let i = 0; i < logsData.length; i++) {
 			const workingDay = new Date(logsData[i].date);
-			// no training the first day => push 0
-			if (i === 0 && firstDay.toDateString() !== workingDay.toDateString()) {
-				arrayOfAcummulatedStrain.push(accumulationForDay.value);
-				arrayOfAcummulatedVolume.push(accumulationForDay.value);
-				arrayOfMaxRelInt.push(accumulationForDay.relInt);
-				arrayOfMaxAbsInt.push(accumulationForDay.absInt);
-				arrayOfTimes.push(accumulationForDay.times);
-			}
 			if (workingDay.toDateString() === accumulationForDay.date.toDateString()) {
-
 				accumulationForDay.value += logsData[i].strain * logsData[i].sets * logsData[i].reps
 				if (logsData.length === 1) arrayOfAcummulatedStrain.push(accumulationForDay.value)
 				if (accumulationForDay.relInt < epleyFormula(logsData[i].strain, logsData[i].reps)) accumulationForDay.relInt = epleyFormula(logsData[i].strain, logsData[i].reps)
@@ -111,29 +110,43 @@ const GoalChart = ({goal, show}) => {
 				accumulationForDay.times += logsData[i].sets * logsData[i].reps
 				continue
 			} else {
-				accumulationForDay.date = workingDay
-				accumulationForDay.value = logsData[i].strain * logsData[i].sets * logsData[i].reps
-				accumulationForDay.relInt = epleyFormula(logsData[i].strain, logsData[i].reps)
-				accumulationForDay.absInt = logsData[i].strain
-				accumulationForDay.times = logsData[i].sets * logsData[i].reps
+				accumulationForDay.date = workingDay;
+				accumulationForDay.inRange = isInRange(workingDay);
+				accumulationForDay.value = logsData[i].strain * logsData[i].sets * logsData[i].reps;
+				accumulationForDay.relInt = epleyFormula(logsData[i].strain, logsData[i].reps);
+				accumulationForDay.absInt = logsData[i].strain;
+				accumulationForDay.times = logsData[i].sets * logsData[i].reps;
 			}
 			arrayOfAcummulatedStrain.push(accumulationForDay.value)
-			arrayOfAcummulatedVolume.push(accumulationForDay.value + arrayOfAcummulatedVolume[arrayOfAcummulatedVolume.length - 1])
 			arrayOfMaxRelInt.push(accumulationForDay.relInt)
 			arrayOfMaxAbsInt.push(accumulationForDay.absInt)
 			arrayOfTimes.push(accumulationForDay.times)
+			arrayOfRange.push(accumulationForDay.inRange)
+		}
+		const arrayOfAcummulatedVolume = () => {
+			const arrayForReturn = [];
+			for ( let i = 0; i < arrayOfAcummulatedStrain.length;i++){
+				if (i === 0) {
+					arrayForReturn.push(arrayOfAcummulatedStrain[i]);
+				} else {
+					arrayForReturn.push(arrayOfAcummulatedStrain[i] + arrayForReturn[arrayForReturn.length - 1]);
+				}
+			}
+			return arrayForReturn;
 		}
 		return {
 			dailyVol: arrayOfAcummulatedStrain,
-			accVol: arrayOfAcummulatedVolume,
+			accVol: arrayOfAcummulatedVolume(),
 			dailyRelInt: arrayOfMaxRelInt,
 			dailyAbsInt: arrayOfMaxAbsInt,
-			dailyTimes: arrayOfTimes
+			dailyTimes: arrayOfTimes,
+			inRange: arrayOfRange
 		};
 	}
 	let data = {}
-	const labels = allDays();
+	let labels = allDays();
 	const logStats = accumulationForDay();
+	labels = labels.filter((el, index) => (logStats.inRange[index]))
 	if (goal.plan === "accu") {
 		data = {
 			labels,
@@ -143,18 +156,30 @@ const GoalChart = ({goal, show}) => {
 					data: logStats.dailyVol,
 					backgroundColor: 'rgba(53, 162, 235, 0.5)',
 					borderColor: 'rgb(53, 162, 235)',
+					tension: 0.3,
+					pointRadius: 2,
 				},
 				{
 					label: 'Accumulated',
 					data: logStats.accVol,
 					backgroundColor: 'rgba(53, 62, 235, 0.5)',
 					borderColor: 'rgb(53, 62, 235)',
+					tension: 0.3,
+					pointRadius: 2,
 				},
 				{
 					label: 'Goal',
 					data: logStats.dailyVol.map(() => goal.quantity),
 					backgroundColor: 'rgba(255, 99, 132, 0.5)',
 					borderColor: 'rgb(255, 99, 132)',
+					fill: {
+						target: "origin",
+						above: 'rgba(0, 200, 0, 0.5)',   // Area will be red above the origin
+						below: 'rgb(0, 0, 255)'
+					},
+					pointRadius: 0,
+					pointHoverRadius: 0,
+					borderWidth: 1
 				},
 			],
 		};
@@ -168,20 +193,30 @@ const GoalChart = ({goal, show}) => {
 					data: logStats.dailyAbsInt,
 					backgroundColor: 'rgba(53, 62, 235, 0.5)',
 					borderColor: 'rgb(53, 62, 235)',
+					tension: 0.3,
+					pointRadius: 2,
 				},
 				{
 					label: 'Max Rel Int / day',
 					data: logStats.dailyRelInt,
 					backgroundColor: 'rgba(53, 162, 235, 0.5)',
 					borderColor: 'rgb(53, 162, 235)',
+					tension: 0.2,
+					pointRadius: 2
 				},
 				{
 					label: 'Goal',
 					data: logStats.dailyVol.map(() => goal.quantity),
 					backgroundColor: 'rgba(255, 99, 132, 0.5)',
 					borderColor: 'rgb(255, 99, 132)',
+					fill: true,
+					pointRadius: 0,
+					pointHoverRadius: 0,
+					borderWidth: 1
 				},
 			],
+
+			backgroundColor: ['rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.3)']
 		};
 	}
 	else if (goal.plan === "habit") {
@@ -193,18 +228,17 @@ const GoalChart = ({goal, show}) => {
 					data: logStats.dailyAbsInt,
 					backgroundColor: 'rgba(53, 62, 235, 0.5)',
 					borderColor: 'rgb(53, 62, 235)',
+					order: 1
 				},
-				// {
-				// 	label: 'Vol / day',
-				// 	data: logStats.dailyVol,
-				// 	backgroundColor: 'rgba(53, 162, 235, 0.5)',
-				// 	borderColor: 'rgb(53, 162, 235)',
-				// },
 				{
 					label: 'Goal',
 					data: logStats.dailyVol.map(() => goal.quantity),
 					backgroundColor: 'rgba(255, 99, 132, 0.5)',
 					borderColor: 'rgb(255, 99, 132)',
+					pointRadius: 0,
+					pointHoverRadius: 0,
+					order: 2,
+					borderWidth: 1
 				},
 			],
 		};
@@ -216,7 +250,7 @@ const GoalChart = ({goal, show}) => {
 				// type='line'
 				data={data}
 				options={options}
-			  type={'line'}/>
+			  />
 		</Container>
 	)
 }
