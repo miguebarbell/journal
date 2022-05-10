@@ -15,6 +15,22 @@ const Container = styled.div`
     display: none;
   }
   &:hover {
+    &:before {
+      content: "Not in Timeframe range";
+      font-weight: bold;
+      color: ${PRIMARY};
+      font-size: 0.8rem;
+      //height: 100%;
+      //background-color: rgba(0,0,0,.5);
+      text-align: center;
+      display: ${({show})=> show ? "none" : "flex"};
+      align-content: center;
+      justify-content: center;
+      position: absolute;
+      transform: translate(0, 0.85rem);
+      backdrop-filter: blur(7px);
+      //z-index: 1;
+    }
     svg {
       display: inherit;
       &:hover {
@@ -42,7 +58,7 @@ const DayContainer = styled.span`
   color: ${COLOR_THREE};
   font-weight: bold;
   font-size: 0.75rem;
-  z-index: 1;
+  //z-index: 1;
 `;
 
 const MonthContainer = styled.span`
@@ -52,7 +68,7 @@ const MonthContainer = styled.span`
   color: ${PRIMARY};
   font-size: 0.75rem;
   font-weight: bold;
-  z-index: 1;
+  //z-index: 1;
 `;
 
 const GoalContainer = styled.span`
@@ -62,9 +78,11 @@ const GoalContainer = styled.span`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  
 `;
 
 const Plus = styled.span`
+  display: ${({show}) => show ? "block" : "none"};
   color: ${PRIMARY_DISABLED};
   &:hover {
     color: ${SECONDARY};
@@ -92,6 +110,17 @@ const ButtonsContainer = styled.div`
 `;
 
 const Day = ({date, month, goal}) => {
+  // get the timeline of the goal
+  const goalObject = useSelector((state) => state.training.goals.filter((el) => el.movement === goal))[0]
+  const isInTheTimeFrame = () => {
+    if (goal !== "") {
+      const firstDay = new Date(goalObject.start)
+      const lastDay = new Date(goalObject.start)
+      lastDay.setDate(lastDay.getDate() + goalObject.timeFrame)
+      return (date <= lastDay && date >= firstDay)
+    }
+    return true
+  }
   date.setHours(0,0,0,0);
   const logs = useSelector((state) => state.training.logs);
   // month if for change the month, goal is to display inside the day what was done.
@@ -112,6 +141,7 @@ const Day = ({date, month, goal}) => {
   const drafts  = useSelector((state) => state.log.drafts);
   // const goals = useSelector((state) => state.training.goals);
   const selectedDay = useSelector((state) => state.log.day);
+
   const handleAddLog = () => {
     // todo don't allow add a log before the first day for the goal
     // check if in draft exist a draft of the movement in this day
@@ -138,7 +168,7 @@ const Day = ({date, month, goal}) => {
 
 
   return (
-        <Container today={isToday} selected={checkDays(selectedDay, date.toDateString())}>
+        <Container show={isInTheTimeFrame()} today={isToday} selected={checkDays(selectedDay, date.toDateString())}>
           <MonthContainer>
             {month && monthsArray[date.getMonth()]}
           </MonthContainer>
@@ -146,12 +176,12 @@ const Day = ({date, month, goal}) => {
             {date.getDate()}
           </DayContainer>
           <ButtonsContainer spread={goalThatDay || (movementThatDay && goal === "")}>
-            <Plus><AddCircleOutlineRoundedIcon fontSize="large" onClick={()=>{handleAddLog();}}  /></Plus>
+            <Plus show={isInTheTimeFrame()}><AddCircleOutlineRoundedIcon fontSize="large" onClick={()=>{handleAddLog();}}/></Plus>
             {(goalThatDay  // this check if the goal is in the day
               || (goal === "" && movementThatDay) ? // this check if the general view and you got logs on that day
-              <Plus><PageviewIcon fontSize="large" onClick={()=>{handleViewLog();}}/></Plus> : null)}
+              <Plus show={isInTheTimeFrame()}><PageviewIcon fontSize="large" onClick={()=>{handleViewLog();}}/></Plus> : null)}
           </ButtonsContainer>
-          <GoalContainer >
+          <GoalContainer>
 
             {
               (goal === "" && (!movementThatDay ? ""
