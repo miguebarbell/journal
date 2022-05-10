@@ -552,7 +552,7 @@ const Profile = () => {
 								</div>
 								<span>
                     {(timeFrame(goal.start, goal.timeFrame)).weeks > 0 ? "in " : ""}
-									{(timeFrame(goal.start, goal.timeFrame)).weeks > 0 ? `${(timeFrame(goal.start, goal.timeFrame)).rest} weeks ` : ""}
+									{(timeFrame(goal.start, goal.timeFrame)).weeks > 0 ? `${(timeFrame(goal.start, goal.timeFrame)).weeks} weeks ` : ""}
 									{(timeFrame(goal.start, goal.timeFrame)).rest > 0 ? `${(timeFrame(goal.start, goal.timeFrame)).rest} days` : ""}
                   </span>
 							</div>

@@ -98,17 +98,19 @@ const GoalChart = ({goal, show}) => {
 			const firstDate = new Date(goal.start)
 			const lastDate = new Date(goal.start)
 			lastDate.setDate(lastDate.getDate() + goal.timeFrame)
-			return (date <= lastDate && date >= firstDate)
+			return (date.getTime() <= lastDate.getTime() && date.getTime() >= firstDate.getTime())
 		}
 		for (let i = 0; i < logsData.length; i++) {
 			const workingDay = new Date(logsData[i].date);
 			if (workingDay.toDateString() === accumulationForDay.date.toDateString()) {
 				accumulationForDay.value += logsData[i].strain * logsData[i].sets * logsData[i].reps
-				if (logsData.length === 1) arrayOfAcummulatedStrain.push(accumulationForDay.value)
+				// if (logsData.length === 1) arrayOfAcummulatedStrain.push(accumulationForDay.value)
 				if (accumulationForDay.relInt < epleyFormula(logsData[i].strain, logsData[i].reps)) accumulationForDay.relInt = epleyFormula(logsData[i].strain, logsData[i].reps)
 				if (accumulationForDay.absInt < logsData[i].strain) accumulationForDay.absInt = logsData[i].strain
 				accumulationForDay.times += logsData[i].sets * logsData[i].reps
-				continue
+				accumulationForDay.inRange = isInRange(workingDay);
+				if (logsData.length !== 1) continue
+				// continue
 			} else {
 				accumulationForDay.date = workingDay;
 				accumulationForDay.inRange = isInRange(workingDay);
@@ -225,7 +227,7 @@ const GoalChart = ({goal, show}) => {
 			datasets: [
 				{
 					label: 'Times / day',
-					data: logStats.dailyAbsInt,
+					data: logStats.dailyTimes,
 					backgroundColor: 'rgba(53, 62, 235, 0.5)',
 					borderColor: 'rgb(53, 62, 235)',
 					order: 1

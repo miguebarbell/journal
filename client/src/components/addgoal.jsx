@@ -83,7 +83,7 @@ const AddGoal = ({show}) => {
   const [unit, setUnit] = useState("kgs");
   const [plan, setPlan] = useState("test");
   const [timeFrame, setTimeFrame] = useState("90");
-  const [start, setStart] = useState(new Date());
+  const [start, setStart] = useState((new Date()).toDateString());
   const [notes, setNotes] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const handleError = (message) => {
@@ -106,7 +106,7 @@ const AddGoal = ({show}) => {
       unit: unit,
       plan: plan,
       timeFrame: timeFrame,
-      start: start,
+      start: (new Date(start)).setHours(0,0,0,0).toLocaleString(),
       notes: notes
     };
     if (unit === null || quantity === null) {
@@ -119,7 +119,6 @@ const AddGoal = ({show}) => {
   };
     return (
         <Container>
-
           <Form>
             <label>Movement</label>
             <Input placeholder="Back-Squat" onChange={(e)=> setMovement(e.target.value)} required value={movement}/>

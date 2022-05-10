@@ -12,7 +12,8 @@ router.post("/add",
 			unit: req.body.unit,
 			plan: req.body.plan,
 			timeFrame: req.body.timeFrame,
-			start: req.body.start,
+			// start: req.body.start,
+			start: (new Date(req.body.start)).setHours(0,0,0,0),
 			notes: req.body.notes,
 		})
 		try {
@@ -46,7 +47,7 @@ router.put("/", async (req, res) => {
 					quantity: +req.body.quantity,
 					unit: req.body.unit,
 					timeFrame: +req.body.timeFrame,
-					start: req.body.start,
+					start: (new Date(req.body.start)).setHours(0,0,0,0),
 					done: req.body.done,
 					gaveUp: req.body.gaveUp,
 					plan: req.body.plan,
@@ -54,6 +55,7 @@ router.put("/", async (req, res) => {
 				}
 			})
 		const newGoal = await Goal.findOne({user: req.body.user, movement: req.body.movement})
+		console.log(newGoal)
 		return res.status(200).json(newGoal)
 	} catch (err) {
 		return res.status(500).json(err)
