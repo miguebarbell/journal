@@ -148,14 +148,16 @@ const GoalChart = ({goal, show}) => {
 	let data = {}
 	let labels = allDays();
 	const logStats = accumulationForDay();
+	// trim the labels
 	labels = labels.filter((el, index) => (logStats.inRange[index]))
+	console.log(labels)
 	if (goal.plan === "accu") {
 		data = {
 			labels,
 			datasets: [
 				{
 					label: 'Volume per day',
-					data: logStats.dailyVol,
+					data: logStats.dailyVol.filter((log, index) => logStats.inRange[index]),
 					backgroundColor: 'rgba(53, 162, 235, 0.5)',
 					borderColor: 'rgb(53, 162, 235)',
 					tension: 0.3,
@@ -163,7 +165,7 @@ const GoalChart = ({goal, show}) => {
 				},
 				{
 					label: 'Accumulated',
-					data: logStats.accVol,
+					data: logStats.accVol.filter((log, index) => logStats.inRange[index]),
 					backgroundColor: 'rgba(53, 62, 235, 0.5)',
 					borderColor: 'rgb(53, 62, 235)',
 					tension: 0.3,
@@ -192,7 +194,7 @@ const GoalChart = ({goal, show}) => {
 			datasets: [
 				{
 					label: 'Max Abs Int / day',
-					data: logStats.dailyAbsInt,
+					data: logStats.dailyAbsInt.filter((log, index) => logStats.inRange[index]),
 					backgroundColor: 'rgba(53, 62, 235, 0.5)',
 					borderColor: 'rgb(53, 62, 235)',
 					tension: 0.3,
@@ -200,7 +202,7 @@ const GoalChart = ({goal, show}) => {
 				},
 				{
 					label: 'Max Rel Int / day',
-					data: logStats.dailyRelInt,
+					data: logStats.dailyRelInt.filter((log, index) => logStats.inRange[index]),
 					backgroundColor: 'rgba(53, 162, 235, 0.5)',
 					borderColor: 'rgb(53, 162, 235)',
 					tension: 0.2,
@@ -227,7 +229,7 @@ const GoalChart = ({goal, show}) => {
 			datasets: [
 				{
 					label: 'Times / day',
-					data: logStats.dailyTimes,
+					data: logStats.dailyTimes.filter((log, index) => logStats.inRange[index]),
 					backgroundColor: 'rgba(53, 62, 235, 0.5)',
 					borderColor: 'rgb(53, 62, 235)',
 					order: 1
@@ -246,6 +248,7 @@ const GoalChart = ({goal, show}) => {
 		};
 	}
 
+	console.log(logStats);
 	return (
 		<Container show={(goal.movement === show)}>
 			<Line
