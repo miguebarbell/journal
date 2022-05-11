@@ -1,9 +1,12 @@
 const router = require("express").Router();
 
 const Log = require("../models/Log");
+const {verifyTokenAndAuth} = require("./verifyToken");
 
 // Create a log
-router.post("/", async (req, res) => {
+router.post("/",
+	verifyTokenAndAuth,
+	async (req, res) => {
 	const newLog = new Log(req.body)
 	try {
 		const savedLog = await newLog.save();
@@ -15,7 +18,9 @@ router.post("/", async (req, res) => {
 })
 
 // Edit a log
-router.put("/:id", async (req, res) => {
+router.put("/:id",
+	verifyTokenAndAuth,
+	async (req, res) => {
 	try {
 		await Log.findByIdAndUpdate(
 			req.params.id, {
@@ -32,7 +37,9 @@ router.put("/:id", async (req, res) => {
 })
 
 // Delete a log
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",
+	verifyTokenAndAuth,
+	async (req, res) => {
 	try {
 		await Log.findByIdAndDelete(req.params.id);
 		res.status(200).json(`log ${req.params.id} deleted`)
@@ -42,7 +49,9 @@ router.delete("/:id", async (req, res) => {
 })
 
 // Get a log
-router.get("/:id", async (req, res) => {
+router.get("/:id",
+	verifyTokenAndAuth,
+	async (req, res) => {
 	try {
 		const log = await Log.findByIdAndGet(req.params.id)
 		return res.status(200).json(log)
@@ -52,7 +61,9 @@ router.get("/:id", async (req, res) => {
 })
 
 // Get all logs
-router.get("/", async (req, res) => {
+router.get("/",
+	verifyTokenAndAuth,
+	async (req, res) => {
 	try {
 		const logs = await Log.find({
 			"email": req.body.email

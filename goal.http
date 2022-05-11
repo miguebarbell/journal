@@ -1,16 +1,18 @@
 ### add a goal
 POST http://localhost:5000/api/goal/add
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluQGRlYmxvYXQudXMiLCJpYXQiOjE2NTIyNzk5NzgsImV4cCI6MTY1MjUzOTE3OH0.VKsPCIlgtXYi4bCpuDWiU4m8qVl0SsiLu_kGFqyTnGU
 content-type: application/json
+
 
 {
   "user": "admin@debloat.us",
-  "movement": "Meditation",
-  "quantity": 360,
-  "unit": "min",
-  "plan": "accu",
+  "movement": "FrontSquat",
+  "quantity": 200,
+  "unit": "kgs",
+  "plan": "test",
   "timeFrame": 90,
-  "start": "2022-march-20",
-  "notes": "daily meditation"
+  "start": "2022-may-11",
+  "notes": "wooooooooooooohooooooooo"
 }
 
 ### get goals

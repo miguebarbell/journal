@@ -1,8 +1,10 @@
 const router = require("express").Router();
 const Goal = require("../models/Goal");
+const {verifyTokenAndAuth} = require("./verifyToken");
 
 
 router.post("/add",
+	verifyTokenAndAuth,
 	async (req, res) => {
 
 		const newGoal = new Goal({
@@ -24,7 +26,9 @@ router.post("/add",
 		}
 	})
 
-router.post("/", async (req, res) => {
+router.post("/",
+	verifyTokenAndAuth,
+	async (req, res) => {
 	// return all goals for user
 	try {
 		const goals = await Goal.find({

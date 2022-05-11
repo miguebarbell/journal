@@ -1,5 +1,5 @@
 import {loginFailure, loginSuccess, loginStart} from "./userRedux";
-import {publicRequest} from "../requestMethods";
+import {publicRequest, userRequest} from "../requestMethods";
 import {setLogs, setGoals} from "./goalRedux";
 
 
@@ -30,7 +30,7 @@ export const register = async (dispatch, user) => {
 export const edit = async (dispatch, user) => {
 
 	try{
-		await publicRequest.put("api/auth/", {user});
+		await userRequest.put("api/auth/", {user});
 	} catch (err) {
 		console.log(err);
 	}
