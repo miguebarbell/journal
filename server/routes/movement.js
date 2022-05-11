@@ -1,8 +1,11 @@
 const router = require("express").Router();
 const Movement = require("../models/Movement");
+const {verifyTokenAndAuth} = require("./verifyToken");
 
 // Create
-router.post("/", async (req, res) => {
+router.post("/",
+	verifyTokenAndAuth,
+	async (req, res) => {
 	const newMovement = new Movement({
 		user: req.body.user,
 		name: req.body.name,
@@ -20,7 +23,8 @@ router.post("/", async (req, res) => {
 })
 
 // Get all public movements and own movements
-router.get("/", async (req, res) => {
+router.get("/",
+	async (req, res) => {
 	try {
 		const userMovements = await Movement.find({user : req.body.user})
 		const defaultMovements = await Movement.find({user: "default"})
