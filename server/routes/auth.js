@@ -3,6 +3,8 @@ const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const {verifyTokenAndAuth} = require("./verifyToken");
+const Log = require("../models/Log");
+const Goal = require("../models/Goal");
 
 // Register a user, with an encrypted password
 router.post("/register", async (req, res) => {
@@ -38,10 +40,17 @@ router.post("/login", async (req, res) => {
 		// create the token
 		const accessToken = jwt.sign({
 			id: user.email,
+			isAdmin: user.isAdmin
 		}, process.env.JWT_SEC, {expiresIn: "3d"})
 		// hiding the password from the response
 		const {password, ...others} = user._doc;
-		return res.status(200).json({...others, accessToken})
+		const logs = await Log.find({
+			"email": req.body.email
+		})
+		const goals = await Goal.find({
+			"user": req.body.email
+		})
+		return res.status(200).json({user: {...others, accessToken}, logs: logs, goals: goals})
 	} catch (err) {
 		return res.status(500).json(err)
 	}
