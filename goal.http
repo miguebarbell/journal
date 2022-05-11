@@ -33,3 +33,13 @@ content-type: application/json
   "quantity": "8000"
 
 }
+
+### delete a goal
+POST http://localhost:5000/api/goal/delete
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluQGRlYmxvYXQudXMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NTIyOTAxMzgsImV4cCI6MTY1MjU0OTMzOH0.ZsXqGSS6EXA1F84AiTbhC7UGz1YXzBqYd_WdISK0vkE
+content-type: application/json
+
+{
+  "user": "admin@debloat.us",
+  "movement": "frontsquat"
+}

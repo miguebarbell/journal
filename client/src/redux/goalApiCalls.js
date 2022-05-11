@@ -1,6 +1,5 @@
-
 import {userRequest} from "../requestMethods";
-import {addGoal, editGoal} from "./goalRedux";
+import {addGoal, deleteGoal, editGoal} from "./goalRedux";
 
 
 export const addAGoal = async (dispatch, goal) => {
@@ -25,5 +24,14 @@ export const editThisGoal = async (dispatch, goal) => {
 	} catch (err) {
 		return err
 	}
-
 };
+
+export const deleteThisGoal = async (dispatch, goal) => {
+	try {
+		const goalToDelete = await userRequest.post("api/goal/delete", goal);
+		dispatch(deleteGoal(goalToDelete.data))
+		return goalToDelete;
+	} catch (err) {
+		return err;
+	}
+}

@@ -13,7 +13,7 @@ import {profileBanner} from "../components/quotes";
 import GoalChart from "../components/goalChart";
 import {BlurContainer, DataWrap, FormContainer, HeaderWrapper} from "../components/addLog";
 import {prettierDate} from "../components/helper";
-import {editThisGoal} from "../redux/goalApiCalls";
+import {deleteThisGoal, editThisGoal} from "../redux/goalApiCalls";
 
 const Author = styled.span`
   font-size: 0.75rem;
@@ -286,6 +286,15 @@ const Button = styled.button`
     }
   }
   &#cancel {
+    border: 2px solid orange;
+    background-color: orange;
+
+    &:hover {
+      background-color: white;
+      color: orange;
+    }
+  }
+  &#delete {
     border: 2px solid red;
     background-color: red;
 
@@ -353,6 +362,10 @@ const Profile = () => {
 		document.title =  `Journal App - Goals.`;
 		setGoalEdit(false)
 	};
+	const handleDelete = () => {
+		deleteThisGoal(dispatch, goalEdit)
+		handleCancel()
+	}
 	const user = useSelector((state) => state.user.currentUser);
 	const goals = useSelector((state) => state.training.goals);
 	const logs = useSelector((state) => state.training.logs);
@@ -518,6 +531,7 @@ const Profile = () => {
 					</EditGoalContainer>
 					<ButtonContainer>
 						<Button show={editedGoal} id="save" onClick={handleSave}>save</Button>
+						<Button show={true} id="delete" onClick={handleDelete}>delete</Button>
 						<Button show={true} id="cancel" onClick={handleCancel}>cancel</Button>
 					</ButtonContainer>
 				</FormContainer>

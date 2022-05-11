@@ -15,6 +15,9 @@ const goalSlice = createSlice({
 		addGoal: (state, action) => {
 			state.goals.push(action.payload.data);
 		},
+		deleteGoal: (state, action) => {
+			state.goals = state.goals.filter(goal => goal.movement !== action.payload.movement);
+		},
 		editGoal: (state, action) => {
 			// update in place
 			state.goals[state.goals.findIndex(goal => goal.movement === action.payload.movement)] = action.payload;

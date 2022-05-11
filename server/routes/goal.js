@@ -40,6 +40,20 @@ router.post("/",
 	}
 })
 
+router.post("/delete",
+	verifyTokenAndAuth,
+	async (req, res) => {
+	try {
+		const goal = await Goal.findOneAndDelete({
+			"user": req.body.user,
+			"movement": req.body.movement
+		})
+		return res.status(200).json(goal)
+	} catch (err) {
+		return res.status(500).json(err)
+	}
+	})
+
 router.put("/", async (req, res) => {
 	try {
 		await Goal.updateOne({
