@@ -55,19 +55,22 @@ const Banner = styled.div`
     justify-content: center;
     align-items: center;
     span {
+      color: ${COLOR_FOUR};
       &#name {
+        
         font-weight: bold;
         letter-spacing: 0.15rem;
         font-size: 1.5rem;
         //text-shadow: 0 2px 3px ${SECONDARY + "80"};
-        text-shadow: -1px -1px 1px ${COLOR_FOUR + "10"}, 1px 1px 1px ${COLOR_TWO + "50"};
+        text-shadow: -1px -1px 1px ${COLOR_FOUR + "10"}, 1px 1px 1px ${COLOR_TWO + "90"};
         
       }
       &#legend {
         font-family: 'Special Elite', cursive;
         letter-spacing: 0.25rem;
         font-size: 0.85rem;
-        text-shadow: 0 2px 3px ${SECONDARY + "80"};
+        //text-shadow: 0 2px 3px ${SECONDARY + "80"};
+         text-shadow: -1px -1px 1px ${COLOR_FOUR + "10"}, 1px 1px 1px ${COLOR_TWO + "90"};
       }
     }
     
