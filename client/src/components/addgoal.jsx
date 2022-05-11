@@ -106,7 +106,7 @@ const AddGoal = ({show}) => {
       unit: unit,
       plan: plan,
       timeFrame: timeFrame,
-      start: (new Date(start)).setHours(0,0,0,0).toLocaleString(),
+      start: start,
       notes: notes
     };
     if (unit === null || quantity === null) {
