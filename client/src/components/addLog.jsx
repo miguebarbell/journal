@@ -161,9 +161,6 @@ const Error = styled.span`
 `;
 
 const AddLog = () => {
-	// todo get the values from draft
-
-
 	// extract all the data from store
 	const goals = useSelector((state) => state.training.goals);
 	const drafts = useSelector((state) => state.log.drafts);

@@ -323,7 +323,6 @@ const Plan = styled.select`
 `;
 
 const Profile = () => {
-	// todo: a delete goal method
 	const motivationQuote = profileBanner[Math.floor(Math.random() * profileBanner.length)];
 	const dispatch = useDispatch();
 	const handleLogout = () => {
