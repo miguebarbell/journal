@@ -15,21 +15,21 @@ const Container = styled.div`
     display: none;
   }
   &:hover {
-    &:before {
+    &:after {
       content: "Not in Timeframe range";
       font-weight: bold;
-      color: ${PRIMARY};
+      color: ${PRIMARY + '90'};
       font-size: 0.8rem;
-      //height: 100%;
-      //background-color: rgba(0,0,0,.5);
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0,0,0,.7);
       text-align: center;
       display: ${({show})=> show ? "none" : "flex"};
       align-content: center;
       justify-content: center;
       position: absolute;
-      transform: translate(0, 0.85rem);
       backdrop-filter: blur(7px);
-      //z-index: 1;
+      align-items: center;
     }
     svg {
       display: inherit;
