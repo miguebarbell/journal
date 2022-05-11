@@ -150,7 +150,7 @@ const GoalChart = ({goal, show}) => {
 	const logStats = accumulationForDay();
 	// trim the labels
 	labels = labels.filter((el, index) => (logStats.inRange[index]))
-	console.log(labels)
+	// console.log(labels)
 	if (goal.plan === "accu") {
 		data = {
 			labels,
@@ -181,7 +181,7 @@ const GoalChart = ({goal, show}) => {
 						above: 'rgba(0, 200, 0, 0.5)',   // Area will be red above the origin
 						below: 'rgb(0, 0, 255)'
 					},
-					pointRadius: 0,
+					pointRadius: logStats.dailyVol.length === 1 ? 2 : 0,
 					pointHoverRadius: 0,
 					borderWidth: 1
 				},
@@ -213,8 +213,8 @@ const GoalChart = ({goal, show}) => {
 					data: logStats.dailyVol.map(() => goal.quantity),
 					backgroundColor: 'rgba(255, 99, 132, 0.5)',
 					borderColor: 'rgb(255, 99, 132)',
+					pointRadius: logStats.dailyVol.length === 1 ? 2 : 0,
 					fill: true,
-					pointRadius: 0,
 					pointHoverRadius: 0,
 					borderWidth: 1
 				},
@@ -239,7 +239,7 @@ const GoalChart = ({goal, show}) => {
 					data: logStats.dailyVol.map(() => goal.quantity),
 					backgroundColor: 'rgba(255, 99, 132, 0.5)',
 					borderColor: 'rgb(255, 99, 132)',
-					pointRadius: 0,
+					pointRadius: logStats.dailyVol.length === 1 ? 2 : 0,
 					pointHoverRadius: 0,
 					order: 2,
 					borderWidth: 1
@@ -248,7 +248,7 @@ const GoalChart = ({goal, show}) => {
 		};
 	}
 
-	console.log(logStats);
+	// console.log(logStats);
 	return (
 		<Container show={(goal.movement === show)}>
 			<Line
