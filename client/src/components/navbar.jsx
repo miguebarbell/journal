@@ -85,20 +85,19 @@ const Navbar = () => {
           <Link to="/">
             <Logo><FitnessCenterIcon/>&nbsp;Calendar</Logo>
           </Link>
-          <Banner>
-            <img src={logo} alt='no straight line to a flag.'/>
-            <div>
-              <span id="name">
-                Journal
-              </span>
-              <span id="legend">
-                Achieve Anything
-              </span>
-            </div>
-
-          </Banner>
-
-          {/*<Search placeholder="Search..."/>*/}
+          <Link to="/about">
+            <Banner>
+              <img src={logo} alt='no straight line to a flag.'/>
+              <div>
+                <span id="name">
+                  Journal
+                </span>
+                <span id="legend">
+                  Achieve Anything
+                </span>
+              </div>
+            </Banner>
+          </Link>
           <Link to="/profile">
             <Logo><AccountBoxIcon/>&nbsp;{name}</Logo>
           </Link>
