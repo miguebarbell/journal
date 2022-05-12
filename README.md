@@ -1,17 +1,25 @@
 # Journal
 
+**ENTER <a href="http://journal.debloat.us">HERE<a>**
+
 > > Status: **Active Development**.
 >
 > An effective tracker and visualizer for your goals.
 
 ## Description
+
 <img src="/doc/images/calendar.png" alt="calendar view" width="700"/>
 
-Intuative application, with a responsive design, that allow you to track the progress towards your goals.
+Intuitive application, with a responsive design, that allow you to track the progress towards your goals.
 
 ## Features
 
 Most Important, it will be **always free**.
+Type of goals:
+
+- test (test 1rep maximum)
+- accu (volume in a target time)
+- habit (try to do it everyday)
 
 ## General
 
@@ -35,11 +43,13 @@ Most Important, it will be **always free**.
 
 ## Privacy Friendly
 
-- It renders a random picture of a robot for your profile, with a random motivational quote with the author.
+- It renders a random picture of a robot for your profile(from dicebear.com), with a random motivational quote with the
+  author.
 
 <img src="/doc/images/banner.png" alt="banner" width="500"/>
 
-- Your password is first hashed and then stored in the database, protection if the database is hacked or leaked.
+- Your password is first hashed with CryptoJS and then stored in the database, protection if the database is hacked or
+  leaked.
 - It just ask for your email, we use an email parameter because it seems to be unique,
 
 # Usage
@@ -48,12 +58,45 @@ Most Important, it will be **always free**.
 2. Add the target goal.
 3. Start logging for your goal.
 
-# TODO
+# Technical Specifications:
+
+gitlab:
+github:
+live:
+
+### Front-End
+
+#### Javascript:
+
+> react
+> styled components
+> redux
+> react-charts-2
+> axios
+> JWT
+
+### Back-End
+
+#### node.js
+
+> express
+> MongoDB
+> mongoose
+> cors
+> CryptoJS
+> JWT
+
+### Test
+
+> jest
+> supertest
+
+# TODOS
 
 - [x] Implement permissions for user or admin in the DB.
 - [ ] Add a custom picture for the profile.
-- [ ] Implement request permissions with token in the server.
-- [ ] Implement request permissions with token in client.
+- [x] Implement request permissions with token in the server.
+- [x] Implement request permissions with token in client.
 - [ ] Hide redundant parameters in forms when adding a log or goal.
 - [ ] Notification / animation if the goal is reached.
 - [ ] Restrict logging outside timeframe.
