@@ -3,6 +3,9 @@ import {COLOR_FIVE, COLOR_FOUR, COLOR_ONE, COLOR_THREE, COLOR_TWO, PRIMARY, SECO
 import img from '../bg/so-you-wanna-be-an-mma-fighter.jpg';
 import {useState} from "react";
 
+// TODO: make a span with class highlight, and make it fun, like with a real highlight.
+
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -58,14 +61,14 @@ const Footer = styled.div`
   color: ${ COLOR_FOUR };
   padding: 1em 0.5rem;
   marquee {
-    font-weight: bold; 
+    font-weight: bold;
     overflow: hidden;
   }
 `;
 const ItemDocumentation = styled.div`
   background-color: ${COLOR_THREE};
   color: ${COLOR_TWO};
-  box-shadow: inset 0 0 4px ${COLOR_ONE}; 
+  box-shadow: inset 0 0 4px ${COLOR_ONE};
   margin: 1rem 0;
   &#banner {
     display: ${({show}) => show === 'profile-banner' ? 'flex' : 'none'};
@@ -169,6 +172,7 @@ const About = () => {
                 </h4>
                 <ItemDocumentation show={openSection} id="tab">
                   <p>This is the description of the tabs</p>
+									<p>Every tab represents a goal, having a general one to review all the activities, and every specific other tatb to review the logs for that specific goal.</p>
                 </ItemDocumentation>
               </div>
               <div onClick={() => handleOpenSection("calendar-month")}>
@@ -177,6 +181,11 @@ const About = () => {
                 </h4>
                 <ItemDocumentation show={openSection} id="month">
                   <p>This is the description of the weeks in the calendar.</p>
+									<p>It will have always 4 weeks for review, starting with monday, and the 5 week, it's the present week.</p>
+									<p>No you can't add logs in the future, by design, you already had to do the job towards the accomplishent of your goal.</p>
+									<p>The present day (today), will always the last day in the calendar, also is in other color (yelowish kind).</p>
+									<p>The first day in the calendar will tell you the month on that day, qith the first three letters of that month, in a purple color. Also if the month changesit will print the new month in that day in particular (1st day of the month).</p>
+									<p>The yellow number at the upper right, means the number of the day in the current month.</p>
                 </ItemDocumentation>
               </div>
               <div onClick={() => handleOpenSection("calendar-day")}>
@@ -184,7 +193,8 @@ const About = () => {
                   Day Overview
                 </h4>
                 <ItemDocumentation show={openSection} id="day">
-                  <p>This is the description for the day in the calendar</p>
+                  <p>In every day, you have the posibility of adding a log, only if the day is in the range (timeframe) of that specific goal, by pressing the plus icon.</p>
+									<p>Also you have the posibility of review the day if you have any log in that day, by pressing the lens icon.</p>
                 </ItemDocumentation>
               </div>
               <div onClick={() => handleOpenSection("calendar-addLog")}>
@@ -268,7 +278,12 @@ const About = () => {
                   Formulas
                 </h4>
                 <ItemDocumentation show={openSection} id="formulas">
-                  <p>This is the description of the banner</p>
+
+									<p>Relative intensity of a set is the expression in weight (strain) for a specific working set, in example, if you do 5 repetition of a deadlift at 100 kilos, the absolute intensity for that specific working set is 100 kilos, but the relative one is higher, because you did 5 repetitios, makes sense?</p>
+                  <p>For taking the relative intensity of a specific set, it use the Epley formula.</p>
+									<p>strain + (repetitions * (strain / 30 )) => 100 kilos + (5 repetitios * (100 kilos / 30)) => 116.6 kilos.</p>
+									<p>Disclaimer: Relative Intensity (RelInt) doesn't subsitute the Absolute Intensity (AbsInt), it a way to see the strain in the movement, if you want to make a Personal Record (PR), you should do it in the specific range on repetitios (usually 1). But it helps for preparing the body and the mind for the test, because if the case of deadlifting 5 times at 100 kilos, for sure you can make 1 repetition at 116 kilos</p>
+
                 </ItemDocumentation>
               </div>
               <div onClick={() => handleOpenSection("about-services")}>
@@ -276,7 +291,11 @@ const About = () => {
                   Hosting and privacy
                 </h4>
                 <ItemDocumentation show={openSection} id="services">
-                  <p>This is the description of the banner</p>
+                  <p>For this project I used a MongoDB Expressjs Reactjs Nosejs (M.E.R.N.) stack</p>
+									<p>The front-end is hosted in a free S3 bucket provided by Amazon Web Services (AWS), and the backend is in a free dyno at Heroku.</p>
+									<p>All the requests are validated with a token (JWT) in the server.</p>
+									<p>The code of this projects is free to reproduce, or fork, or analize! <a href="https://github.com/miguebarbell/journal/>at GitHub</a> or <a href="https://gitlab.com/redmike/journal/>GitLab</a> (prefer GitLab).</p>
+									<p></p>
                 </ItemDocumentation>
               </div>
               <div onClick={() => handleOpenSection("about-miguel")}>
@@ -284,7 +303,10 @@ const About = () => {
                   Who I'm?
                 </h4>
                 <ItemDocumentation show={openSection} id="miguel">
-                  <p>This is the description of the banner</p>
+                  <p>Hi, it's me!<span className="highlight">Miguel</span></p>
+									<p>Please, feel free to reach me out asking for a feature or reporting a bug o malfunction (shame on me!), or just to say Hi!.</p>
+									<p>You can always check for more at my webpage (it was my first one and I keep it kind of the same), or just for checkout my dog.</p>
+									<p>This project came to solve my problem of log the workouts for a specific goal. You should always work on a messuarable goal, or find an indirect way to meassure it.<p/>
                 </ItemDocumentation>
               </div>
             </List>
