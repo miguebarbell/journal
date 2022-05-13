@@ -1,9 +1,34 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import {COLOR_FIVE, COLOR_FOUR, COLOR_ONE, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
 import img from '../bg/so-you-wanna-be-an-mma-fighter.jpg';
 import {useState} from "react";
 
 // TODO: make a span with class highlight, and make it fun, like with a real highlight.
+
+const appearAnimation = keyframes`
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+`;
+const disappearAnimation = keyframes`
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+`;
+const blurAnimation = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 
 const Container = styled.div`
@@ -13,7 +38,7 @@ const Container = styled.div`
   justify-content: center;
   min-width: 100vw;
   min-height: 100vh;
-  background-image: linear-gradient(to bottom, ${PRIMARY + "50"}, ${SECONDARY + "50"}) , url(${({bg}) => bg});
+  background-image: linear-gradient(to bottom, ${PRIMARY + "50"}, ${SECONDARY + "50"}), url(${({bg}) => bg});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -70,13 +95,18 @@ const ItemDocumentation = styled.div`
   color: ${COLOR_TWO};
   box-shadow: inset 0 0 4px ${COLOR_ONE};
   margin: 1rem 0;
+  transition: all 3s ease-in-out;
+  animation: ${blurAnimation} 1.5s linear;
+
   &#banner {
     display: ${({show}) => show === 'profile-banner' ? 'flex' : 'none'};
-    //color: ${({show}) => show === 'profile-banner' ? SECONDARY : COLOR_FOUR};
+      //color: ${({show}) => show === 'profile-banner' ? SECONDARY : COLOR_FOUR};
   }
+
   &#goal {
     display: ${({show}) => show === 'profile-goal' ? 'flex' : 'none'};
   }
+
   &#chart {
     display: ${({show}) => show === 'profile-chart' ? 'flex' : 'none'};
   }
@@ -117,20 +147,26 @@ const ItemDocumentation = styled.div`
 const List = styled.div`
   flex-direction: column;
   padding: 0 3rem;
+  animation: ${blurAnimation} 1s linear;
+
   div h4 {
     cursor: pointer;
     margin: 0.5rem 0;
+
     &:hover {
       color: ${PRIMARY};
       text-decoration: underline;
     }
   }
+
   &#profile-section {
     display: ${({show}) => show.includes('profile') ? 'flex' : 'none'};
   }
+
   &#calendar-section {
     display: ${({show}) => show.includes('calendar') ? 'flex' : 'none'};
   }
+
   &#about-section {
     display: ${({show}) => show.includes('about') ? 'flex' : 'none'};
   }
@@ -150,6 +186,7 @@ const SectionTitle = styled.h2`
     text-decoration: ${({isActive}) => isActive.includes('about') ? 'underline' : 'inherit'};
   }
 `;
+
 
 const About = () => {
   // this state handle all the opens sections.
@@ -293,9 +330,10 @@ const About = () => {
                 <ItemDocumentation show={openSection} id="services">
                   <p>For this project I used a MongoDB Expressjs Reactjs Nosejs (M.E.R.N.) stack</p>
 									<p>The front-end is hosted in a free S3 bucket provided by Amazon Web Services (AWS), and the backend is in a free dyno at Heroku.</p>
-									<p>All the requests are validated with a token (JWT) in the server.</p>
-									<p>The code of this projects is free to reproduce, or fork, or analize! <a href="https://github.com/miguebarbell/journal/>at GitHub</a> or <a href="https://gitlab.com/redmike/journal/>GitLab</a> (prefer GitLab).</p>
-									<p></p>
+                  <p>All the requests are validated with a token (JWT) in the server.</p>
+                  <p>The code of this projects is free to reproduce, or fork, or analize! <a
+                    href="https://github.com/miguebarbell/journal/">at GitHub</a> or <a
+                    href="https://gitlab.com/redmike/journal/">GitLab</a> (prefer GitLab).</p>
                 </ItemDocumentation>
               </div>
               <div onClick={() => handleOpenSection("about-miguel")}>
@@ -305,8 +343,10 @@ const About = () => {
                 <ItemDocumentation show={openSection} id="miguel">
                   <p>Hi, it's me!<span className="highlight">Miguel</span></p>
 									<p>Please, feel free to reach me out asking for a feature or reporting a bug o malfunction (shame on me!), or just to say Hi!.</p>
-									<p>You can always check for more at my webpage (it was my first one and I keep it kind of the same), or just for checkout my dog.</p>
-									<p>This project came to solve my problem of log the workouts for a specific goal. You should always work on a messuarable goal, or find an indirect way to meassure it.<p/>
+                  <p>You can always check for more at my webpage (it was my first one and I keep it kind of the same),
+                    or just for checkout my dog.</p>
+                  <p>This project came to solve my problem of log the workouts for a specific goal. You should always
+                    work on a messuarable goal, or find an indirect way to meassure it.</p>
                 </ItemDocumentation>
               </div>
             </List>
