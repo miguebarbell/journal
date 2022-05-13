@@ -5,22 +5,6 @@ import {useState} from "react";
 
 // TODO: make a span with class highlight, and make it fun, like with a real highlight.
 
-const appearAnimation = keyframes`
-  from {
-    transform: scale(0);
-  }
-  to {
-    transform: scale(1);
-  }
-`;
-const disappearAnimation = keyframes`
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(0);
-  }
-`;
 const blurAnimation = keyframes`
   from {
     opacity: 0;
@@ -29,15 +13,14 @@ const blurAnimation = keyframes`
     opacity: 1;
   }
 `;
-
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   min-width: 100vw;
-  min-height: 100vh;
+  min-height: calc(100vh - 6.2rem);
+  //height: 50rem;
   background-image: linear-gradient(to bottom, ${PRIMARY + "50"}, ${SECONDARY + "50"}) , url(${({bg}) => bg});
   background-position: center;
   background-repeat: no-repeat;
@@ -53,11 +36,38 @@ const Container = styled.div`
     color: ${COLOR_FOUR};
   }
 `;
+const expandAnimation = keyframes`
+  0% {
+    height: 0;
+  }
+  //50% {
+  //  height: 3rem;
+  //}
+  90% {
+    height: 4rem;
+  }
+  100% {
+    height: auto;
+  }
+`;
 const Section = styled.div`
-  background-color: ${COLOR_TWO};
+  display: flex;
+  flex-direction: column;
+  //justify-content: flex-start;
+  transition: all ease-in-out 1s;
   width: 100vw;
   color: ${ COLOR_FOUR };
-  padding: 0.5rem 0;
+  //height: 4.5rem;
+  //height: 0;
+  flex: 0;
+  &#calendar {
+       height: ${({animate}) => (animate.includes('calendar')) && 'auto'};
+      flex: ${({animate}) => (animate.includes('calendar')) && 1};
+  }
+  &#profile {
+    height: ${({animate}) => (animate.includes('profile')) && 'auto'};
+    flex: ${({animate}) => (animate.includes('profile')) && 1};
+  }
   h2:hover {
     color: ${PRIMARY};
     text-decoration: underline;
@@ -79,15 +89,30 @@ const Footer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
   bottom: 0;
-  width: 100vw;
+  flex: 0;
+  width: 100%;
   background-color: ${COLOR_TWO};
   color: ${ COLOR_FOUR };
   padding: 1em 0.5rem;
+  margin: 0;
   marquee {
     font-weight: bold;
     overflow: hidden;
+  }
+`;
+const slideFromRight = keyframes`
+  0% {
+    margin-left: 100%;
+    width: 300%;
+  }
+  50% {
+    margin-left: 5%;
+    width: 100%;
+  }
+  100% {
+    margin-left: 0;
+    width: 100%;
   }
 `;
 const ItemDocumentation = styled.div`
@@ -97,10 +122,12 @@ const ItemDocumentation = styled.div`
   color: ${COLOR_TWO};
   box-shadow: inset 0 0 4px ${COLOR_ONE};
   margin: 1rem 0;
-  animation: ${blurAnimation} 1s;
+  padding: 0 1rem;
+  flex: 0;
+  animation: ${slideFromRight} 1s linear;
   &#banner {
     display: ${({show}) => show === 'profile-banner' ? 'flex' : 'none'};
-    //color: ${({show}) => show === 'profile-banner' ? SECONDARY : COLOR_FOUR};
+    flex: 1;
   }
   &#goal {
     display: ${({show}) => show === 'profile-goal' ? 'flex' : 'none'};
@@ -141,13 +168,21 @@ const ItemDocumentation = styled.div`
   &#miguel {
     display: ${({show}) => show === 'about-miguel' ? 'flex' : 'none'};
   }
+  p > span.highlight {
+    font-weight: bold;
+  }
 `;
 const List = styled.div`
-  flex-direction: column;
   padding: 0 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: ${COLOR_TWO};
+  overflow: hidden;
   div h4 {
     cursor: pointer;
     margin: 0.5rem 0;
+    animation: ${blurAnimation} 1.2s linear;
     &:hover {
       color: ${PRIMARY};
       text-decoration: underline;
@@ -164,7 +199,10 @@ const List = styled.div`
   }
 `;
 const SectionTitle = styled.h2`
-  padding: 0 2rem;
+  padding: 1rem 2rem;
+  margin: 0;
+  animation: ${blurAnimation} 0.5s linear;
+  background-color: ${COLOR_TWO};
   &#calendar {
     color: ${({isActive}) => isActive.includes('calendar') ? COLOR_THREE : 'inherit'};
     text-decoration: ${({isActive}) => isActive.includes('calendar') ? 'underline' : 'inherit'};
@@ -178,6 +216,9 @@ const SectionTitle = styled.h2`
     text-decoration: ${({isActive}) => isActive.includes('about') ? 'underline' : 'inherit'};
   }
 `;
+const MainContainer = styled.div`
+  overflow-x: hidden;
+`;
 
 const About = () => {
   // this state handle all the opens sections.
@@ -190,8 +231,9 @@ const About = () => {
     else setOpenSection(sectionToOpen)
   }
     return (
+      <MainContainer>
         <Container bg={img}>
-          <Section >
+          <Section animate={openSection} id="calendar">
             <SectionTitle id="calendar" onClick={() => handleOpenSection("calendar")} isActive={openSection}>Calendar</SectionTitle>
             <List show={openSection} id="calendar-section">
               <div>
@@ -204,7 +246,7 @@ const About = () => {
                 </ItemDocumentation>
               </div>
               <div>
-                <h4 onClick={() => handleOpenSection("calendar-tab")}>
+                <h4 onClick={() => handleOpenSection("calendar-month")}>
                   Month Overview (5 weeks)
                 </h4>
                 <ItemDocumentation show={openSection} id="month">
@@ -217,7 +259,7 @@ const About = () => {
                 </ItemDocumentation>
               </div>
               <div>
-                <h4 onClick={() => handleOpenSection("calendar-tab")}>
+                <h4 onClick={() => handleOpenSection("calendar-day")}>
                   Day Overview
                 </h4>
                 <ItemDocumentation show={openSection} id="day">
@@ -226,7 +268,7 @@ const About = () => {
                 </ItemDocumentation>
               </div>
               <div>
-                <h4 onClick={() => handleOpenSection("calendar-tab")}>
+                <h4 onClick={() => handleOpenSection("calendar-addLog")}>
                   Adding a Log
                 </h4>
                 <ItemDocumentation show={openSection} id="addLog">
@@ -234,7 +276,7 @@ const About = () => {
                 </ItemDocumentation>
               </div>
               <div>
-                <h4 onClick={() => handleOpenSection("calendar-tab")}>
+                <h4 onClick={() => handleOpenSection("calendar-editLog")}>
                   Editing a Log
                 </h4>
                 <ItemDocumentation show={openSection} id="editLog">
@@ -242,7 +284,7 @@ const About = () => {
                 </ItemDocumentation>
               </div>
               <div>
-                <h4 onClick={() => handleOpenSection("calendar-tab")}>
+                <h4 onClick={() => handleOpenSection("calendar-dayOverview")}>
                   Day Overview
                 </h4>
                 <ItemDocumentation show={openSection} id="dayOverview">
@@ -251,8 +293,8 @@ const About = () => {
               </div>
             </List>
           </Section>
-          <div className="spacer"/>
-          <Section >
+          {/*<div className="spacer"/>*/}
+          <Section animate={openSection} id="profile">
             <SectionTitle id="profile" onClick={() => handleOpenSection("profile")} isActive={openSection}>Profile</SectionTitle>
             <List show={openSection} id="profile-section">
               <div>
@@ -264,7 +306,7 @@ const About = () => {
                 </ItemDocumentation>
               </div>
               <div>
-                <h4 onClick={() => handleOpenSection("profile-banner")}>
+                <h4 onClick={() => handleOpenSection("profile-goal")}>
                   Goal
                 </h4>
                 <ItemDocumentation show={openSection} id="goal">
@@ -272,7 +314,7 @@ const About = () => {
                 </ItemDocumentation>
               </div>
               <div>
-                <h4 onClick={() => handleOpenSection("profile-banner")}>
+                <h4 onClick={() => handleOpenSection("profile-chart")}>
                   Chart
                 </h4>
                 <ItemDocumentation show={openSection} id="chart">
@@ -280,7 +322,7 @@ const About = () => {
                 </ItemDocumentation>
               </div>
               <div>
-                <h4 onClick={() => handleOpenSection("profile-banner")}>
+                <h4 onClick={() => handleOpenSection("profile-addGoal")}>
                   Adding a goal
                 </h4>
                 <ItemDocumentation show={openSection} id="addGoal">
@@ -288,7 +330,7 @@ const About = () => {
                 </ItemDocumentation>
               </div>
               <div>
-                <h4 onClick={() => handleOpenSection("profile-banner")}>
+                <h4 onClick={() => handleOpenSection("profile-overview")}>
                   Overview
                 </h4>
                 <ItemDocumentation show={openSection} id="overview">
@@ -297,8 +339,8 @@ const About = () => {
               </div>
             </List>
           </Section>
-          <div className="spacer"/>
-          <Section>
+          {/*<div className="spacer"/>*/}
+          <Section animate={openSection} id="about">
             <SectionTitle id="about" onClick={() => handleOpenSection("about")} isActive={openSection}>About</SectionTitle>
             <List show={openSection} id="about-section">
               <div>
@@ -315,7 +357,7 @@ const About = () => {
                 </ItemDocumentation>
               </div>
               <div>
-                <h4 onClick={() => handleOpenSection("about-formulas")}>
+                <h4 onClick={() => handleOpenSection("about-services")}>
                   Hosting and privacy
                 </h4>
                 <ItemDocumentation show={openSection} id="services">
@@ -326,7 +368,7 @@ const About = () => {
                 </ItemDocumentation>
               </div>
               <div>
-                <h4 onClick={() => handleOpenSection("about-formulas")}>
+                <h4 onClick={() => handleOpenSection("about-miguel")}>
                   Who I'm?
                 </h4>
                 <ItemDocumentation show={openSection} id="miguel">
@@ -338,15 +380,16 @@ const About = () => {
               </div>
             </List>
           </Section>
-          <Footer>
-            <marquee scrollamount="2">
-              Made with  💟 Love 💟  in MA, USA.
-              This is an <strong>Free Open Source Software</strong> project.
-              Enjoy you life and accomplish your dreams, it's short and only one.
-              <a href="mailto:journal@debloat.us">Contact me</a>.
-            </marquee>
-          </Footer>
         </Container>
+        <Footer>
+          <marquee scrollamount="2">
+          Made with  💟 Love 💟  in MA, USA.
+          This is an <strong>Free Open Source Software</strong> project.
+          Enjoy you life and accomplish your dreams, it's short and only one.
+          <a href="mailto:journal@debloat.us">Contact me</a>.
+        </marquee>
+        </Footer>
+</MainContainer>
     );
 };
 
