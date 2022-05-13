@@ -1,5 +1,5 @@
 import styled, {keyframes} from "styled-components";
-import {COLOR_FIVE, COLOR_FOUR, COLOR_ONE, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
+import {COLOR_FOUR, COLOR_ONE, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
 import img from '../bg/so-you-wanna-be-an-mma-fighter.jpg';
 import {useState} from "react";
 
@@ -38,7 +38,7 @@ const Container = styled.div`
   justify-content: center;
   min-width: 100vw;
   min-height: 100vh;
-  background-image: linear-gradient(to bottom, ${PRIMARY + "50"}, ${SECONDARY + "50"}), url(${({bg}) => bg});
+  background-image: linear-gradient(to bottom, ${PRIMARY + "50"}, ${SECONDARY + "50"}) , url(${({bg}) => bg});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -91,22 +91,20 @@ const Footer = styled.div`
   }
 `;
 const ItemDocumentation = styled.div`
+  display: flex;
+  flex-direction: column;
   background-color: ${COLOR_THREE};
   color: ${COLOR_TWO};
   box-shadow: inset 0 0 4px ${COLOR_ONE};
   margin: 1rem 0;
-  transition: all 3s ease-in-out;
-  animation: ${blurAnimation} 1.5s linear;
-
+  animation: ${blurAnimation} 1s;
   &#banner {
     display: ${({show}) => show === 'profile-banner' ? 'flex' : 'none'};
-      //color: ${({show}) => show === 'profile-banner' ? SECONDARY : COLOR_FOUR};
+    //color: ${({show}) => show === 'profile-banner' ? SECONDARY : COLOR_FOUR};
   }
-
   &#goal {
     display: ${({show}) => show === 'profile-goal' ? 'flex' : 'none'};
   }
-
   &#chart {
     display: ${({show}) => show === 'profile-chart' ? 'flex' : 'none'};
   }
@@ -147,26 +145,20 @@ const ItemDocumentation = styled.div`
 const List = styled.div`
   flex-direction: column;
   padding: 0 3rem;
-  animation: ${blurAnimation} 1s linear;
-
   div h4 {
     cursor: pointer;
     margin: 0.5rem 0;
-
     &:hover {
       color: ${PRIMARY};
       text-decoration: underline;
     }
   }
-
   &#profile-section {
     display: ${({show}) => show.includes('profile') ? 'flex' : 'none'};
   }
-
   &#calendar-section {
     display: ${({show}) => show.includes('calendar') ? 'flex' : 'none'};
   }
-
   &#about-section {
     display: ${({show}) => show.includes('about') ? 'flex' : 'none'};
   }
@@ -187,7 +179,6 @@ const SectionTitle = styled.h2`
   }
 `;
 
-
 const About = () => {
   // this state handle all the opens sections.
   const [openSection, setOpenSection] = useState('')
@@ -203,55 +194,55 @@ const About = () => {
           <Section >
             <SectionTitle id="calendar" onClick={() => handleOpenSection("calendar")} isActive={openSection}>Calendar</SectionTitle>
             <List show={openSection} id="calendar-section">
-              <div onClick={() => handleOpenSection("calendar-tab")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("calendar-tab")}>
                   Tabs
                 </h4>
                 <ItemDocumentation show={openSection} id="tab">
                   <p>This is the description of the tabs</p>
-									<p>Every tab represents a goal, having a general one to review all the activities, and every specific other tatb to review the logs for that specific goal.</p>
+									<p>Every tab represents a goal, having a general one to review all the activities, and every specific other tab to review the logs for that specific goal.</p>
                 </ItemDocumentation>
               </div>
-              <div onClick={() => handleOpenSection("calendar-month")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("calendar-tab")}>
                   Month Overview (5 weeks)
                 </h4>
                 <ItemDocumentation show={openSection} id="month">
                   <p>This is the description of the weeks in the calendar.</p>
 									<p>It will have always 4 weeks for review, starting with monday, and the 5 week, it's the present week.</p>
-									<p>No you can't add logs in the future, by design, you already had to do the job towards the accomplishent of your goal.</p>
-									<p>The present day (today), will always the last day in the calendar, also is in other color (yelowish kind).</p>
-									<p>The first day in the calendar will tell you the month on that day, qith the first three letters of that month, in a purple color. Also if the month changesit will print the new month in that day in particular (1st day of the month).</p>
+									<p>No you can't add logs in the future, by design, you already had to do the job towards the accomplishment of your goal.</p>
+									<p>The present day (today), will always the last day in the calendar, also is in other color (yellowish kind).</p>
+									<p>The first day in the calendar will tell you the month on that day, with the first three letters of that month, in a purple color. Also if the month changes it will print the new month in that day in particular (1st day of the month).</p>
 									<p>The yellow number at the upper right, means the number of the day in the current month.</p>
                 </ItemDocumentation>
               </div>
-              <div onClick={() => handleOpenSection("calendar-day")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("calendar-tab")}>
                   Day Overview
                 </h4>
                 <ItemDocumentation show={openSection} id="day">
-                  <p>In every day, you have the posibility of adding a log, only if the day is in the range (timeframe) of that specific goal, by pressing the plus icon.</p>
-									<p>Also you have the posibility of review the day if you have any log in that day, by pressing the lens icon.</p>
+                  <p>In every day, you have the possibility of adding a log, only if the day is in the range (timeframe) of that specific goal, by pressing the plus icon.</p>
+									<p>Also you have the possibility of review the day if you have any log in that day, by pressing the lens icon.</p>
                 </ItemDocumentation>
               </div>
-              <div onClick={() => handleOpenSection("calendar-addLog")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("calendar-tab")}>
                   Adding a Log
                 </h4>
                 <ItemDocumentation show={openSection} id="addLog">
                   <p>This is the description for adding a log</p>
                 </ItemDocumentation>
               </div>
-              <div onClick={() => handleOpenSection("calendar-editLog")}>
-                <h4>
-                  Editting a Log
+              <div>
+                <h4 onClick={() => handleOpenSection("calendar-tab")}>
+                  Editing a Log
                 </h4>
                 <ItemDocumentation show={openSection} id="editLog">
-                  <p>This is the description for editting a log.</p>
+                  <p>This is the description for editing a log.</p>
                 </ItemDocumentation>
               </div>
-              <div onClick={() => handleOpenSection("calendar-dayOverview")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("calendar-tab")}>
                   Day Overview
                 </h4>
                 <ItemDocumentation show={openSection} id="dayOverview">
@@ -264,40 +255,40 @@ const About = () => {
           <Section >
             <SectionTitle id="profile" onClick={() => handleOpenSection("profile")} isActive={openSection}>Profile</SectionTitle>
             <List show={openSection} id="profile-section">
-              <div onClick={() => handleOpenSection("profile-banner")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("profile-banner")}>
                   Banner
                 </h4>
                 <ItemDocumentation show={openSection} id="banner">
                   <p>This is the description of the banner</p>
                 </ItemDocumentation>
               </div>
-              <div onClick={() => handleOpenSection("profile-goal")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("profile-banner")}>
                   Goal
                 </h4>
                 <ItemDocumentation show={openSection} id="goal">
                   <p>This is the description of the banner</p>
                 </ItemDocumentation>
               </div>
-              <div onClick={() => handleOpenSection("profile-chart")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("profile-banner")}>
                   Chart
                 </h4>
                 <ItemDocumentation show={openSection} id="chart">
                   <p>This is the description of the banner</p>
                 </ItemDocumentation>
               </div>
-              <div onClick={() => handleOpenSection("profile-addGoal")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("profile-banner")}>
                   Adding a goal
                 </h4>
                 <ItemDocumentation show={openSection} id="addGoal">
                   <p>This is the description of the banner</p>
                 </ItemDocumentation>
               </div>
-              <div onClick={() => handleOpenSection("profile-overview")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("profile-banner")}>
                   Overview
                 </h4>
                 <ItemDocumentation show={openSection} id="overview">
@@ -310,43 +301,39 @@ const About = () => {
           <Section>
             <SectionTitle id="about" onClick={() => handleOpenSection("about")} isActive={openSection}>About</SectionTitle>
             <List show={openSection} id="about-section">
-              <div onClick={() => handleOpenSection("about-formulas")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("about-formulas")}>
                   Formulas
                 </h4>
                 <ItemDocumentation show={openSection} id="formulas">
 
-									<p>Relative intensity of a set is the expression in weight (strain) for a specific working set, in example, if you do 5 repetition of a deadlift at 100 kilos, the absolute intensity for that specific working set is 100 kilos, but the relative one is higher, because you did 5 repetitios, makes sense?</p>
+									<p>Relative intensity of a set is the expression in weight (strain) for a specific working set, in example, if you do 5 repetition of a dead-lift at 100 kilos, the absolute intensity for that specific working set is 100 kilos, but the relative one is higher, because you did 5 repetitions, makes sense?</p>
                   <p>For taking the relative intensity of a specific set, it use the Epley formula.</p>
-									<p>strain + (repetitions * (strain / 30 )) => 100 kilos + (5 repetitios * (100 kilos / 30)) => 116.6 kilos.</p>
-									<p>Disclaimer: Relative Intensity (RelInt) doesn't subsitute the Absolute Intensity (AbsInt), it a way to see the strain in the movement, if you want to make a Personal Record (PR), you should do it in the specific range on repetitios (usually 1). But it helps for preparing the body and the mind for the test, because if the case of deadlifting 5 times at 100 kilos, for sure you can make 1 repetition at 116 kilos</p>
+									<p>strain + (repetitions * (strain / 30 )) => 100 kilos + (5 repetitions * (100 kilos / 30)) => 116.6 kilos.</p>
+									<p>Disclaimer: Relative Intensity (RelInt) doesn't substitute the Absolute Intensity (AbsInt), it a way to see the strain in the movement, if you want to make a Personal Record (PR), you should do it in the specific range on repetitions (usually 1). But it helps for preparing the body and the mind for the test, because if the case of dead-lifting 5 times at 100 kilos, for sure you can make 1 repetition at 116 kilos</p>
 
                 </ItemDocumentation>
               </div>
-              <div onClick={() => handleOpenSection("about-services")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("about-formulas")}>
                   Hosting and privacy
                 </h4>
                 <ItemDocumentation show={openSection} id="services">
-                  <p>For this project I used a MongoDB Expressjs Reactjs Nosejs (M.E.R.N.) stack</p>
+                  <p>For this project I used a MongoDB Expressjs Reactjs Nodejs (M.E.R.N.) stack</p>
 									<p>The front-end is hosted in a free S3 bucket provided by Amazon Web Services (AWS), and the backend is in a free dyno at Heroku.</p>
-                  <p>All the requests are validated with a token (JWT) in the server.</p>
-                  <p>The code of this projects is free to reproduce, or fork, or analize! <a
-                    href="https://github.com/miguebarbell/journal/">at GitHub</a> or <a
-                    href="https://gitlab.com/redmike/journal/">GitLab</a> (prefer GitLab).</p>
+									<p>All the requests are validated with a token (JWT) in the server.</p>
+									<p>The code of this projects is free to reproduce, or fork, or analyze! <a href="https://github.com/miguebarbell/journal/">at GitHub</a> or <a href="https://gitlab.com/redmike/journal/">GitLab</a> (prefer GitLab).</p>
                 </ItemDocumentation>
               </div>
-              <div onClick={() => handleOpenSection("about-miguel")}>
-                <h4>
+              <div>
+                <h4 onClick={() => handleOpenSection("about-formulas")}>
                   Who I'm?
                 </h4>
                 <ItemDocumentation show={openSection} id="miguel">
                   <p>Hi, it's me!<span className="highlight">Miguel</span></p>
 									<p>Please, feel free to reach me out asking for a feature or reporting a bug o malfunction (shame on me!), or just to say Hi!.</p>
-                  <p>You can always check for more at my webpage (it was my first one and I keep it kind of the same),
-                    or just for checkout my dog.</p>
-                  <p>This project came to solve my problem of log the workouts for a specific goal. You should always
-                    work on a messuarable goal, or find an indirect way to meassure it.</p>
+									<p>You can always check for more at my webpage (it was my first one and I keep it kind of the same), or just for checkout my dog.</p>
+									<p>This project came to solve my problem of log the workouts for a specific goal. You should always work on a measurable goal, or find an indirect way to measure it.</p>
                 </ItemDocumentation>
               </div>
             </List>
