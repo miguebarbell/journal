@@ -1,5 +1,14 @@
 import styled from "styled-components";
-import {COLOR_FOUR, COLOR_ONE, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
+import {
+  COLOR_FOUR,
+  COLOR_ONE,
+  COLOR_THREE,
+  COLOR_TWO,
+  PRIMARY,
+  REACT_APP_DEMO_EMAIL,
+  REACT_APP_DEMO_PASS,
+  SECONDARY
+} from "../conf";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../redux/userApiCalls";
@@ -82,24 +91,35 @@ export const Input = styled.input`
 
 export const Error = styled.span``;
 
-const Login = () => {
+const Login = ({ user }) => {
   const {error} = useSelector(state => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const handleClick = (e) => {
     e.preventDefault();
-    // fixme this should send {user: "the@email.foo", password: "yesThePa$$"}
-    login(dispatch, {email, password});
+    if (user === 'demo') {
+      login(dispatch, {
+        email: REACT_APP_DEMO_EMAIL,
+        password: REACT_APP_DEMO_PASS
+      })
+    } else {
+      login(dispatch, {
+        email,
+        password
+      });
+    }
   };
+
     return (
         <Container bg={img}>
           <FormContainer>
             <div>
               <span id="title">Login</span> <Link to="/register"><span id="subtitle">Register</span></Link>
             </div>
-            <Input required placeholder="Username" onChange={(e) => setEmail(e.target.value)}/>
-            <Input required type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+            {user === 'demo' && <span>You will be logged in <br/> as a <strong>demonstration </strong> user.</span>}
+            <Input required placeholder="Username" onChange={(e) => setEmail(e.target.value)} value={user === 'demo' ? "demo" : email}/>
+            <Input required type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={user === "demo" ? "xxxxxx" : password}/>
             <Button onClick={handleClick}>Login</Button>
             {error && <Error>Something went wrong...</Error>}
           </FormContainer>

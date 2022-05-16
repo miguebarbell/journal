@@ -22,6 +22,7 @@ function App() {
       <Navbar/>
       <Routes>
         <Route exact path="/" element={user ? <Home/> : <Login/>}/>
+        <Route path="/demo" element={user.email === 'demo@debloat.us' ? <Profile/> : <Login user={'demo'}/>}/>
         <Route path="/day" element={user ? <Day/> : <Login/>}/>
         <Route path="/login" element={user ? <Profile/> : <Login/>}/>
         <Route path="/register" element={<Register/>}/>

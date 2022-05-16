@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const {verifyTokenAndAuth} = require("./verifyToken");
 const Log = require("../models/Log");
 const Goal = require("../models/Goal");
+const {demoUserGoals, demoUserLogs} = require("./demoUser");
 
 // Register a user, with an encrypted password
 router.post("/register", async (req, res) => {
@@ -18,7 +19,7 @@ router.post("/register", async (req, res) => {
 		const savedUser = await newUser.save();
 		// Just return the necessary information
 		const {password, name, email, ...others} = savedUser._doc;
-		return res.status(200).json({status:'Created new user.',name:name,email:email})
+		return res.status(200).json({status: 'Created new user.', name: name, email: email})
 	} catch (err) {
 		return res.status(500).json(err)
 	}
@@ -27,6 +28,7 @@ router.post("/register", async (req, res) => {
 // Login a user, the error from a bad email or a bad password must be the same, makes it more secure.
 router.post("/login", async (req, res) => {
 	// console.log(req.body)
+	// make a special login for demo user
 	try {
 		const user = await User.findOne({
 			email: req.body.email
@@ -44,10 +46,22 @@ router.post("/login", async (req, res) => {
 		}, process.env.JWT_SEC, {expiresIn: "3d"})
 		// hiding the password from the response
 		const {password, ...others} = user._doc;
-		const logs = await Log.find({
-			"email": req.body.email
+		if (user.email === 'demo@debloat.us') {
+			await Log.deleteMany({
+				user: 'demo@debloat.us'
+			})
+			await Goal.deleteMany({
+				user: 'demo@debloat.us'
+			})
+		}
+		const goals =
+			user.email === 'demo@debloat.us' ? await Goal.insertMany(demoUserGoals) :
+				await Goal.find({
+			"user": req.body.email
 		})
-		const goals = await Goal.find({
+		const logs =
+			user.email === 'demo@debloat.us' ? await Log.insertMany(demoUserLogs) :
+		await Log.find({
 			"user": req.body.email
 		})
 		return res.status(200).json({user: {...others, accessToken}, logs: logs, goals: goals})

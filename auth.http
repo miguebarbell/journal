@@ -1,11 +1,12 @@
 ### Register
-POST http://localhost:5000/api/auth/register/
+#POST http://localhost:5000/api/auth/register/
+POST http://journal-debloat.herokuapp.com/api/auth/register/
 Content-Type: application/json
 
 {
-  "email": "admin@debloat.us",
-  "password": "admin",
-  "name": "Miguel"
+  "email": "demo@debloat.us",
+  "password": "-MKP,i6uWS^j'cuBu;cWP/X$M",
+  "name": "Demo"
 }
 
 ### Login

@@ -11,3 +11,6 @@ export const COLOR_FIVE = '#FFFFFF';
 export const PRIMARY = '#d212ac';
 export const SECONDARY = '#00ffff';
 export const PRIMARY_DISABLED = '#36454f';
+
+export const REACT_APP_DEMO_PASS="-MKP,i6uWS^j'cuBu;cWP/X$M"
+export const REACT_APP_DEMO_EMAIL="demo@debloat.us"
