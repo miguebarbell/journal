@@ -212,6 +212,108 @@ const demoUserLogs = [
 		"date": log2StartDate.setDate(log2StartDate.getDate() + 1),
 		"notes": "ten percent!"
 	},
+
+	{
+		"user": "demo@debloat.us",
+		"movement": "Run",
+		"reps": 1,
+		"sets": 1,
+		"strain": 8000,
+		"unit": "mts",
+		"duration": 60,
+		"date": log2StartDate.setDate(log2StartDate.getDate() + 2),
+		"notes": "ten percent!"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Run",
+		"reps": 1,
+		"sets": 1,
+		"strain": 8000,
+		"unit": "mts",
+		"duration": 60,
+		"date": log2StartDate.setDate(log2StartDate.getDate() + 3),
+		"notes": "ten percent!"
+	},
+
+	{
+		"user": "demo@debloat.us",
+		"movement": "Run",
+		"reps": 1,
+		"sets": 1,
+		"strain": 4000,
+		"unit": "mts",
+		"duration": 60,
+		"date": log2StartDate.setDate(log2StartDate.getDate() + 2),
+		"notes": "ten percent!"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Run",
+		"reps": 1,
+		"sets": 1,
+		"strain": 10000,
+		"unit": "mts",
+		"duration": 60,
+		"date": log2StartDate.setDate(log2StartDate.getDate() + 2),
+		"notes": "ten percent!"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Run",
+		"reps": 1,
+		"sets": 1,
+		"strain": 8000,
+		"unit": "mts",
+		"duration": 60,
+		"date": log2StartDate.setDate(log2StartDate.getDate() + 2),
+		"notes": "ten percent!"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Run",
+		"reps": 1,
+		"sets": 1,
+		"strain": 8000,
+		"unit": "mts",
+		"duration": 60,
+		"date": log2StartDate.setDate(log2StartDate.getDate() + 3),
+		"notes": "ten percent!"
+	},
+
+	{
+		"user": "demo@debloat.us",
+		"movement": "Run",
+		"reps": 1,
+		"sets": 1,
+		"strain": 4000,
+		"unit": "mts",
+		"duration": 60,
+		"date": log2StartDate.setDate(log2StartDate.getDate() + 1),
+		"notes": "ten percent!"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Run",
+		"reps": 1,
+		"sets": 1,
+		"strain": 10000,
+		"unit": "mts",
+		"duration": 60,
+		"date": log2StartDate.setDate(log2StartDate.getDate() + 1),
+		"notes": "ten percent!"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Run",
+		"reps": 1,
+		"sets": 1,
+		"strain": 8000,
+		"unit": "mts",
+		"duration": 60,
+		"date": log2StartDate.setDate(log2StartDate.getDate() + 2),
+		"notes": "ten percent!"
+	},
 	// deadlift
 	{
 		"user": "demo@debloat.us",
@@ -486,6 +588,149 @@ const demoUserLogs = [
 		"unit": "kgs",
 		"duration": 15,
 		"date": log1StartDate.setDate(log1StartDate.getDate() + 2),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 2,
+		"sets": 3,
+		"strain": 130,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 2),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 3,
+		"sets": 3,
+		"strain": 120,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 1),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 6,
+		"sets": 3,
+		"strain": 110,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 1),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 3,
+		"sets": 3,
+		"strain": 150,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 1),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 6,
+		"sets": 3,
+		"strain": 130,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 1),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 1,
+		"sets": 3,
+		"strain": 203,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 2),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 2,
+		"sets": 3,
+		"strain": 130,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 2),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 3,
+		"sets": 3,
+		"strain": 120,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 1),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 6,
+		"sets": 3,
+		"strain": 110,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 1),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 1,
+		"sets": 3,
+		"strain": 203,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 2),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 2,
+		"sets": 3,
+		"strain": 130,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 2),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 3,
+		"sets": 3,
+		"strain": 120,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 1),
+		"notes": "building volume"
+	},
+	{
+		"user": "demo@debloat.us",
+		"movement": "Deadlift",
+		"reps": 6,
+		"sets": 3,
+		"strain": 110,
+		"unit": "kgs",
+		"duration": 15,
+		"date": log1StartDate.setDate(log1StartDate.getDate() + 1),
 		"notes": "building volume"
 	},
 	{
