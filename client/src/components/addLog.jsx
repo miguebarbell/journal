@@ -5,9 +5,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import {useState} from "react";
 // internal
 import {setActive, updateDraft} from "../redux/logRedux";
+import {sendLog} from "../redux/logApiCalls";
 // conf
 import {COLOR_FIVE, COLOR_THREE, COLOR_TWO} from "../conf";
-import {sendLog} from "../redux/logApiCalls";
 
 
 export const BlurContainer = styled.div`
