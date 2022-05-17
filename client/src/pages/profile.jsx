@@ -30,6 +30,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   min-height: calc(100vh - ${NAVBAR_HEIGHT});
+  padding: 1rem 0 2rem 0;
 
   div#edit-container {
     color: black;
@@ -88,15 +89,15 @@ const MotivationWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-	justify-content: flex-start;
+  justify-content: flex-start;
 `;
 const Quote = styled.span`
   font-style: italic;
   font-size: 1.5rem;
   font-family: 'Just Another Hand', cursive;
-	letter-spacing: 0.15rem;
-	padding: 0;
-	margin: 0;
+  letter-spacing: 0.15rem;
+  padding: 0;
+  margin: 0;
 `;
 const GoalsContainer = styled.div`
   padding: 1rem;
@@ -205,72 +206,77 @@ const GoalCard = styled.div`
   }
 `;
 const EditGoalContainer = styled.div`
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
   font-size: 1rem;
   text-align: center;
-	&:first-child {
-	}
-	div.container {
-		display: flex;
-		justify-content: flex-start;
-		align-items: flex-start;
-		flex-direction: column;
-		padding: 0 0.5rem;
-		border: 2px solid ${COLOR_THREE};
-		background-color: ${COLOR_THREE};
-		margin-bottom: 1rem;
+
+  &:first-child {
+  }
+
+  div.container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0 0.5rem;
+    border: 2px solid ${COLOR_THREE};
+    background-color: ${COLOR_THREE};
+    margin-bottom: 1rem;
     border-radius: 5px;
-		div {
-			display: flex;
-			flex-direction: row;
+
+    div {
+      display: flex;
+      flex-direction: row;
       justify-content: space-between;
-			width: 100%;
-			padding-bottom: 0.5rem;
-		}
-		
-	}
+      width: 100%;
+      padding-bottom: 0.5rem;
+    }
+
+  }
 `;
 const Input = styled.input`
   cursor: pointer;
   border: none;
   width: ${({rems}) => rems ? rems.split("").length + 'rem' : 'inherit'};
   font-family: 'Cantarell', sans-serif;
-	font-weight: bold;
+  font-weight: bold;
   font-size: 1rem;
   text-align: center;
-	text-transform: capitalize;
+  text-transform: capitalize;
   background-color: ${COLOR_THREE};
+
   &:before {
-      font-weight: normal;
-      //background-color: white;
-      content: "Edit";
-      //position: absolute;
-      transform: translate(0, -2rem);
-      display: none;
-      padding: 0.15rem 0.25rem;
-      border: 1px solid ${COLOR_THREE};
-      border-radius: 5px;
-    }
+    font-weight: normal;
+    //background-color: white;
+    content: "Edit";
+    //position: absolute;
+    transform: translate(0, -2rem);
+    display: none;
+    padding: 0.15rem 0.25rem;
+    border: 1px solid ${COLOR_THREE};
+    border-radius: 5px;
+  }
 
-    &:hover {
-      color: ${COLOR_TWO};
-      text-decoration: underline;
+  &:hover {
+    color: ${COLOR_TWO};
+    text-decoration: underline;
 
-      &:before {
-        display: inline-block;
-      }
+    &:before {
+      display: inline-block;
     }
   }
+}
 `;
 const TextArea = styled.textarea`
   width: ${({rems}) => rems ? rems.split("").length + 'em' : 'inherit'};
-	max-height: 3rem;
-	border: none;
-	cursor: pointer;
+  max-height: 3rem;
+  border: none;
+  cursor: pointer;
   font-family: 'Cantarell', sans-serif;
-  font-weight: bold;    
-	background-color: ${COLOR_THREE};
+  font-weight: bold;
+  background-color: ${COLOR_THREE};
+
   &:hover {
     color: ${COLOR_TWO};
     text-decoration: underline;
@@ -282,15 +288,18 @@ const Button = styled.button`
   cursor: pointer;
   padding: 0.15rem 0.5rem;
   border-radius: 5px;
-	display: ${({show}) => show !== false ? 'inline-block' : 'none'};
+  display: ${({show}) => show !== false ? 'inline-block' : 'none'};
+
   &#save {
     border: 2px solid green;
     background-color: green;
+
     &:hover {
       background-color: white;
       color: green;
     }
   }
+
   &#cancel {
     border: 2px solid orange;
     background-color: orange;
@@ -300,6 +309,7 @@ const Button = styled.button`
       color: orange;
     }
   }
+
   &#delete {
     border: 2px solid red;
     background-color: red;
@@ -315,17 +325,41 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
 `;
 const Plan = styled.select`
-	border: none;
-	background: none;
+  border: none;
+  background: none;
   cursor: pointer;
   font-family: 'Cantarell', sans-serif;
   font-weight: bold;
-	&:hover { 
-		text-decoration: underline;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  option {
+    background: none;
+  }
+`;
+const Review = styled.div`
+	display: flex;
+	flex-direction: column;
+
+	padding: 1rem 0;
+	h2, h3 {
+		padding: 0;
+		margin: 1rem 0;
 	}
-	option {
-		background: none;
-	}
+`;
+const TimeReviewInput = styled.input`
+	width: 4rem;
+	border: none;
+	background-color: transparent;
+	color: ${COLOR_FOUR};
+	font-size: 1.7rem;
+	align-items: center;
+	text-align: center;
+	font-family: inherit;
+	font-weight: bold;
+
 `;
 
 const Profile = () => {
@@ -346,7 +380,8 @@ const Profile = () => {
 	const [goalStartTime, setGoalStartTime] = useState(goalEdit.start);
 	const [goalNotes, setGoalNotes] = useState(goalEdit.notes);
 	const [editedGoal, setGoalEdited] = useState(false)
-	const timeReview = 30;
+	const [timeReview, setTimeReview] = useState(30)
+	// const timeReview = 30;
 	const resetGoal = (goal) => {
 		setGoalPlan(goal.plan)
 		setGoalQuantity(goal.quantity)
@@ -361,12 +396,12 @@ const Profile = () => {
 		document.title = "Adding goal.";
 	};
 	const handleEditGoal = (goal) => {
-		document.title =  `Editting ${goal.movement}.`;
+		document.title = `Editting ${goal.movement}.`;
 		setGoalEdit(goal)
 		resetGoal(goal)
 	};
 	const handleCancel = () => {
-		document.title =  `Journal App - Goals.`;
+		document.title = `Journal App - Goals.`;
 		setGoalEdit(false)
 	};
 	const handleDelete = () => {
@@ -403,17 +438,23 @@ const Profile = () => {
 			reps: 0,
 			duration: 0,
 			avgStrainPerSet: 0,
+			strainVol: 0,
 		};
 		logsForGoal.forEach(log => {
+			console.log()
+			response.strainVol += log.strain * log.reps * log.sets
 			response.strain += log.strain
 			response.sets += log.sets
 			response.reps += log.reps
 			response.duration += log.duration
+			response.unit = log.unit
 		})
 		response.avgStrainPerSet = isNaN(response.strain / response.sets) ? 0 : Math.round(response.strain / response.sets);
 		return response;
 	};
 	const accumulatedGoals = goals.map(goal => accumulative(goal.movement, timeReview))
+	console.log(accumulatedGoals);
+
 	const trimValue = (value) => {
 		if (value === String("")) return ' ';
 		else if (value < 1) return 1;
@@ -432,13 +473,13 @@ const Profile = () => {
 		}
 		editThisGoal(dispatch, editedGoal)
 		handleCancel()
-		document.title =  `Journal App - Goals.`;
+		document.title = `Journal App - Goals.`;
 	}
 	return (
 		<Container>
 			<BlurContainer show={goalEdit} id="edit-container">
 				<FormContainer>
-          <HeaderWrapper>
+					<HeaderWrapper>
 						<h2>{goalEdit.movement} goal</h2>
 						<DataWrap id="close">
 							<CloseIcon onClick={handleCancel}/>
@@ -449,91 +490,91 @@ const Profile = () => {
 							<h3>Goal</h3>
 							<div>
 
-							<Plan
-								value={goalPlan ? goalPlan : goalEdit.plan}
-								rems={goalEdit.plan}
-								onChange={(e) => {
-									setGoalPlan(e.target.value)
-									setGoalEdited(true)
-								}}
-							>
-								<option value="test">Max Attempt</option>
-								<option value="accu">Accumulate</option>
-								<option value="habit">Every Day</option>
-							</Plan>
-							&nbsp;
-							<span>
+								<Plan
+									value={goalPlan ? goalPlan : goalEdit.plan}
+									rems={goalEdit.plan}
+									onChange={(e) => {
+										setGoalPlan(e.target.value)
+										setGoalEdited(true)
+									}}
+								>
+									<option value="test">Max Attempt</option>
+									<option value="accu">Accumulate</option>
+									<option value="habit">Every Day</option>
+								</Plan>
+								&nbsp;
+								<span>
 								{goalEdit.movement}
 							</span>
-							&nbsp;
-							<Input
-								value={goalQuantity ? goalQuantity : goalEdit.quantity}
-								rems={goalQuantity ?
-									`${goalQuantity}`.split("").length < `${goalEdit.quantity}++`.split("").length ? `${goalQuantity}++` : `${goalEdit.quantity}++`
-									: `${goalEdit.quantity}++`}
-								placeholder={goalEdit.quantity}
-								type="number"
-								onChange={(e) => {
-									setGoalQuantity(trimValue(e.target.value))
-									setGoalEdited(true)
-								}}
-							/>
-							&nbsp;
-							<Plan
-								value={goalUnit ? goalUnit : goalEdit.unit}
-								rems={goalEdit.unit}
-								onChange={(e) => {
-									setGoalUnit(e.target.value)
-									setGoalEdited(true)
-								}}
-							>
-								<option value="kgs">Kilos</option>
-								<option value="lbs">Pounds</option>
-								<option value="min">Minutes</option>
-								<option value="mts">Meters</option>
-								<option value="fts">Feet</option>
-								{
-									goalPlan === 'habit' || goalPlan === 'accu' ? <option value="times">Times</option> : null
-								}
-							</Plan>
+								&nbsp;
+								<Input
+									value={goalQuantity ? goalQuantity : goalEdit.quantity}
+									rems={goalQuantity ?
+										`${goalQuantity}`.split("").length < `${goalEdit.quantity}++`.split("").length ? `${goalQuantity}++` : `${goalEdit.quantity}++`
+										: `${goalEdit.quantity}++`}
+									placeholder={goalEdit.quantity}
+									type="number"
+									onChange={(e) => {
+										setGoalQuantity(trimValue(e.target.value))
+										setGoalEdited(true)
+									}}
+								/>
+								&nbsp;
+								<Plan
+									value={goalUnit ? goalUnit : goalEdit.unit}
+									rems={goalEdit.unit}
+									onChange={(e) => {
+										setGoalUnit(e.target.value)
+										setGoalEdited(true)
+									}}
+								>
+									<option value="kgs">Kilos</option>
+									<option value="lbs">Pounds</option>
+									<option value="min">Minutes</option>
+									<option value="mts">Meters</option>
+									<option value="fts">Feet</option>
+									{
+										goalPlan === 'habit' || goalPlan === 'accu' ? <option value="times">Times</option> : null
+									}
+								</Plan>
 							</div>
 						</div>
 						<div className="container">
 							<h3>TIMEFRAME</h3>
 							<div>
 
-            <Input
-	            value={goalTimeFrame ? goalTimeFrame : goalEdit.timeFrame}
-	            rems={`${goalEdit.timeFrame}+`}
-	            placeholder={goalEdit.timeFrame}
-	            type="number"
-	            onChange={(e) => {
-								setGoalTimeFrame(trimValue(e.target.value))
-		            setGoalEdited(true)
-	            }}
-            />
-							<span>days from</span>
-							<Input
-								value={goalStartTime ? goalStartTime : prettierDate(goalEdit.start)}
-								rems={prettierDate(goalEdit.start)}
-								placeholder={prettierDate(goalEdit.start)}
-								onChange={(e) => {
-									setGoalStartTime(e.target.value === "" ? new String("") : e.target.value)
-									setGoalEdited(true)
-								}}
-							/>
-						</div>
-						<div>
-							<TextArea
-								value={goalNotes ? goalNotes : goalEdit.notes}
-								rems={goalEdit.notes}
-								placeholder={goalEdit.notes}
-								onChange={(e) => {
-									setGoalNotes(e.target.value === "" ? new String("") : e.target.value)
-									setGoalEdited(true)
-								}}
-							/>
-						</div>
+								<Input
+									value={goalTimeFrame ? goalTimeFrame : goalEdit.timeFrame}
+									rems={`${goalEdit.timeFrame}+`}
+									placeholder={goalEdit.timeFrame}
+									type="number"
+									onChange={(e) => {
+										setGoalTimeFrame(trimValue(e.target.value))
+										setGoalEdited(true)
+									}}
+								/>
+								<span>days from</span>
+								<Input
+									value={goalStartTime ? goalStartTime : prettierDate(goalEdit.start)}
+									rems={prettierDate(goalEdit.start)}
+									placeholder={prettierDate(goalEdit.start)}
+									onChange={(e) => {
+										setGoalStartTime(e.target.value === "" ? new String("") : e.target.value)
+										setGoalEdited(true)
+									}}
+								/>
+							</div>
+							<div>
+								<TextArea
+									value={goalNotes ? goalNotes : goalEdit.notes}
+									rems={goalEdit.notes}
+									placeholder={goalEdit.notes}
+									onChange={(e) => {
+										setGoalNotes(e.target.value === "" ? new String("") : e.target.value)
+										setGoalEdited(true)
+									}}
+								/>
+							</div>
 						</div>
 					</EditGoalContainer>
 					<ButtonContainer>
@@ -589,13 +630,15 @@ const Profile = () => {
 				addGoal();
 			}}>ADD A NEW GOAL</EditButton>
 			<span>you should focus in one at time</span>
-			<h2>Last {timeReview} days:</h2>
-			<h3>Time</h3>
-			{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} : {goal.duration}</span>)}
-			<h3>Distance</h3>
-			<h3>Strain</h3>
-			{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} : {goal.strain}</span>)}
-			{displayingGoal ? <AddGoal show={setDisplayingGoal}/> : null}
+			<Review>
+				<h2>Last <TimeReviewInput value={timeReview} type='number' onChange={(e) => setTimeReview(e.target.value)}/> days:</h2>
+				<h3>Time spent</h3>
+				{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} : {goal.duration} min</span>)}
+				<h3>Strain done</h3>
+				{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} : {goal.strainVol} {goal.unit}</span>)}
+				{displayingGoal ? <AddGoal show={setDisplayingGoal}/> : null}
+
+			</Review>
 			<LogoutButton onClick={() => {
 				handleLogout();
 			}}>Log Out</LogoutButton>
