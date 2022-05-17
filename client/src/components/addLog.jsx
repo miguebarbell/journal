@@ -7,7 +7,7 @@ import {useState} from "react";
 import {setActive, updateDraft} from "../redux/logRedux";
 import {sendLog} from "../redux/logApiCalls";
 // conf
-import {COLOR_FIVE, COLOR_THREE, COLOR_TWO} from "../conf";
+import {COLOR_FIVE, COLOR_FOUR, COLOR_THREE, COLOR_TWO} from "../conf";
 
 
 export const BlurContainer = styled.div`
@@ -55,6 +55,18 @@ const Form = styled.form`
 // `;
 const ButtonSubmit = styled.button`
   cursor: pointer;
+	background-color: ${COLOR_THREE};
+	border: 2px solid ${COLOR_THREE};
+	font-weight: bold;
+	color: ${COLOR_FOUR};
+	border-radius: 5px;
+	padding: 0.25rem 0;
+	font-size: 1rem;
+	&:hover {
+		//background-color: ${COLOR_FOUR};
+    background-color: white;
+		color: ${COLOR_TWO};
+	}
 `;
 export const HeaderWrapper = styled.div`
   display: flex;
@@ -96,7 +108,7 @@ export const DataWrap = styled.div`
     position: absolute;
     background: white;
     max-width: 6rem;
-    font-size: 0.85rem;
+    font-size: 0.65rem;
     display: block;
     border: 1px solid ${COLOR_THREE};
     border-radius: 10px;
@@ -119,23 +131,23 @@ export const DataWrap = styled.div`
   }
 
   &#strain:hover:after {
-    content: "strain";
+    content: "How much you did.";
   }
 
   &#reps:hover:after {
-    content: "reps";
+    content: "How many reps in each set.";
   }
 
   &#sets:hover:after {
-    content: "sets";
+    content: 'How many "times".';
   }
 
   &#time:hover:after {
-    content: "time";
+    content: "time, in minutes";
   }
 
   &#note:hover:after {
-    content: "note";
+    content: "What did you like about it? what don't what's next? write something, keep motivated!!";
   }
 
   &#note {
@@ -291,7 +303,7 @@ const AddLog = () => {
 						<textarea onChange={(e) => setNotesForm(e.target.value)} value={notesForm}/>
 					</DataWrap>
 					{errorMessage ? <Error>{errorMessage}</Error> : null}
-					<ButtonSubmit onClick={(e) => handleSubmit(e)}>Register!</ButtonSubmit>
+					<ButtonSubmit onClick={(e) => handleSubmit(e)}>Log It!</ButtonSubmit>
 				</Form>
 			</FormContainer>
 		</BlurContainer>
