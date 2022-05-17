@@ -95,7 +95,7 @@ const Calendar = () => {
     for (let i = 0; i < weeks*7 + 7; i++) {
       const dayToPush = new Date();
       dayToPush.setFullYear(firstMon.getFullYear());
-      // why twice? this is a bug
+      // why twice? this is a buggy
       dayToPush.setMonth(firstMon.getMonth());
       dayToPush.setMonth(firstMon.getMonth());
       dayToPush.setDate(firstMon.getDate() + i);
