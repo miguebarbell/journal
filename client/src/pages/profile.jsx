@@ -18,7 +18,9 @@ import {deleteThisGoal, editThisGoal} from "../redux/goalApiCalls";
 const Author = styled.span`
   font-size: 0.75rem;
   font-weight: bold;
-  font-family: 'Cinzel', serif;
+  //font-family: 'Cinzel', serif;
+  font-family: 'Comfortaa', cursive;
+  letter-spacing: 0.1rem;
 `;
 const Container = styled.div`
   color: ${COLOR_FOUR};
@@ -86,11 +88,15 @@ const MotivationWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+	justify-content: flex-start;
 `;
 const Quote = styled.span`
   font-style: italic;
   font-size: 1.5rem;
   font-family: 'Just Another Hand', cursive;
+	letter-spacing: 0.15rem;
+	padding: 0;
+	margin: 0;
 `;
 const GoalsContainer = styled.div`
   padding: 1rem;
@@ -323,6 +329,8 @@ const Plan = styled.select`
 `;
 
 const Profile = () => {
+
+	// window.location.reload()
 	const motivationQuote = profileBanner[Math.floor(Math.random() * profileBanner.length)];
 	const dispatch = useDispatch();
 	const handleLogout = () => {
@@ -537,11 +545,13 @@ const Profile = () => {
 			</BlurContainer>
 			<InfoWrapper>
 				<ProfilePicture src={`https://avatars.dicebear.com/api/bottts/${user.email}.svg`}/>
-				<Title>Hi {user.name}</Title>
-				<MotivationWrapper>
-					<Quote>{motivationQuote.text}</Quote>
-					<Author>{motivationQuote.author}</Author>
-				</MotivationWrapper>
+				<div>
+					<Title>Hi {user.name}</Title>
+					<MotivationWrapper>
+						<Quote>{motivationQuote.text}</Quote>
+						<Author>{motivationQuote.author}</Author>
+					</MotivationWrapper>
+				</div>
 			</InfoWrapper>
 			<GoalsContainer>
 				{goals.map((goal, index) => (
