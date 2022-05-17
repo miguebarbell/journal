@@ -78,7 +78,6 @@ const GoalContainer = styled.span`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  
 `;
 
 const Plus = styled.span`
