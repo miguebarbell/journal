@@ -37,7 +37,7 @@ router.put("/:id",
 })
 
 // Delete a log
-router.delete("/:id",
+router.post("/:id",
 	verifyTokenAndAuth,
 	async (req, res) => {
 	try {

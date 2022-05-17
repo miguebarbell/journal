@@ -239,7 +239,9 @@ const ModifyLog = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const goals = useSelector((state) => state.training.goals);
+  const user = useSelector((state) => state.user.currentUser.email);
   const handleConfirmDelete = () => {
+    console.log(log)
     deleteLog(dispatch, log);
     // reset everything
     setConfirmDeleteDialog(false);
@@ -318,6 +320,7 @@ const ModifyLog = () => {
       handleChange(change);
       setChange(0);
       editedLog['_id'] = log._id;
+      editedLog['user'] = user
       updateLog(dispatch, editedLog);
     }
   };

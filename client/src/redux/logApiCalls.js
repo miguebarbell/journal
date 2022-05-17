@@ -16,7 +16,8 @@ export const sendLog = async (dispatch, log) => {
 };
 
 export const updateLog = async (dispatch, log) => {
-	console.log("updating log for " + log._id);
+	// console.log("updating log for " + log._id);
+	// console.log(log)
 	try {
 		const newLog = await userRequest().put(`api/log/${log._id}`, log);
 		await dispatch(saveEdittedLog(newLog.data.log));
@@ -28,8 +29,9 @@ export const updateLog = async (dispatch, log) => {
 };
 
 export const deleteLog = async (dispatch, log) => {
+	// console.log(log)
 	try {
-		const response = await userRequest().delete(`api/log/${log._id}`);
+		const response = await userRequest().post(`api/log/${log._id}`, log);
 		if (response.status === 200) {
 			await dispatch(deleteActiveLog());
 		}
