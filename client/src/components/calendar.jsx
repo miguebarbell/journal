@@ -31,7 +31,16 @@ const GridContainer = styled.div`
     height: 4rem;
     border-radius: 3px;
     padding: 0.25rem;
-    width: 2.5rem;
+    width: 2rem;
+    @media only screen and (min-device-width: 350px) {
+      width: 2.25rem;
+    }
+    @media only screen and (min-device-width: 375px){
+      width: 2.5rem;
+    }
+    @media only screen and (min-device-width: 440px){
+      width: 3rem;
+    }
     @media only screen and (min-device-width: 640px){
       width: 4rem;
     }
@@ -127,7 +136,6 @@ const Calendar = () => {
   };
   const today = new Date();
   let weeks = dateRange(today, 4);
-  // add a new log
   let swap = []
   const handleTouchMove = (e) => {
     // detect left or right
@@ -145,20 +153,17 @@ const Calendar = () => {
       swap.push({x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY})
     }
   }
-
     return (
       <Container>
         <GoalsWrapper>
           <GoalSpan onClick={() => setGoal("")} goal={(goal === "")}>General</GoalSpan>
         {goals.map((tabGoal, index) => (
           <GoalSpan key={index} onClick={() => setGoal(tabGoal.movement)} goal={goal === tabGoal.movement}>{tabGoal.movement}</GoalSpan>
-
         ))}
         </GoalsWrapper>
         <CalendarWrapper>
         <ChangeMonthSpan left={true} onClick={() => setRelativeMonth(relativeMonth - 1)}><ArrowBackIosIcon/></ChangeMonthSpan>
         <GridContainer
-          onTouchStart={(e) => handleTouchMove(e)}
           onTouchMove={(e)=> handleTouchMove(e)}
           onTouchEnd={(e) => handleTouchMove(e)}
         >
@@ -173,7 +178,6 @@ const Calendar = () => {
           {relativeMonth === 0 && <ChangeMonthSpan disabled={true}><ArrowForwardIosIcon color="disabled"/></ChangeMonthSpan>}
         </CalendarWrapper>
         <DayDetails goal={goal}/>
-
       </Container>
     );
 };
