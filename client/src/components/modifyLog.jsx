@@ -95,39 +95,6 @@ const FormContainer = styled.div`
       color: red;
     }
   }
-  button {
-    cursor: pointer;
-    padding: 0.15rem 0.35rem;
-    font-weight: bold;
-    border-radius: 5px;
-    margin: 0.25rem 0.5rem;
-    width: 4rem;
-    &#cancelBtn {
-      background-color: ${COLOR_THREE};
-      border: solid 2px ${COLOR_THREE};      
-      &:hover {
-        color: ${COLOR_THREE};
-        background-color: ${SECONDARY};
-    }
-    }
-    &#saveBtn {
-      background-color: green;
-      border: solid 2px green;
-      &:hover {
-        color: green;
-        background-color: ${SECONDARY};
-      }
-    }
-    &#deleteBtn {
-      background-color: red;
-      border: solid 2px red;
-      &:hover {
-        color: red;
-        background-color: ${SECONDARY};
-      }
-    }
-
-  }
 `;
 const HeaderContainer = styled.div`
   display: flex;
@@ -189,14 +156,15 @@ const ConfirmDialog = styled.div`
   span {
     padding: 1rem;
   }
-  button {
+`;
+const Button = styled.button`
     cursor: pointer;
     padding: 0.15rem 0.35rem;
     font-weight: bold;
     border-radius: 5px;
     margin: 0.25rem 0.5rem;
     width: 4rem;
-    &#cancelBtn {
+    &.cancelBtn {
       background-color: ${COLOR_THREE};
       border: solid 2px ${COLOR_THREE};
       &:hover {
@@ -204,7 +172,7 @@ const ConfirmDialog = styled.div`
         background-color: ${SECONDARY};
       }
     }
-    &#saveBtn {
+    &.saveBtn {
       background-color: green;
       border: solid 2px green;
       &:hover {
@@ -212,7 +180,7 @@ const ConfirmDialog = styled.div`
         background-color: ${SECONDARY};
       }
     }
-    &#deleteBtn {
+    &.deleteBtn {
       background-color: red;
       border: solid 2px red;
       &:hover {
@@ -220,8 +188,7 @@ const ConfirmDialog = styled.div`
         background-color: ${SECONDARY};
       }
     }
-  }
-`;
+`
 const ModifyLog = () => {
   const dispatch = useDispatch();
   const log = useSelector((state) => state.training.showing);
@@ -351,14 +318,14 @@ const ModifyLog = () => {
               value={change}
               required
             />
-            <button onClick={handleSave}>save</button><button onClick={handleCancel}>cancel</button>
+            <Button className="saveBtn" onClick={handleSave}>save</Button><Button className="cancelBtn" onClick={handleCancel}>cancel</Button>
           </div>
         </EditDialog>
         <ConfirmDialog show={confirmDeleteDialog}>
           <span>Do you really want to delete?</span>
           <div>
-            <button id="cancelBtn" onClick={handleCancelDelete}>cancel</button>
-            <button id="deleteBtn" onClick={handleDelete}>delete</button>
+            <Button className="cancelBtn" onClick={handleCancelDelete}>cancel</Button>
+            <Button className="deleteBtn" onClick={handleDelete}>delete</Button>
           </div>
         </ConfirmDialog>
         <FormContainer show={!showDialog && !confirmDeleteDialog}>
@@ -386,10 +353,10 @@ const ModifyLog = () => {
             </div>
           </Container>
 
-          {edited ? <button id="saveBtn" onClick={handleSave}>save</button> : null}
+          {edited ? <Button className="saveBtn" onClick={handleSave}>save</Button> : null}
           <div>
-            <button id="cancelBtn" onClick={handleCancel}>cancel</button>
-            <button id="deleteBtn" onClick={handleDelete}>delete</button>
+            <Button className="cancelBtn" onClick={handleCancel}>cancel</Button>
+            <Button className="deleteBtn" onClick={handleDelete}>delete</Button>
           </div>
         </FormContainer>
       </BlurContainer>
