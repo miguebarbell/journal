@@ -342,23 +342,29 @@ const Plan = styled.select`
 const Review = styled.div`
 	display: flex;
 	flex-direction: column;
-
-	padding: 1rem 0;
+	font-family: Cantarell, sans-serif;
+	color: ${COLOR_TWO};
+	background-color: ${COLOR_FOUR};
+	padding: 0 2rem 1rem 2rem;
+	margin: 1rem;
+	border-radius: 5px;
 	h2, h3 {
 		padding: 0;
 		margin: 1rem 0;
 	}
 `;
 const TimeReviewInput = styled.input`
-	width: 4rem;
+	width: ${({value}) => value === 0 ? '10rem' : '4rem'};
+	position: ${({value}) => value === 0 ? 'absolute' : 'relative'};
+	transform: translateX(${({value}) => value === 0 ? '-3rem' : '0'});
 	border: none;
 	background-color: transparent;
-	color: ${COLOR_FOUR};
 	font-size: 1.7rem;
 	align-items: center;
 	text-align: center;
 	font-family: inherit;
 	font-weight: bold;
+	color: ${({value}) => value === 0 ? 'transparent' : 'inherit'};
 
 `;
 
@@ -386,7 +392,6 @@ const Profile = () => {
 	const [goalNotes, setGoalNotes] = useState(goalEdit.notes);
 	const [editedGoal, setGoalEdited] = useState(false)
 	const [timeReview, setTimeReview] = useState(30)
-	// const timeReview = 30;
 	const resetGoal = (goal) => {
 		setGoalPlan(goal.plan)
 		setGoalQuantity(goal.quantity)
