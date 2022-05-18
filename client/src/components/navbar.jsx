@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import InfoIcon from '@mui/icons-material/Info';
 // internal
 import logo from '../assets/flag-goal.png';
 // conf
@@ -19,6 +20,7 @@ const Container = styled.div`
   position: sticky;
   top: 0;
   z-index: 10;
+
   a {
     color: ${COLOR_FOUR};
     text-decoration: none;
@@ -39,9 +41,32 @@ const Logo = styled.div`
     color: ${SECONDARY};
     // text-decoration: underline ${PRIMARY};
   }
+
+  svg.aboutNav {
+    @media only screen
+    and (min-device-width : 600px) {
+      display: none;
+    }
+  }
+  span.aboutNav {
+    @media only screen
+    and (min-device-width : 600px) {
+      display: none;
+    }
+    @media only screen and (max-device-width :400px) {
+      display: none;
+    }
+  }
+  
 `;
+
 const Banner = styled.div`
   display: flex;
+  @media only screen
+  and (max-device-width : 600px) {
+    display: none;
+  }
+  
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -78,14 +103,19 @@ const Banner = styled.div`
 `;
 
 const Navbar = () => {
+
   // show navbar if user exists
   const {name} = useSelector(state => state.user.currentUser);
     return (
         <Container show={name}>
           <Link to="/">
-            <Logo><FitnessCenterIcon/>&nbsp;Calendar</Logo>
+            <Logo><FitnessCenterIcon/>&nbsp;<span>Calendar</span></Logo>
           </Link>
           <Link to="/about">
+            <Logo>
+              <InfoIcon className="aboutNav"/>
+              &nbsp;<span className="aboutNav">About</span>
+            </Logo>
             <Banner>
               <img src={logo} alt='no straight line to a flag.'/>
               <div>
@@ -99,7 +129,7 @@ const Navbar = () => {
             </Banner>
           </Link>
           <Link to="/profile">
-            <Logo><AccountBoxIcon/>&nbsp;{name}</Logo>
+            <Logo><AccountBoxIcon/>&nbsp;<span>{name}</span></Logo>
           </Link>
         </Container>
     );
