@@ -11,6 +11,7 @@ import {COLOR_FOUR, COLOR_ONE, COLOR_TWO, NAVBAR_HEIGHT, PRIMARY, PRIMARY_DISABL
 import DayDetails from "./daydetails";
 
 const Container = styled.div`
+  overflow-x: hidden;
   background-color: ${COLOR_TWO};
   color: ${COLOR_FOUR};
   display: flex;
@@ -28,9 +29,18 @@ const GridContainer = styled.div`
   justify-content: center;
   div {
     height: 4rem;
-    width: 6rem;
     border-radius: 3px;
     padding: 0.25rem;
+    width: 2.5rem;
+    @media only screen and (min-device-width: 640px){
+      width: 4rem;
+    }
+
+    @media only screen
+    and (min-device-width : 860px) {
+      width: 6rem;
+    }
+
   }
 `;
 const GoalsWrapper = styled.div`
@@ -63,6 +73,10 @@ const GoalSpan = styled.span`
   `;
 const ChangeMonthSpan = styled.span`
   cursor: ${({disabled}) => disabled ? "default" : "pointer"};
+  @media only screen
+  and (max-device-width : 500px) {
+    display: none;
+  }
   border: 1px solid transparent;
   &:hover {
     //color: ${PRIMARY};
@@ -114,6 +128,24 @@ const Calendar = () => {
   const today = new Date();
   let weeks = dateRange(today, 4);
   // add a new log
+  let swap = []
+  const handleTouchMove = (e) => {
+    // detect left or right
+      if (e._reactName === "onTouchEnd") {
+        if (Math.abs(swap[0].x - swap[swap.length - 1].x) > 50) {
+        if (swap[0].x - swap[swap.length - 1].x < 0) {
+          setRelativeMonth(relativeMonth - 1)
+        } else {
+          if (relativeMonth < 0) setRelativeMonth(relativeMonth + 1)
+        }
+    }
+      swap = []
+    }
+    if (e._reactName === "onTouchMove") {
+      swap.push({x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY})
+    }
+  }
+
     return (
       <Container>
         <GoalsWrapper>
@@ -125,7 +157,11 @@ const Calendar = () => {
         </GoalsWrapper>
         <CalendarWrapper>
         <ChangeMonthSpan left={true} onClick={() => setRelativeMonth(relativeMonth - 1)}><ArrowBackIosIcon/></ChangeMonthSpan>
-        <GridContainer>
+        <GridContainer
+          onTouchStart={(e) => handleTouchMove(e)}
+          onTouchMove={(e)=> handleTouchMove(e)}
+          onTouchEnd={(e) => handleTouchMove(e)}
+        >
             {headerDays.map((day, index) => (
               <LabelContainer key={index}>{day}</LabelContainer>
             ))}

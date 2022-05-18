@@ -1,7 +1,7 @@
 // external
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 // internal
@@ -45,10 +45,17 @@ const EditButton = styled.button`
   font-weight: bold;
   background-color: ${PRIMARY};
   color: ${COLOR_FOUR};
-
   &:hover {
     background-color: ${SECONDARY};
     color: ${COLOR_TWO};
+	  &:before {
+		  content: ${({ads}) => ads ? ads : 'no'};
+		  position: absolute;
+		  transform: translate(-2.8rem, -120%);
+		  border-radius: 5px;
+		  padding: 0.5rem;
+		  background-color: white;
+	  }
   }
 `;
 const Title = styled.h1`
@@ -374,8 +381,6 @@ const Profile = () => {
 		if (e.target.value < 0 || isNaN(e.target.value)) setTimeReview('')
 		else setTimeReview(+e.target.value)
 	}
-
-	// window.location.reload()
 	const motivationQuote = profileBanner[Math.floor(Math.random() * profileBanner.length)];
 	const dispatch = useDispatch();
 	const handleLogout = () => {
@@ -392,6 +397,8 @@ const Profile = () => {
 	const [goalNotes, setGoalNotes] = useState(goalEdit.notes);
 	const [editedGoal, setGoalEdited] = useState(false)
 	const [timeReview, setTimeReview] = useState(30)
+	const [adMessage, setAdMessage] = useState('')
+
 	const resetGoal = (goal) => {
 		setGoalPlan(goal.plan)
 		setGoalQuantity(goal.quantity)
@@ -451,7 +458,6 @@ const Profile = () => {
 			strainVol: 0,
 		};
 		logsForGoal.forEach(log => {
-			console.log()
 			response.strainVol += log.strain * log.reps * log.sets
 			response.strain += log.strain
 			response.sets += log.sets
@@ -463,7 +469,6 @@ const Profile = () => {
 		return response;
 	};
 	const accumulatedGoals = goals.map(goal => accumulative(goal.movement, timeReview))
-	console.log(accumulatedGoals);
 
 	const trimValue = (value) => {
 		if (value === String("")) return ' ';
@@ -485,6 +490,11 @@ const Profile = () => {
 		handleCancel()
 		document.title = `Journal App - Goals.`;
 	}
+	useEffect(() => {
+		if (goals.length > 2) {
+			setAdMessage('You should focus in one goal at a time.')
+		} else setAdMessage('Maintain a low goals length.')
+	}, [goals])
 	return (
 		<Container>
 			<BlurContainer show={goalEdit} id="edit-container">
@@ -638,8 +648,8 @@ const Profile = () => {
 			</GoalsContainer>
 			<EditButton onClick={() => {
 				addGoal();
-			}}>ADD A NEW GOAL</EditButton>
-			<span>you should focus in one at time</span>
+			}} ads={adMessage}>ADD A NEW GOAL</EditButton>
+			{/*<span>you should focus in one at time</span>*/}
 			<Review>
 				<h2>{timeReview === 0 ? 'All':'Last'} <TimeReviewInput value={timeReview} onChange={(e) => handleTimeReview(e)}/> days:</h2>
 				<h3>Time spent</h3>

@@ -11,6 +11,8 @@ import {addDraft, setActive, setActiveDay, setDraftActive} from "../redux/logRed
 import {COLOR_THREE, PRIMARY, PRIMARY_DISABLED, SECONDARY} from "../conf";
 
 const Container = styled.div`
+
+  font-family: 'Comfortaa', cursive;
   svg {
     display: none;
   }
@@ -37,7 +39,6 @@ const Container = styled.div`
       }
     }
   }
-  font-family: 'Comfortaa', cursive;
   position: relative;
   background-color: ${({today}) => today ? COLOR_THREE + "50" : "inherit"};
   border: 1px solid ${PRIMARY_DISABLED};
@@ -78,6 +79,10 @@ const GoalContainer = styled.span`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const Plus = styled.span`
@@ -103,6 +108,17 @@ const ButtonsContainer = styled.div`
   justify-content: ${({spread}) => spread ? "space-between" : "center"};
   position: absolute;
   align-items: center;
+
+
+  @media only screen and (max-device-width: 640px){
+
+    flex-direction: column;
+  }
+  @media only screen and (max-device-width: 860px){
+    svg {
+      font-size: 1.7rem;
+    }
+  }
   &:hover {
     background-color: rgba(0, 0, 0, 0.6);
   }
