@@ -1,7 +1,14 @@
+// external
 import styled, {keyframes} from "styled-components";
-import {COLOR_FOUR, COLOR_ONE, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
-import img from '../bg/so-you-wanna-be-an-mma-fighter.jpg';
 import {useState} from "react";
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import InfoIcon from '@mui/icons-material/Info';
+// internal
+import img from '../bg/so-you-wanna-be-an-mma-fighter.jpg';
+// conf
+import {COLOR_FOUR, COLOR_ONE, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
+
 
 // TODO: make a span with class highlight, and make it fun, like with a real highlight.
 
@@ -34,20 +41,6 @@ const Container = styled.div`
   a {
     //text-decoration: none;
     color: ${COLOR_FOUR};
-  }
-`;
-const expandAnimation = keyframes`
-  0% {
-    height: 0;
-  }
-  //50% {
-  //  height: 3rem;
-  //}
-  90% {
-    height: 4rem;
-  }
-  100% {
-    height: auto;
   }
 `;
 const Section = styled.div`
@@ -234,7 +227,9 @@ const About = () => {
       <MainContainer>
         <Container bg={img}>
           <Section animate={openSection} id="calendar">
-            <SectionTitle id="calendar" onClick={() => handleOpenSection("calendar")} isActive={openSection}>Calendar</SectionTitle>
+            <SectionTitle id="calendar" onClick={() => handleOpenSection("calendar")} isActive={openSection}>
+              <FitnessCenterIcon/>
+              &nbsp;Calendar</SectionTitle>
             <List show={openSection} id="calendar-section">
               <div>
                 <h4 onClick={() => handleOpenSection("calendar-tab")}>
@@ -295,7 +290,8 @@ const About = () => {
           </Section>
           {/*<div className="spacer"/>*/}
           <Section animate={openSection} id="profile">
-            <SectionTitle id="profile" onClick={() => handleOpenSection("profile")} isActive={openSection}>Profile</SectionTitle>
+            <SectionTitle id="profile" onClick={() => handleOpenSection("profile")} isActive={openSection}>
+              <AccountBoxIcon/>&nbsp;Profile</SectionTitle>
             <List show={openSection} id="profile-section">
               <div>
                 <h4 onClick={() => handleOpenSection("profile-banner")}>
@@ -341,7 +337,8 @@ const About = () => {
           </Section>
           {/*<div className="spacer"/>*/}
           <Section animate={openSection} id="about">
-            <SectionTitle id="about" onClick={() => handleOpenSection("about")} isActive={openSection}>About</SectionTitle>
+            <SectionTitle id="about" onClick={() => handleOpenSection("about")} isActive={openSection}>
+              <InfoIcon/>&nbsp;About</SectionTitle>
             <List show={openSection} id="about-section">
               <div>
                 <h4 onClick={() => handleOpenSection("about-formulas")}>
