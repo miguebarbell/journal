@@ -12,11 +12,15 @@ import {COLOR_FOUR, NAVBAR_HEIGHT, COLOR_TWO, SECONDARY, PRIMARY} from "../conf"
 
 const Container = styled.div`
   font-family: 'Comfortaa', cursive;
+  flex-wrap: wrap;
   color: ${COLOR_FOUR};
   background-color: ${COLOR_TWO};
   display: ${({show}) => show ? "flex" : "none"};
   justify-content: space-between;
-  height: ${NAVBAR_HEIGHT};
+  @media only screen
+  and (min-device-width : 600px) {
+    height: ${NAVBAR_HEIGHT};
+  }
   position: sticky;
   top: 0;
   z-index: 10;
