@@ -363,6 +363,11 @@ const TimeReviewInput = styled.input`
 `;
 
 const Profile = () => {
+	const handleTimeReview = (e) => {
+		// only zero or positive numbers
+		if (e.target.value < 0 || isNaN(e.target.value)) setTimeReview('')
+		else setTimeReview(+e.target.value)
+	}
 
 	// window.location.reload()
 	const motivationQuote = profileBanner[Math.floor(Math.random() * profileBanner.length)];
@@ -631,7 +636,7 @@ const Profile = () => {
 			}}>ADD A NEW GOAL</EditButton>
 			<span>you should focus in one at time</span>
 			<Review>
-				<h2>Last <TimeReviewInput value={timeReview} type='number' onChange={(e) => setTimeReview(e.target.value)}/> days:</h2>
+				<h2>{timeReview === 0 ? 'All':'Last'} <TimeReviewInput value={timeReview} onChange={(e) => handleTimeReview(e)}/> days:</h2>
 				<h3>Time spent</h3>
 				{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} : {goal.duration} min</span>)}
 				<h3>Strain done</h3>
