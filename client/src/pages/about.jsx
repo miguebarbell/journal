@@ -6,6 +6,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import InfoIcon from '@mui/icons-material/Info';
 // internal
 import hl from '../assets/hl.png'
+import ul from '../assets/underline.png'
 import img from '../bg/so-you-wanna-be-an-mma-fighter.jpg';
 import imageBanner from '../assets/about/profile/banner.png';
 import imageGoal from '../assets/about/profile/deadliftgoal.png';
@@ -171,18 +172,26 @@ const ItemDocumentation = styled.div`
   &#miguel {
     display: ${({show}) => show === 'about-miguel' ? 'flex' : 'none'};
   }
-  p > span.highlight {
+  p > span{
+    &.highlight {
+      background-image: url(${hl});
+      white-space: pre;
+    }
+    &.underline {
+      background-image: url(${ul});
+      white-space: pre;
+    }
     &:before,
     &:after {
       content: "  ";
-      white-space: pre;
     }
     font-weight: bold;
-    background-image: url(${hl});
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 130% 100%;
-    //background-clip: content-box;  
+    background-size: 100% 100%;
+  }
+  p > a {
+    color: ${SECONDARY};
   }
 `;
 const List = styled.div`
@@ -414,9 +423,9 @@ const About = () => {
                 <ItemDocumentation show={openSection} id="formulas">
 
 									<p>Relative intensity of a set is the expression in weight (strain) for a specific working set, in example, if you do 5 repetition of a dead-lift at 100 kilos, the absolute intensity for that specific working set is 100 kilos, but the relative one is higher, because you did 5 repetitions, makes sense?</p>
-                  <p>For taking the relative intensity of a specific set, it use the Epley formula.</p>
+                  <p>For taking the relative intensity of a specific set, it use the <span className="underline">Epley formula.</span></p>
 									<p>strain + (repetitions * (strain / 30 )) => 100 kilos + (5 repetitions * (100 kilos / 30)) => 116.6 kilos.</p>
-									<p>Disclaimer: Relative Intensity (RelInt) doesn't substitute the Absolute Intensity (AbsInt), it a way to see the strain in the movement, if you want to make a Personal Record (PR), you should do it in the specific range on repetitions (usually 1). But it helps for preparing the body and the mind for the test, because if the case of dead-lifting 5 times at 100 kilos, for sure you can make 1 repetition at 116 kilos</p>
+                  <p>Disclaimer: Relative Intensity (RelInt) <span className="underline">doesn't substitute the Absolute Intensity (AbsInt),</span> it a way to see the strain in the movement, if you want to make a Personal Record (PR), you should do it in the specific range on repetitions (usually 1). But it helps for preparing the body and the mind for the test, because if the case of dead-lifting 5 times at 100 kilos, for sure you can make 1 repetition at 116 kilos</p>
 
                 </ItemDocumentation>
               </div>
@@ -437,7 +446,7 @@ const About = () => {
                 </h4>
                 <ItemDocumentation show={openSection} id="miguel">
                   <p>Hi, it's me!<span className="highlight">Miguel</span></p>
-									<p>Please, feel free to reach me out asking for a feature or reporting a bug o malfunction (shame on me!), or just to say Hi!.</p>
+                  <p>Please, <span className="underline">feel free to reach me out</span> asking for a feature or reporting a bug o malfunction (shame on me!), or just to say Hi!.</p>
 									<p>You can always check for more at my webpage (it was my first one and I keep it kind of the same), or just for checkout my dog.</p>
 									<p>This project came to solve my problem of log the workouts for a specific goal. You should always work on a measurable goal, or find an indirect way to measure it.</p>
                 </ItemDocumentation>
