@@ -575,6 +575,7 @@ const Profile = () => {
 								/>
 								<span>days from</span>
 								<Input
+									type="date"
 									value={goalStartTime ? goalStartTime : prettierDate(goalEdit.start)}
 									rems={prettierDate(goalEdit.start)}
 									placeholder={prettierDate(goalEdit.start)}
