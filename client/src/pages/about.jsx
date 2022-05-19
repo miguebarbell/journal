@@ -5,6 +5,7 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import InfoIcon from '@mui/icons-material/Info';
 // internal
+import hl from '../assets/hl.png'
 import img from '../bg/so-you-wanna-be-an-mma-fighter.jpg';
 import imageBanner from '../assets/about/profile/banner.png';
 import imageGoal from '../assets/about/profile/deadliftgoal.png';
@@ -172,7 +173,11 @@ const ItemDocumentation = styled.div`
   }
   p > span.highlight {
     font-weight: bold;
-    
+    background-image: url(${hl});
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 90%;
+    background-clip: content-box;  
   }
 `;
 const List = styled.div`
