@@ -6,6 +6,15 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import InfoIcon from '@mui/icons-material/Info';
 // internal
 import img from '../bg/so-you-wanna-be-an-mma-fighter.jpg';
+import imageBanner from '../assets/about/profile/banner.png';
+import imageGoal from '../assets/about/profile/deadliftgoal.png';
+import imageChartAccu from '../assets/about/profile/accugraph.png';
+import imageChartTest from '../assets/about/profile/testgraph.png';
+import imageAddGoal from '../assets/about/profile/addgoal.png';
+import imageGoalOverview30 from '../assets/about/profile/last30.png'
+import imageGoalOverviewAll from '../assets/about/profile/alldays.png'
+import imageGoalOverview5 from '../assets/about/profile/last5.png'
+
 // conf
 import {COLOR_FOUR, COLOR_ONE, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
 
@@ -163,6 +172,7 @@ const ItemDocumentation = styled.div`
   }
   p > span.highlight {
     font-weight: bold;
+    
   }
 `;
 const List = styled.div`
@@ -212,6 +222,24 @@ const SectionTitle = styled.h2`
 const MainContainer = styled.div`
   overflow-x: hidden;
 `;
+const Image = styled.img`
+  max-width: 60%;
+  max-height: 50%;
+
+  border-radius: 5px;
+  box-shadow: 0 0 10px ${COLOR_TWO}; 
+  margin: 1rem auto;
+  &.multiple {
+    width: 30%;
+  }
+  @media only screen and (max-width: 820px) {
+    max-width: 90%;
+    &.multiple {
+      width: 200px;
+    }
+  }
+`;
+
 
 const About = () => {
   // this state handle all the opens sections.
@@ -298,7 +326,9 @@ const About = () => {
                   Banner
                 </h4>
                 <ItemDocumentation show={openSection} id="banner">
-                  <p>This is the description of the banner</p>
+                  <Image src={imageBanner} alt="Banner"/>
+                  <p>The image is an <span className="highlight">avatar of a robot</span>, randomly generated from <a href="https://avatars.dicebear.com">dice bear</a> API, it uses your email as a parameter for an <span className="highlight">unique picture</span>.</p>
+                  <p>Also generate a <span className="highlight">motivational quote</span> from famous people, it's refresh everything you render the page.</p>
                 </ItemDocumentation>
               </div>
               <div>
@@ -306,7 +336,15 @@ const About = () => {
                   Goal
                 </h4>
                 <ItemDocumentation show={openSection} id="goal">
-                  <p>This is the description of the banner</p>
+                  <Image src={imageGoal} alt="Deadlift goal"/>
+
+                  <p>Explaining the element by example:</p>
+                  <p><span className="highlight">Target Goal</span> (Deadlift): The exercise or activity you choose to beat.</p>
+                  <p><span className="highlight">Days left</span> (30 days left): This show the days left to accomplish the goal, self explanatory.</p>
+                  <p> <span className="highlight">Time left in weeks</span> (in 4 weeks 2 days): This show a different view of the time left to accomplish your goal.</p>
+                  <p><span className="highlight">The strain</span> (200kgs): This is the weight/distance/times that you set your goal, this is the target to beat!.</p>
+                  <p> <span className="highlight"> The medal</span> (🏅): This doesn't do anything, is just for motivational propose, to remind you are the number one.</p>
+                  <p>Deadlift: <span className="highlight"></span></p>
                 </ItemDocumentation>
               </div>
               <div>
@@ -314,7 +352,16 @@ const About = () => {
                   Chart
                 </h4>
                 <ItemDocumentation show={openSection} id="chart">
-                  <p>This is the description of the banner</p>
+                  <p><span className="highlight">Type of goal</span> (accu / test): This is the modality of the goal, this case, will display the 3 different things:</p>
+                  <p><span className="highlight">Goal - Red:</span> This is the goal to beat!.</p>
+
+                  <Image src={imageChartAccu} alt="Chart of a accumulation goal"/>
+                  <p><span className="highlight">Accumulated - Blue:</span> This is the accumulated volume of all the timeframe you set your goal, that means is the sum of all the logs strain * reps * sets.</p>
+                  <p><span className="highlight">Volume per day - Light Blue:</span> This is the volume done in the specific day.</p>
+
+                  <Image src={imageChartTest} alt="Chart of a test goal"/>
+                  <p><span className="highlight">Max Abs Int/day - Blue:</span> This take the set with the highest strain and put it.</p>
+                  <p><span className="highlight">Max Rel Int/day -  Light Blue:</span> This calculate with the Epsley formula, the relative intensity or one rep maximum, Formula is = <span className="highlight">weight * (1 + repetitions/30)</span>.</p>
                 </ItemDocumentation>
               </div>
               <div>
@@ -322,7 +369,14 @@ const About = () => {
                   Adding a goal
                 </h4>
                 <ItemDocumentation show={openSection} id="addGoal">
-                  <p>This is the description of the banner</p>
+                  <Image src={imageAddGoal} alt="Adding a goal form"/>
+                  <p><span className="highlight">Movement</span>: Whatever you want to track, if you are doing an unique movement on the gym, or just want to track the time on some task, or the times you go out with your dog, this is where you put it, try to use a <span className="highlight">concise word</span> for this propose.</p>
+                  <p><span className="highlight">Quantity</span>: Use a <span className="highlight">realistic, yet challenge number</span>, why a number? numbers can be calculated.</p>
+                  <p><span className="highlight">Unit</span>: You can select from <span className="highlight">kilos, pounds, meters, feet or times</span> if you need another unit for your specific goal, send me an email, easy.</p>
+                  <p><span className="highlight">Plan</span>: You can select from <span className="highlight">Max Attempt, Accumulate or Every Day</span> if you need another unit for your specific goal, send me an email, easy.</p>
+                  <p><span className="highlight">Days</span>: Quantity of days you want to beat you goal, this is the first part of the "timeframe" of your goal.</p>
+                  <p><span className="highlight">Start</span>: The date where you want to start your goal, from this day this app will read the logs for this specific goal, this is the second part of the "timeframe" of your goal.</p>
+                  <p><span className="highlight">Notes</span>: This is where you can write the why of your goal; try to write <span className="highlight">something motivating</span> so it will refill your will in hard days.</p>
                 </ItemDocumentation>
               </div>
               <div>
@@ -330,7 +384,11 @@ const About = () => {
                   Overview
                 </h4>
                 <ItemDocumentation show={openSection} id="overview">
-                  <p>This is the description of the banner</p>
+                  <p>You can <span className="highlight">dynamically change</span> the overview days, this don't change the information displayed in the chart.</p>
+                  <Image className="multiple" src={imageGoalOverview30} alt="Overview of the last 30 days"/>
+                  <Image className="multiple" src={imageGoalOverview5} alt="Overview of the last 5 days"/>
+                  <Image className="multiple" src={imageGoalOverviewAll} alt="Overview of all days"/>
+                  <p>If you change the time to <span className="highlight">number 0</span> it will review all logs.</p>
                 </ItemDocumentation>
               </div>
             </List>
