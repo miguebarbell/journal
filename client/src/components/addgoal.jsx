@@ -5,7 +5,7 @@ import {useState} from "react";
 // internal
 import {addAGoal} from "../redux/goalApiCalls";
 // conf
-import {COLOR_FIVE, COLOR_THREE, COLOR_TWO} from "../conf";
+import {COLOR_FIVE, COLOR_FOUR, COLOR_THREE, COLOR_TWO} from "../conf";
 
 const Container = styled.div`
   display: flex;
@@ -35,14 +35,14 @@ const Form = styled.form`
   }
   textarea,
   div select {
-    background-color: ${COLOR_THREE};
+    background-color: ${COLOR_FOUR + "70"};
     border: 1px solid ${COLOR_TWO};
     border-radius: 5px;
     font-family: 'Cantarell', sans-serif;
   }
 `;
 const Input = styled.input`
-  background-color: ${COLOR_THREE};
+  background-color: ${COLOR_FOUR + "70"};
   border: 1px solid ${COLOR_TWO};
   border-radius: 5px;
   margin-left: 0.5rem;
@@ -150,7 +150,7 @@ const AddGoal = ({show}) => {
               <label>Days</label>
               <Input placeholder="90" onChange={(e)=> setTimeFrame(e.target.value)}/>
               <label>Start</label>
-              <Input placeholder="2023-mar-10" onChange={(e)=> setStart(e.target.value)}/>
+              <Input type="date" placeholder="2023-mar-10" onChange={(e)=> setStart(e.target.value)}/>
             </div>
             <label>Notes</label>
             <textarea placeholder="You can add here what is your motivation here." onChange={(e)=>setNotes(e.target.value)}/>
