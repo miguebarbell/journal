@@ -172,12 +172,17 @@ const ItemDocumentation = styled.div`
     display: ${({show}) => show === 'about-miguel' ? 'flex' : 'none'};
   }
   p > span.highlight {
+    &:before,
+    &:after {
+      content: "  ";
+      white-space: pre;
+    }
     font-weight: bold;
     background-image: url(${hl});
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 100% 90%;
-    background-clip: content-box;  
+    background-size: 130% 100%;
+    //background-clip: content-box;  
   }
 `;
 const List = styled.div`
@@ -349,7 +354,6 @@ const About = () => {
                   <p> <span className="highlight">Time left in weeks</span> (in 4 weeks 2 days): This show a different view of the time left to accomplish your goal.</p>
                   <p><span className="highlight">The strain</span> (200kgs): This is the weight/distance/times that you set your goal, this is the target to beat!.</p>
                   <p> <span className="highlight"> The medal</span> (🏅): This doesn't do anything, is just for motivational propose, to remind you are the number one.</p>
-                  <p>Deadlift: <span className="highlight"></span></p>
                 </ItemDocumentation>
               </div>
               <div>
@@ -381,7 +385,7 @@ const About = () => {
                   <p><span className="highlight">Plan</span>: You can select from <span className="highlight">Max Attempt, Accumulate or Every Day</span> if you need another unit for your specific goal, send me an email, easy.</p>
                   <p><span className="highlight">Days</span>: Quantity of days you want to beat you goal, this is the first part of the "timeframe" of your goal.</p>
                   <p><span className="highlight">Start</span>: The date where you want to start your goal, from this day this app will read the logs for this specific goal, this is the second part of the "timeframe" of your goal.</p>
-                  <p><span className="highlight">Notes</span>: This is where you can write the why of your goal; try to write <span className="highlight">something motivating</span> so it will refill your will in hard days.</p>
+                  <p><span className="highlight">Notes</span>: This is where you can write the why of your goal; try to write <span className="highlight">   something motivating</span> so it will refill your will in hard days.</p>
                 </ItemDocumentation>
               </div>
               <div>
