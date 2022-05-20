@@ -1,6 +1,6 @@
 # Journal
 
-**ENTER <a href="http://journal.debloat.us">HERE<a>**
+**ENTER <a href="https://journal.debloat.us/demo">HERE<a>**
 
 > > Status: **Active Development**.
 >
@@ -60,10 +60,6 @@ Type of goals:
 
 # Technical Specifications:
 
-gitlab:
-github:
-live:
-
 ### Front-End
 
 #### Javascript:
@@ -99,5 +95,5 @@ live:
 - [x] Implement request permissions with token in client.
 - [ ] Hide redundant parameters in forms when adding a log or goal.
 - [ ] Notification / animation if the goal is reached.
-- [ ] Restrict logging outside timeframe.
-- [ ] Create a documentation section.
+- [x] Restrict logging outside timeframe.
+- [x] Create a documentation section.
