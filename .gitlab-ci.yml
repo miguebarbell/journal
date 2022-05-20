@@ -27,6 +27,8 @@ building:       # This job runs in the build stage, which runs first.
     - npm run build
     - echo "Note CI variable is false means warnings are not considered errors"
     - echo "Client compiled successfully."
+    - pwd
+    - ls -a
   artifacts:
     paths:
         - client/build
