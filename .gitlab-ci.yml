@@ -35,14 +35,12 @@ unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
     - echo "Testing."
-    - sleep 60
     - echo "Need set up testing"
 
 lint-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
   script:
     - echo "Linting code... This will take about 10 seconds."
-    - sleep 10
     - echo "Need set up linting."
 
 deploy to s3:      # This job runs in the deploy stage.
