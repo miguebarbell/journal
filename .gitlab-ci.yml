@@ -54,7 +54,8 @@ deploy to s3:      # This job runs in the deploy stage.
     - pip install awscli
   script:
     - ls
+    - ls client
     - pwd
     - echo "Deploying application..."
-    - aws s3 sync /build s3://journal.debloat.us
+    - aws s3 sync ./client/build/ s3://journal.debloat.us
     - echo "Application successfully deployed to s3://journal.debloat.us"
