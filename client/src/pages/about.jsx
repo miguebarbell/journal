@@ -379,7 +379,7 @@ const About = () => {
 
                   <Image src={imageChartTest} alt="Chart of a test goal"/>
                   <p><span className="highlight">Max Abs Int/day - Blue:</span> This take the set with the highest strain and put it.</p>
-                  <p><span className="highlight">Max Rel Int/day -  Light Blue:</span> This calculate with the Epsley formula, the relative intensity or one rep maximum, Formula is = <span className="highlight">weight * (1 + repetitions/30)</span>.</p>
+                  <p><span className="highlight">Max Rel Int/day -  Light Blue:</span> This calculate with the Epsley formula, the relative intensity or one rep maximum, Formula is = <span className="underline">weight * (1 + repetitions/30)</span>.</p>
                 </ItemDocumentation>
               </div>
               <div>
@@ -388,9 +388,9 @@ const About = () => {
                 </h4>
                 <ItemDocumentation show={openSection} id="addGoal">
                   <Image src={imageAddGoal} alt="Adding a goal form"/>
-                  <p><span className="highlight">Movement</span>: Whatever you want to track, if you are doing an unique movement on the gym, or just want to track the time on some task, or the times you go out with your dog, this is where you put it, try to use a <span className="highlight">concise word</span> for this propose.</p>
-                  <p><span className="highlight">Quantity</span>: Use a <span className="highlight">realistic, yet challenge number</span>, why a number? numbers can be calculated.</p>
-                  <p><span className="highlight">Unit</span>: You can select from <span className="highlight">kilos, pounds, meters, feet or times</span> if you need another unit for your specific goal, send me an email, easy.</p>
+                  <p><span className="highlight">Movement</span>: Whatever you want to track, if you are doing an unique movement on the gym, or just want to track the time on some task, or the times you go out with your dog, this is where you put it, try to use a <span className="underline">concise word</span> for this propose.</p>
+                  <p><span className="highlight">Quantity</span>: Use a <span className="underline">realistic, yet challenge number</span>, why a number? numbers can be calculated.</p>
+                  <p><span className="highlight">Unit</span>: You can select from <span className="highlight">kgs, lbs, mts, ft or times</span> if you need another unit for your specific goal, send me an email, easy.</p>
                   <p><span className="highlight">Plan</span>: You can select from <span className="highlight">Max Attempt, Accumulate or Every Day</span> if you need another unit for your specific goal, send me an email, easy.</p>
                   <p><span className="highlight">Days</span>: Quantity of days you want to beat you goal, this is the first part of the "timeframe" of your goal.</p>
                   <p><span className="highlight">Start</span>: The date where you want to start your goal, from this day this app will read the logs for this specific goal, this is the second part of the "timeframe" of your goal.</p>
@@ -442,7 +442,7 @@ const About = () => {
               </div>
               <div>
                 <h4 onClick={() => handleOpenSection("about-miguel")}>
-                  Who I'm?
+                  Who am I?
                 </h4>
                 <ItemDocumentation show={openSection} id="miguel">
                   <p>Hi, it's me!<span className="highlight">Miguel</span></p>
