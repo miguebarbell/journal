@@ -22,9 +22,9 @@ building it:       # This job runs in the build stage, which runs first.
   stage: build
   image: "node:18.1.0"
   script:
-    - npm install
+    - cd client && npm install
     - echo "Compiling the code..."
-    - npm run build
+    - cd client && npm run build
     - echo "Compile complete."
   artifacts:
     paths:
@@ -53,5 +53,5 @@ deploy to s3:      # This job runs in the deploy stage.
     - pip install awscli
   script:
     - echo "Deploying application..."
-    - aws s3 sync ./build s3://journal.debloat.us
+    - aws s3 sync /client/build s3://journal.debloat.us
     - echo "Application successfully deployed to S3://journal.debloat.us"
