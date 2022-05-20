@@ -24,7 +24,7 @@ building it:       # This job runs in the build stage, which runs first.
   script:
     - cd client && npm install
     - echo "Compiling the code..."
-    - cd client && npm run build
+    - npm run build
     - echo "Compile complete."
   artifacts:
     paths:
@@ -42,7 +42,7 @@ lint-test-job:   # This job also runs in the test stage.
   script:
     - echo "Linting code... This will take about 10 seconds."
     - sleep 10
-    - echo "Need set up linting"."
+    - echo "Need set up linting."
 
 deploy to s3:      # This job runs in the deploy stage.
   image: "python:3.10.2"
@@ -53,5 +53,5 @@ deploy to s3:      # This job runs in the deploy stage.
     - pip install awscli
   script:
     - echo "Deploying application..."
-    - aws s3 sync /client/build s3://journal.debloat.us
+    - aws s3 sync /build s3://journal.debloat.us
     - echo "Application successfully deployed to S3://journal.debloat.us"
