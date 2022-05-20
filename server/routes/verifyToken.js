@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 
 const verifyToken = (req, res, next) => {
 	const authHeader = req.headers.token
+	console.log(authHeader)
+	console.log(req.body)
 	if (authHeader) {
 		// Token.
 		const token = authHeader.split(" ")[1];
@@ -20,6 +22,9 @@ const verifyToken = (req, res, next) => {
 
 const verifyTokenAndAuth = (req, res, next) => {
 	verifyToken(req, res, () => {
+		console.log('token')
+		console.log(req.user)
+		console.log(req.body)
 		if (req.user.id === req.body.user || req.user.isAdmin) {
 			next();
 

@@ -180,8 +180,7 @@ const Day = ({date, month, goal}) => {
   const goalThatDay = (movements.map(mov => mov.movement).filter(mo => mo === goal).length > 0);
   const movementThatDay = (movements.length > 0);
 
-
-
+  // todo find a way for a better mobile experience.
   return (
         <Container show={isInTheTimeFrame()} today={isToday} selected={checkDays(selectedDay, date.toDateString())}>
           <MonthContainer>
