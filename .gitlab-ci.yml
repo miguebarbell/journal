@@ -27,23 +27,21 @@ building:       # This job runs in the build stage, which runs first.
     - npm run build
     - echo "Note CI variable is false means warnings are not considered errors"
     - echo "Client compiled successfully."
-    - pwd
-    - ls -a
   artifacts:
     paths:
         - client/build
 
-# unit-test-job:   # This job runs in the test stage.
-#   stage: test    # It only starts when the job in the build stage completes successfully.
-#   script:
-#     - echo "Testing."
-#     - echo "Need set up testing"
+unit-test-job:   # This job runs in the test stage.
+  stage: test    # It only starts when the job in the build stage completes successfully.
+  script:
+    - echo "Testing."
+    - echo "Need set up testing"
 
-# lint-test-job:   # This job also runs in the test stage.
-#   stage: test    # It can run at the same time as unit-test-job (in parallel).
-#   script:
-#     - echo "Linting code... This will take about 10 seconds."
-#     - echo "Need set up linting."
+lint-test-job:   # This job also runs in the test stage.
+  stage: test    # It can run at the same time as unit-test-job (in parallel).
+  script:
+    - echo "Linting code... This will take about 10 seconds."
+    - echo "Need set up linting."
 
 deploy to s3:      # This job runs in the deploy stage.
   image: "python:3.10.2"
@@ -53,9 +51,6 @@ deploy to s3:      # This job runs in the deploy stage.
   before_script:
     - pip install awscli
   script:
-    - ls
-    - ls client
-    - pwd
     - echo "Deploying application..."
     - aws s3 sync ./client/build/ s3://journal.debloat.us
     - echo "Application successfully deployed to s3://journal.debloat.us"
