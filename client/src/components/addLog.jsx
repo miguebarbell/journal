@@ -30,7 +30,7 @@ export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 20rem;
-
+	box-shadow: 1px 1px 5px rgba(0, 0, 0);
 `;
 const Title = styled.h1`
   &:after {
