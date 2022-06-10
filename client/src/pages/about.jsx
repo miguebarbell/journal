@@ -16,12 +16,18 @@ import imageAddGoal from '../assets/about/profile/addgoal.png';
 import imageGoalOverview30 from '../assets/about/profile/last30.png'
 import imageGoalOverviewAll from '../assets/about/profile/alldays.png'
 import imageGoalOverview5 from '../assets/about/profile/last5.png'
-
 // conf
-import {COLOR_FOUR, COLOR_ONE, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
+import {
+  COLOR_FOUR,
+  COLOR_ONE,
+  COLOR_THREE,
+  COLOR_TWO, FOOTER_HEIGHT,
+  NAVBAR_COMPACT_HEIGHT,
+  NAVBAR_HEIGHT,
+  PRIMARY,
+  SECONDARY
+} from "../conf";
 
-
-// TODO: make a span with class highlight, and make it fun, like with a real highlight.
 
 const blurAnimation = keyframes`
   from {
@@ -37,7 +43,12 @@ const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   min-width: 100vw;
-  min-height: calc(100vh - 6.2rem);
+  min-height: calc(100vh - ${NAVBAR_COMPACT_HEIGHT} - ${FOOTER_HEIGHT});
+  @media only screen
+  and (min-device-width : 600px) {
+    height: calc(100vh - ${NAVBAR_HEIGHT} - ${FOOTER_HEIGHT});
+  }
+  //min-height: calc(100vh - ${NAVBAR_HEIGHT});
   //height: 50rem;
   background-image: linear-gradient(to bottom, ${PRIMARY + "50"}, ${SECONDARY + "50"}) , url(${({bg}) => bg});
   background-position: center;
@@ -129,6 +140,8 @@ const ItemDocumentation = styled.div`
   padding: 0 1rem;
   flex: 0;
   animation: ${slideFromRight} 1s linear;
+  text-align: justify;
+  text-justify: inter-word;
   &#banner {
     display: ${({show}) => show === 'profile-banner' ? 'flex' : 'none'};
     flex: 1;
@@ -195,7 +208,16 @@ const ItemDocumentation = styled.div`
   }
 `;
 const List = styled.div`
-  padding: 0 3rem;
+  padding: 0 0.25rem;
+  h4 {
+    padding: 0 3rem;
+  }
+  @media only screen and (min-width: 820px) {
+    padding: 0 3rem;
+    h4 {
+      padding: 0;
+    }
+  }
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -425,7 +447,7 @@ const About = () => {
 									<p>Relative intensity of a set is the expression in weight (strain) for a specific working set, in example, if you do 5 repetition of a dead-lift at 100 kilos, the absolute intensity for that specific working set is 100 kilos, but the relative one is higher, because you did 5 repetitions, makes sense?</p>
                   <p>For taking the relative intensity of a specific set, it use the <span className="underline">Epley formula.</span></p>
 									<p>strain + (repetitions * (strain / 30 )) => 100 kilos + (5 repetitions * (100 kilos / 30)) => 116.6 kilos.</p>
-                  <p>Disclaimer: Relative Intensity (RelInt) <span className="underline">doesn't substitute the Absolute Intensity (AbsInt),</span> it a way to see the strain in the movement, if you want to make a Personal Record (PR), you should do it in the specific range on repetitions (usually 1). But it helps for preparing the body and the mind for the test, because if the case of dead-lifting 5 times at 100 kilos, for sure you can make 1 repetition at 116 kilos</p>
+                  <p>Disclaimer: Relative Intensity (RelInt) <span className="underline">doesn't substitute</span> the Absolute Intensity (AbsInt), it a way to see the strain in the movement, if you want to make a Personal Record (PR), you should do it in the specific range on repetitions (usually 1). But it helps for preparing the body and the mind for the test, because if the case of dead-lifting 5 times at 100 kilos, for sure you can make 1 repetition at 116 kilos</p>
 
                 </ItemDocumentation>
               </div>
@@ -455,12 +477,12 @@ const About = () => {
           </Section>
         </Container>
         <Footer>
-          <marquee scrollamount="2">
-          Made with  💟 Love 💟  in MA, USA.
-          This is an <strong>Free Open Source Software</strong> project.
-          Enjoy you life and accomplish your dreams, it's short and only one.
-          <a href="mailto:journal@debloat.us">Contact me</a>.
-        </marquee>
+            <marquee scrollamount="2">
+            Made with  💟 Love 💟  in MA, USA.
+            This is an <strong>Free Open Source Software</strong> project.
+            Enjoy you life and accomplish your dreams, it's short and only one.
+            <a href="mailto:journal@debloat.us">Contact me</a>.
+          </marquee>
         </Footer>
 </MainContainer>
     );

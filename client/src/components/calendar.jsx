@@ -7,7 +7,16 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 // internal
 import Day from "./day";
 // conf
-import {COLOR_FOUR, COLOR_ONE, COLOR_TWO, NAVBAR_HEIGHT, PRIMARY, PRIMARY_DISABLED, SECONDARY} from "../conf";
+import {
+  COLOR_FOUR,
+  COLOR_ONE,
+  COLOR_TWO,
+  NAVBAR_COMPACT_HEIGHT,
+  NAVBAR_HEIGHT,
+  PRIMARY,
+  PRIMARY_DISABLED,
+  SECONDARY
+} from "../conf";
 import DayDetails from "./daydetails";
 
 const Container = styled.div`
@@ -18,7 +27,11 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  min-height: calc(100vh - ${NAVBAR_HEIGHT});
+  min-height: calc(100vh - ${NAVBAR_COMPACT_HEIGHT});
+  @media only screen
+  and (min-device-width : 600px) {
+    height: ${NAVBAR_HEIGHT};
+  }
 `;
 const GridContainer = styled.div`
   padding: 1rem;

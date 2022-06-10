@@ -1,6 +1,7 @@
 // Dimension
-export const FOOTER_HEIGHT = '1.5rem';
+export const FOOTER_HEIGHT = '3.2rem';
 export const NAVBAR_HEIGHT = '3rem';
+export const NAVBAR_COMPACT_HEIGHT = '2.5rem'
 
 // Colours
 export const COLOR_ONE = '#000000';

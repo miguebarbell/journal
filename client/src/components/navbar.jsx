@@ -8,7 +8,7 @@ import InfoIcon from '@mui/icons-material/Info';
 // internal
 import logo from '../assets/flag-goal.png';
 // conf
-import {COLOR_FOUR, NAVBAR_HEIGHT, COLOR_TWO, SECONDARY, PRIMARY} from "../conf";
+import {COLOR_FOUR, NAVBAR_HEIGHT, COLOR_TWO, SECONDARY, PRIMARY, NAVBAR_COMPACT_HEIGHT} from "../conf";
 
 const Container = styled.div`
   font-family: 'Comfortaa', cursive;
@@ -17,6 +17,7 @@ const Container = styled.div`
   background-color: ${COLOR_TWO};
   display: ${({show}) => show ? "flex" : "none"};
   justify-content: space-between;
+  height: ${NAVBAR_COMPACT_HEIGHT};
   @media only screen
   and (min-device-width : 600px) {
     height: ${NAVBAR_HEIGHT};
