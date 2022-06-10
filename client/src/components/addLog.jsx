@@ -184,11 +184,11 @@ const AddLog = () => {
 	// feed the states
 
 	const [movementForm, setMovementForm] = useState(activeDraft.movement === "" ? goals[0].movement : activeDraft.movement);
-	const [repsForm, setRepsForm] = useState(activeDraft.reps);
-	const [setsForm, setSetsForm] = useState(activeDraft.sets);
-	const [strainForm, setStrainForm] = useState(activeDraft.strain);
-	const [durationForm, setDurationForm] = useState(activeDraft.duration);
-	const [notesForm, setNotesForm] = useState(activeDraft.notes);
+	const [repsForm, setRepsForm] = useState(activeDraft.reps || "");
+	const [setsForm, setSetsForm] = useState(activeDraft.sets || "");
+	const [strainForm, setStrainForm] = useState(activeDraft.strain || "");
+	const [durationForm, setDurationForm] = useState(activeDraft.duration || "");
+	const [notesForm, setNotesForm] = useState(activeDraft.notes || "");
 
 
 	const handleCancel = () => {
