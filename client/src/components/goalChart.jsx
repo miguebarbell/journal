@@ -248,14 +248,15 @@ const GoalChart = ({goal, show}) => {
 		};
 	}
 
-	// console.log(logStats);
 	return (
 		<Container show={(goal.movement === show)}>
-			<Line
+			{logStats.inRange.find(el => el === true) === true ?
+				<Line
 				// type='line'
 				data={data}
 				options={options}
 			  />
+			: <h3 style={{textAlign: 'center'}}>Add a Log to start seeing your stats!</h3>}
 		</Container>
 	)
 }
