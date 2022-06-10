@@ -15,7 +15,8 @@ router.post("/add",
 			plan: req.body.plan,
 			timeFrame: req.body.timeFrame,
 			// start: req.body.start,
-			start: (new Date(req.body.start)).setHours(0,0,0,0),
+			// start: (new Date(req.body.start)).setHours(0,0,0,0),
+			start: (new Date(req.body.start)),
 			notes: req.body.notes,
 		})
 		try {
