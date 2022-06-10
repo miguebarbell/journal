@@ -140,7 +140,7 @@ const Calendar = () => {
   const handleTouchMove = (e) => {
     // detect left or right
       if (e._reactName === "onTouchEnd") {
-        if (Math.abs(swap[0].x - swap[swap.length - 1].x) > 50) {
+        if (swap.length > 2 && Math.abs(swap[0].x - swap[swap.length - 1].x) > 50) {
         if (swap[0].x - swap[swap.length - 1].x < 0) {
           setRelativeMonth(relativeMonth - 1)
         } else {
