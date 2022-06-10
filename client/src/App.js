@@ -20,7 +20,7 @@ function App() {
 
   return (
     <Router>
-      {user.isFetching && <Loading/>}
+      {user.isFetching && <Loading show={user.isFetching} />}
       <Navbar/>
       <Routes>
         <Route exact path="/" element={user.currentUser ? <Home/> : <Login/>}/>

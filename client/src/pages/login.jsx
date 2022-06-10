@@ -110,7 +110,6 @@ const Login = ({ user }) => {
       });
     }
   };
-
     return (
         <Container bg={img}>
           <FormContainer>
