@@ -83,7 +83,7 @@ const AddGoal = ({show}) => {
   const [unit, setUnit] = useState("kgs");
   const [plan, setPlan] = useState("test");
   const [timeFrame, setTimeFrame] = useState("90");
-  const [start, setStart] = useState((new Date()).toDateString());
+  const [start, setStart] = useState((new Date()).toLocaleString());
   const [notes, setNotes] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const handleError = (message) => {

@@ -136,7 +136,9 @@ const Day = ({date, month, goal}) => {
     }
     return true
   }
-  date.setHours(0,0,0,0);
+  // date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 0,0,0))
+  // date.setHours(0,0,0,0);
+  console.log(date)
   const logs = useSelector((state) => state.training.logs);
   // month if for change the month, goal is to display inside the day what was done.
   const monthsArray = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
@@ -151,6 +153,7 @@ const Day = ({date, month, goal}) => {
       && (new Date(log.date)).getFullYear() === date.getFullYear()
     ));
 
+  // console.log(movements)
   // add a log
   const dispatch = useDispatch();
   const drafts  = useSelector((state) => state.log.drafts);
@@ -158,7 +161,7 @@ const Day = ({date, month, goal}) => {
   const selectedDay = useSelector((state) => state.log.day);
 
   const handleAddLog = () => {
-    // todo don't allow add a log before the first day for the goal
+    // console.log(date.toLocaleString());
     // check if in draft exist a draft of the movement in this day
     document.title =  `Journal App - adding ${goal} ${prettierDate(date.toDateString())}`;
     const draftsThisDay = drafts.filter(draft => ((new Date(draft.date)).toDateString() === date.toDateString()) && (draft.movement === goal));
@@ -167,7 +170,8 @@ const Day = ({date, month, goal}) => {
       const index = drafts.findIndex(draft => (draft.movement === goal));
       dispatch(setDraftActive(index));
     } else {
-      dispatch(addDraft({date: date.toDateString(), movement: goal, active: true}));
+      dispatch(addDraft({date: date.toLocaleString(), movement: goal, active: true}));
+      // dispatch(addDraft({date: date.toDateString(), movement: goal, active: true}));
     }
     dispatch(setActive(goal));
   };
@@ -179,8 +183,6 @@ const Day = ({date, month, goal}) => {
   };
   const goalThatDay = (movements.map(mov => mov.movement).filter(mo => mo === goal).length > 0);
   const movementThatDay = (movements.length > 0);
-
-  // todo find a way for a better mobile experience.
   return (
         <Container show={isInTheTimeFrame()} today={isToday} selected={checkDays(selectedDay, date.toDateString())}>
           <MonthContainer>
