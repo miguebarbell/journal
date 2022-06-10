@@ -9,7 +9,7 @@ import {useState} from "react";
 // conf
 import {COLOR_FOUR, COLOR_THREE, COLOR_TWO, PRIMARY, SECONDARY} from "../conf";
 import {editLog} from "../redux/goalRedux";
-import {goalExpiration, prettierDate} from "./helper";
+import {goalExpiration} from "./helper";
 import {deleteLog, updateLog} from "../redux/logApiCalls";
 
 const Container = styled.div`
@@ -208,7 +208,7 @@ const ModifyLog = () => {
   const goals = useSelector((state) => state.training.goals);
   const user = useSelector((state) => state.user.currentUser.email);
   const handleConfirmDelete = () => {
-    console.log(log)
+    // console.log(log)
     deleteLog(dispatch, log);
     // reset everything
     setConfirmDeleteDialog(false);
@@ -242,7 +242,7 @@ const ModifyLog = () => {
         case 'duration':
           setDuration(event);
           break;
-        case 'notes':
+        default:
           setNotes(event);
           break;
       }
@@ -262,7 +262,7 @@ const ModifyLog = () => {
       case 'duration':
         setChange(log.duration);
         break;
-      case 'notes':
+      default:
         setChange(log.notes);
         break;
     }

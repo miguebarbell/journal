@@ -25,14 +25,17 @@ export const BlurContainer = styled.div`
 `;
 export const FormContainer = styled.div`
   background-color: white;
-  padding: 3rem;
+  padding: 2rem;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
   width: 20rem;
 	box-shadow: 1px 1px 5px rgba(0, 0, 0);
 `;
-const Title = styled.h1`
+const Title = styled.h2`
+	padding: 0 0 1rem 0;
+	margin: 0;
+	text-align: center;
   &:after {
     //content: "x"
   }
@@ -80,7 +83,13 @@ const MovementWrapper = styled.div`
   //background-color: green;
   display: flex;
   justify-content: space-between;
-
+	select {
+		border: 0;
+		background-color: ${COLOR_THREE};
+		border-radius: 5px;
+		padding: 0.25rem;
+		font-weight: bold;
+	}
   h1 {
     color: green;
 
