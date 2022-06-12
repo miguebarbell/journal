@@ -276,6 +276,7 @@ const AddLog = () => {
 						{/*if draft have a movement, select from there, otherwise from goals*/}
 						{activeDraftGoal === "" ? (
 								<select onChange={(e) => handleChange(e.target.value)} value={movementForm}>
+									{/*todo: this should be only for goals that are available an this date*/}
 									{goals.map((goal, index) =>
 										<option key={index} value={goal.movement}>{goal.movement} ({goal.unit})</option>
 									)}

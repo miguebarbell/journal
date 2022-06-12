@@ -152,8 +152,6 @@ const Day = ({date, month, goal}) => {
       && (new Date(log.date)).getMonth() === date.getMonth()
       && (new Date(log.date)).getFullYear() === date.getFullYear()
     ));
-
-  // console.log(movements)
   // add a log
   const dispatch = useDispatch();
   const drafts  = useSelector((state) => state.log.drafts);
@@ -161,7 +159,6 @@ const Day = ({date, month, goal}) => {
   const selectedDay = useSelector((state) => state.log.day);
 
   const handleAddLog = () => {
-    // console.log(date.toLocaleString());
     // check if in draft exist a draft of the movement in this day
     document.title =  `Journal App - adding ${goal} ${prettierDate(date.toDateString())}`;
     const draftsThisDay = drafts.filter(draft => ((new Date(draft.date)).toDateString() === date.toDateString()) && (draft.movement === goal));
@@ -171,7 +168,6 @@ const Day = ({date, month, goal}) => {
       dispatch(setDraftActive(index));
     } else {
       dispatch(addDraft({date: date.toLocaleString(), movement: goal, active: true}));
-      // dispatch(addDraft({date: date.toDateString(), movement: goal, active: true}));
     }
     dispatch(setActive(goal));
   };
