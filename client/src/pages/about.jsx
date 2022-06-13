@@ -457,9 +457,13 @@ const About = () => {
                 </h4>
                 <ItemDocumentation show={openSection} id="services">
                   <p>For this project I used a MongoDB Expressjs Reactjs Nodejs (M.E.R.N.) stack</p>
-									<p>The front-end is hosted in a free S3 bucket provided by Amazon Web Services (AWS), and the backend is in a free dyno at Heroku.</p>
-									<p>All the requests are validated with a token (JWT) in the server.</p>
-									<p>The code of this projects is free to reproduce, or fork, or analyze! <a href="https://github.com/miguebarbell/journal/">at GitHub</a> or <a href="https://gitlab.com/redmike/journal/">GitLab</a> (prefer GitLab).</p>
+									<p>The front-end is hosted in a free S3 bucket provided by Amazon Web Services (AWS), and the backend
+                    is in a free dyno at Heroku.</p>
+                  <p>All the requests are validated with a token (JWT) in the server, this helps in the security aspects
+                    of the application, so you can only add/update/delete in the device where you logged in.</p>
+                  <p>The code of this projects is free to reproduce, or fork, or analyze! <a
+                    href="https://github.com/miguebarbell/journal/">at GitHub</a> or <a
+                    href="https://gitlab.com/redmike/journal/">GitLab</a> (prefer GitLab).</p>
                 </ItemDocumentation>
               </div>
               <div>
