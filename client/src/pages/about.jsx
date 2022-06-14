@@ -206,7 +206,7 @@ const ItemDocumentation = styled.div`
   &#miguel {
     display: ${({show}) => show === 'about-miguel' ? 'flex' : 'none'};
   }
-  p > span{
+  span{
     &.highlight {
       background-image: url(${hl});
       white-space: pre;
@@ -224,7 +224,7 @@ const ItemDocumentation = styled.div`
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }
-  p > a {
+  a {
     color: ${SECONDARY};
   }
 `;
@@ -365,21 +365,22 @@ const About = () => {
                   <Image src={tabsOverview} alt="tabs overview"/>
 									<p>Every tab represents a goal, having a general one to review all the activities, and every specific other tab to review the logs for that specific goal.</p>
                   <ol>In this case
-                    <li>General
+                    <li><span className="highlight">General</span>
                       <p>This is a general view for all the Goals.</p>
                       <ImageWithCaption>
                         <Image src={generalTabPressed} alt="general tab pressed"/>
                         <figcaption>Shows which of the goals you did everyday.</figcaption>
                       </ImageWithCaption>
+                      <p>In this case, it shows what goal you logged for, the propose of this, is check if there is a day that you miss in your plan.</p>
                     </li>
-                    <li>Deadlift
+                    <li><span className="highlight">Deadlift</span>
                       <p>Specific to this Goal.</p>
                       <ImageWithCaption>
                         <Image src={deadliftTabPressed} alt="deadlift tab pressed"/>
                         <figcaption>It changes the layout of all the calendar, with specific data to the goal.</figcaption>
                       </ImageWithCaption>
                     </li>
-                    <li>Run
+                    <li><span className="highlight">Run</span>
                       <p>Inherit the description of deadlift tab.</p>
                     </li>
                   </ol>
@@ -394,9 +395,17 @@ const About = () => {
                   <Image src={monthOverview} alt="month overview"/>
 									<p>It will have always 4 weeks for review, starting with monday, and the 5 week, it's the present week.</p>
 									<p>No you can't add logs in the future, by design, you already had to do the job towards the accomplishment of your goal.</p>
-                  <Image src={todayHl} alt="today"/>
+                  <ImageWithCaption>
+                    <Image src={todayHl} alt="today"/>
+                    <figcaption>Different box for quick acquiring.</figcaption>
+                  </ImageWithCaption>
 									<p>The present day (today), will always the last day in the calendar, also is in other color (yellowish kind).</p>
-                  <Image src={dayDescription} alt="day description"/>
+                  <p>Also when the month changes, it display a different day layout, displaying the new month, in this case <span className="underline">June.</span> </p>
+                  <ImageWithCaption>
+                    <Image src={dayDescription} alt="day description"/>
+                    <figcaption>June 1st</figcaption>
+                  </ImageWithCaption>
+
 									<p>The first day in the calendar will tell you the month on that day, with the first three letters of that month, in a purple color. Also if the month changes it will print the new month in that day in particular (1st day of the month).</p>
 									<p>The yellow number at the upper right, means the number of the day in the current month.</p>
                 </ItemDocumentation>
