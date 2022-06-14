@@ -16,6 +16,12 @@ import imageAddGoal from '../assets/about/profile/addgoal.png';
 import imageGoalOverview30 from '../assets/about/profile/last30.png'
 import imageGoalOverviewAll from '../assets/about/profile/alldays.png'
 import imageGoalOverview5 from '../assets/about/profile/last5.png'
+import tabsOverview from '../assets/about/calendar/tabs-overview.png'
+import monthOverview from '../assets/about/calendar/month-overview.png'
+import todayHl from '../assets/about/calendar/today.png'
+import dayDescription from '../assets/about/calendar/day-description.png'
+
+
 // conf
 import {
   COLOR_FOUR,
@@ -101,12 +107,13 @@ const Section = styled.div`
   }
 `;
 const Footer = styled.div`
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
   bottom: 0;
   flex: 0;
-  width: 100%;
+  max-width: 100vw;
   background-color: ${COLOR_TWO};
   color: ${ COLOR_FOUR };
   padding: 1em 0.5rem;
@@ -306,6 +313,7 @@ const About = () => {
                 </h4>
                 <ItemDocumentation show={openSection} id="tab">
                   <p>This is the description of the tabs</p>
+                  <Image src={tabsOverview} alt="tabs overview"/>
 									<p>Every tab represents a goal, having a general one to review all the activities, and every specific other tab to review the logs for that specific goal.</p>
                 </ItemDocumentation>
               </div>
@@ -315,11 +323,14 @@ const About = () => {
                 </h4>
                 <ItemDocumentation show={openSection} id="month">
                   <p>This is the description of the weeks in the calendar.</p>
+                  <Image src={monthOverview} alt="month overview"/>
 									<p>It will have always 4 weeks for review, starting with monday, and the 5 week, it's the present week.</p>
 									<p>No you can't add logs in the future, by design, you already had to do the job towards the accomplishment of your goal.</p>
 									<p>The present day (today), will always the last day in the calendar, also is in other color (yellowish kind).</p>
+                  <Image src={todayHl} alt="today"/>
 									<p>The first day in the calendar will tell you the month on that day, with the first three letters of that month, in a purple color. Also if the month changes it will print the new month in that day in particular (1st day of the month).</p>
 									<p>The yellow number at the upper right, means the number of the day in the current month.</p>
+                  <Image src={dayDescription} alt="day description"/>
                 </ItemDocumentation>
               </div>
               <div>
