@@ -468,8 +468,7 @@ const Profile = () => {
 		response.avgStrainPerSet = isNaN(response.strain / response.sets) ? 0 : Math.round(response.strain / response.sets);
 		return response;
 	};
-	const accumulatedGoals = goals.map(goal => accumulative(goal.movement, timeReview))
-
+	const [accumulatedGoals, setAccumulatedGoals] = useState(goals.map(goal => accumulative(goal.movement, timeReview)))
 	const trimValue = (value) => {
 		if (value === String("")) return ' ';
 		else if (value < 1) return 1;
@@ -494,7 +493,71 @@ const Profile = () => {
 		if (goals.length > 2) {
 			setAdMessage('You should focus in one goal at a time.')
 		} else setAdMessage('Maintain a low goals length.')
-	}, [goals])
+		setAccumulatedGoals(goals.map(goal => accumulative(goal.movement, timeReview)))
+	}, [goals, timeReview])
+	const tacticTime = (timeInMin) => {
+		if (!timeInMin) return `nothing`
+		if (timeInMin > 60) {
+			if (timeInMin%60 === 0) {
+				return `${timeInMin/60} hours`
+			}
+			return `${Math.floor(timeInMin/60)}:${timeInMin%60}`
+		}
+		return `${timeInMin} mins`
+	}
+	const tacticVolume = (volume, unit) => {
+		if (!volume) return `nothing`
+		switch (unit) {
+			case 'kgs':
+				if (volume > 1000) {
+					if (volume%1000 === 0) {
+						return `${volume/1000} tons`
+					}
+					return `${(volume/1000).toFixed(2)} tons`
+				}
+				return `${volume} ${unit}`
+			case 'mts':
+				if (volume > 1000) {
+					if (volume%1000 === 0) {
+						return `${volume/1000} kms`
+					}
+					return `${(volume/1000).toFixed(2)} kms`
+				}
+				return `${volume} ${unit}`
+			case 'fts':
+				if (volume > 5280) {
+					if (volume%5280 === 0) {
+						return `${volume/5280} miles`
+					}
+					return `${(volume/5280).toFixed(2)} miles`
+				}
+				return `${volume} ${unit}`
+			case 'lbs':
+				if (volume > 2204.6226) {
+					if (volume%2204.6226 === 0) {
+						return `${volume/2204.6226} tons`
+					}
+					return `${(volume/2204.6226).toFixed(2)} tons`
+				}
+				return `${volume} ${unit}`
+			case 'min':
+				const days = volume/1440
+				const hours = (days - Math.floor(days))*24
+				const minutes = (hours - Math.floor(hours))*60
+				if (volume > 60) {
+					if (volume > 1440) {
+						// days:hours:minutes
+						return `${Math.floor(days)} days ${Math.floor(hours)}${Math.floor(minutes) === 0 ? " hours" : `:${Math.floor(minutes)}`}`
+					}
+					// hours:minutes
+					return `${Math.floor(hours)}${Math.floor(minutes) === 0 ? " hours" : `:${Math.floor(minutes)}`}`
+				}
+				// minutes
+				return `${volume} minutes`
+			default:
+				return `${volume} ${unit}`
+		}
+	}
 	return (
 		<Container>
 			<BlurContainer show={goalEdit} id="edit-container">
@@ -654,9 +717,9 @@ const Profile = () => {
 			<Review>
 				<h2>{timeReview === 0 ? 'All':'Last'} <TimeReviewInput value={timeReview} onChange={(e) => handleTimeReview(e)}/> days:</h2>
 				<h3>Time spent</h3>
-				{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} : {goal.duration} min</span>)}
+				{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} {tacticTime(goal.duration)}</span>)}
 				<h3>Strain done</h3>
-				{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} : {goal.strainVol} {goal.unit}</span>)}
+				{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} :  {tacticVolume(goal.strainVol, goal.unit)}</span>)}
 				{displayingGoal ? <AddGoal show={setDisplayingGoal}/> : null}
 
 			</Review>
