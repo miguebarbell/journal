@@ -130,10 +130,10 @@ const AddGoal = ({show}) => {
                 <option value="kgs">Kilos</option>
                 <option value="lbs">Pounds</option>
                 <option value="mts">Meters</option>
-                {/*<option value="mi">miles</option>*/}
+                <option value="mi">miles</option>
                 <option value="fts">Feet</option>
                 <option value="min">Minutes</option>
-                {/*<option value="hrs">hours</option>*/}
+                <option value="hrs">hours</option>
                 {
                   plan === 'habit' || plan === 'accu' ? <option value="times">Times</option> : null
                 }
