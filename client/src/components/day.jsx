@@ -138,7 +138,7 @@ const Day = ({date, month, goal}) => {
   }
   // date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 0,0,0))
   // date.setHours(0,0,0,0);
-  console.log(date)
+  // console.log(date)
   const logs = useSelector((state) => state.training.logs);
   // month if for change the month, goal is to display inside the day what was done.
   const monthsArray = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
