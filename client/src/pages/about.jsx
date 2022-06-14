@@ -4,6 +4,7 @@ import {useState} from "react";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import InfoIcon from '@mui/icons-material/Info';
+
 // internal
 import hl from '../assets/hl.png'
 import ul from '../assets/underline.png'
@@ -17,9 +18,22 @@ import imageGoalOverview30 from '../assets/about/profile/last30.png'
 import imageGoalOverviewAll from '../assets/about/profile/alldays.png'
 import imageGoalOverview5 from '../assets/about/profile/last5.png'
 import tabsOverview from '../assets/about/calendar/tabs-overview.png'
+import generalTabPressed from '../assets/about/calendar/general-tab-pressed.png'
+import deadliftTabPressed from '../assets/about/calendar/deadlift-tab-pressed.png'
 import monthOverview from '../assets/about/calendar/month-overview.png'
 import todayHl from '../assets/about/calendar/today.png'
 import dayDescription from '../assets/about/calendar/day-description.png'
+import notInTimeFrame from '../assets/about/calendar/not-in-timeframe.png'
+import lens from '../assets/about/calendar/lens.png'
+import plusHover from '../assets/about/calendar/plushover.png'
+import lensPressed from '../assets/about/calendar/lens-pressed.png'
+import addLogForm from '../assets/about/calendar/addlogform.png'
+import addedLog from '../assets/about/calendar/addedlog.png'
+import lensToEdit from '../assets/about/calendar/lens-pressed-to-edit.png'
+import edittingALog from '../assets/about/calendar/editting -a-log.png'
+import edittingSets from '../assets/about/calendar/editting-sets.png'
+import edittingSetsForm from '../assets/about/calendar/changed-to-3-sets.png'
+import edittingSetsFinal from '../assets/about/calendar/log-editted.png'
 
 
 // conf
@@ -107,13 +121,13 @@ const Section = styled.div`
   }
 `;
 const Footer = styled.div`
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   bottom: 0;
   flex: 0;
-  max-width: 100vw;
+  width: 100vw;
   background-color: ${COLOR_TWO};
   color: ${ COLOR_FOUR };
   padding: 1em 0.5rem;
@@ -273,7 +287,6 @@ const MainContainer = styled.div`
 const Image = styled.img`
   max-width: 60%;
   max-height: 50%;
-
   border-radius: 5px;
   box-shadow: 0 0 10px ${COLOR_TWO}; 
   margin: 1rem auto;
@@ -287,6 +300,42 @@ const Image = styled.img`
     }
   }
 `;
+const InlineImages = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 100%;
+`
+const ImageWithCaption = styled.div`
+  background-color: ${COLOR_FOUR};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 2px 2px 5px 1px ${COLOR_TWO};
+  border-radius: 3px;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  max-width: 500px;
+  @media only screen and (min-width: 820px) {
+    max-width: 600px;
+    margin: 1rem;
+    img {
+      max-width: 550px;
+      
+    }
+  }
+  img {
+    width: 100%;
+    object-fit: cover;
+    box-shadow: 0 0 0;
+    border-radius: 0;
+  }
+  figcaption {
+    font-family: cursive;
+    font-size: 0.9rem;
+  }
+`
 
 
 const About = () => {
@@ -315,6 +364,25 @@ const About = () => {
                   <p>This is the description of the tabs</p>
                   <Image src={tabsOverview} alt="tabs overview"/>
 									<p>Every tab represents a goal, having a general one to review all the activities, and every specific other tab to review the logs for that specific goal.</p>
+                  <ol>In this case
+                    <li>General
+                      <p>This is a general view for all the Goals.</p>
+                      <ImageWithCaption>
+                        <Image src={generalTabPressed} alt="general tab pressed"/>
+                        <figcaption>Shows which of the goals you did everyday.</figcaption>
+                      </ImageWithCaption>
+                    </li>
+                    <li>Deadlift
+                      <p>Specific to this Goal.</p>
+                      <ImageWithCaption>
+                        <Image src={deadliftTabPressed} alt="deadlift tab pressed"/>
+                        <figcaption>It changes the layout of all the calendar, with specific data to the goal.</figcaption>
+                      </ImageWithCaption>
+                    </li>
+                    <li>Run
+                      <p>Inherit the description of deadlift tab.</p>
+                    </li>
+                  </ol>
                 </ItemDocumentation>
               </div>
               <div>
@@ -326,11 +394,11 @@ const About = () => {
                   <Image src={monthOverview} alt="month overview"/>
 									<p>It will have always 4 weeks for review, starting with monday, and the 5 week, it's the present week.</p>
 									<p>No you can't add logs in the future, by design, you already had to do the job towards the accomplishment of your goal.</p>
-									<p>The present day (today), will always the last day in the calendar, also is in other color (yellowish kind).</p>
                   <Image src={todayHl} alt="today"/>
+									<p>The present day (today), will always the last day in the calendar, also is in other color (yellowish kind).</p>
+                  <Image src={dayDescription} alt="day description"/>
 									<p>The first day in the calendar will tell you the month on that day, with the first three letters of that month, in a purple color. Also if the month changes it will print the new month in that day in particular (1st day of the month).</p>
 									<p>The yellow number at the upper right, means the number of the day in the current month.</p>
-                  <Image src={dayDescription} alt="day description"/>
                 </ItemDocumentation>
               </div>
               <div>
@@ -339,6 +407,22 @@ const About = () => {
                 </h4>
                 <ItemDocumentation show={openSection} id="day">
                   <p>In every day, you have the possibility of adding a log, only if the day is in the range (timeframe) of that specific goal, by pressing the plus icon.</p>
+                  <InlineImages>
+                    <div>
+                      <Image src={plusHover} alt="Adding a log."/>
+                      <figcaption>Hovering a day without a Log.</figcaption>
+                    </div>
+                    <div>
+                      <Image src={notInTimeFrame} alt="Hovering out of the timeframe of the goal." />
+                      <figcaption>Hovering in a day not in the timeframe of the goal.</figcaption>
+                    </div>
+                    <div>
+                      <Image src={lens} alt="Hovering a day with a log on it." />
+                      <figcaption>Hovering in a day with a log.</figcaption>
+                    </div>
+
+                  </InlineImages>
+                  <Image src={lensPressed} alt="View the logs in a Day."/>
 									<p>Also you have the possibility of review the day if you have any log in that day, by pressing the lens icon.</p>
                 </ItemDocumentation>
               </div>
@@ -348,6 +432,20 @@ const About = () => {
                 </h4>
                 <ItemDocumentation show={openSection} id="addLog">
                   <p>This is the description for adding a log</p>
+                  <ImageWithCaption>
+                    <Image src={plusHover} alt="Adding a log."/>
+                    <figcaption>Hovering in a day without a log.</figcaption>
+                  </ImageWithCaption>
+                  <ImageWithCaption>
+                    <Image src={addLogForm} alt="Adding a log form."/>
+                    <figcaption>Form to add a log.</figcaption>
+                  </ImageWithCaption>
+                  <ImageWithCaption>
+                    <Image src={addedLog} alt="Added a log."/>
+                    <figcaption>Showing the aftermath of adding a log.</figcaption>
+
+                  </ImageWithCaption>
+
                 </ItemDocumentation>
               </div>
               <div>
@@ -356,14 +454,11 @@ const About = () => {
                 </h4>
                 <ItemDocumentation show={openSection} id="editLog">
                   <p>This is the description for editing a log.</p>
-                </ItemDocumentation>
-              </div>
-              <div>
-                <h4 onClick={() => handleOpenSection("calendar-dayOverview")}>
-                  Day Overview
-                </h4>
-                <ItemDocumentation show={openSection} id="dayOverview">
-                  <p>This is the description of the day overview</p>
+                  <Image src={lensToEdit} alt="Lens"/>
+                  <Image src={edittingALog} alt="Editing a log."/>
+                  <Image src={edittingSets} alt="editting sets."/>
+                  <Image src={edittingSetsForm} alt="editing sets form."/>
+                  <Image src={edittingSetsFinal} alt="editing sets final."/>
                 </ItemDocumentation>
               </div>
             </List>
