@@ -22,8 +22,10 @@ export const goalExpiration = (date, timeFrame) => {
 
 export const prettierDate = (date) => {
 	// date: string
-	const humanReadable = new Date(date);
-	return `${humanReadable.getFullYear()}/${humanReadable.getMonth() + 1}/${humanReadable.getDate()}`;
+	const humanReadable = date ? new Date(date) : new Date();
+	const month = ((humanReadable.getMonth() + 1) > 9) ? `${humanReadable.getMonth() + 1}` : `0${humanReadable.getMonth() + 1}`
+	const day = humanReadable.getDate() > 9 ? humanReadable.getDate() : `0${humanReadable.getDate()}`
+	return `${humanReadable.getFullYear()}-${month}-${day}`;
 };
 
 // formulas for calculate the 1RM or relative intensity for the set, it returns a rounded value

@@ -236,6 +236,7 @@ const EditGoalContainer = styled.div`
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+	    flex-wrap: wrap;
       width: 100%;
       padding-bottom: 0.5rem;
     }
@@ -389,12 +390,12 @@ const Profile = () => {
 	const [displayingGoal, setDisplayingGoal] = useState(false);
 	const [displayingGraph, setDisplayingGraph] = useState(false);
 	const [goalEdit, setGoalEdit] = useState(false);
-	const [goalPlan, setGoalPlan] = useState(goalEdit.plan);
-	const [goalQuantity, setGoalQuantity] = useState(goalEdit.quantity);
-	const [goalUnit, setGoalUnit] = useState(goalEdit.unit);
-	const [goalTimeFrame, setGoalTimeFrame] = useState(goalEdit.timeFrame);
-	const [goalStartTime, setGoalStartTime] = useState(goalEdit.start);
-	const [goalNotes, setGoalNotes] = useState(goalEdit.notes);
+	const [goalPlan, setGoalPlan] = useState(goalEdit.plan ? goalEdit.plan : '0');
+	const [goalQuantity, setGoalQuantity] = useState(goalEdit.quantity ? goalEdit.quantity : '0');
+	const [goalUnit, setGoalUnit] = useState(goalEdit.unit ? goalEdit.unit : '0');
+	const [goalTimeFrame, setGoalTimeFrame] = useState(goalEdit.timeFrame ? goalEdit.timeFrame : '0');
+	const [goalStartTime, setGoalStartTime] = useState(goalEdit.start ? goalEdit.start : '0');
+	const [goalNotes, setGoalNotes] = useState(goalEdit.notes ? goalEdit.notes : '0');
 	const [editedGoal, setGoalEdited] = useState(false)
 	const [timeReview, setTimeReview] = useState(30)
 	const [adMessage, setAdMessage] = useState('')
@@ -404,7 +405,7 @@ const Profile = () => {
 		setGoalQuantity(goal.quantity)
 		setGoalUnit(goal.unit)
 		setGoalTimeFrame(goal.timeFrame)
-		setGoalStartTime(prettierDate(goal.start))
+		setGoalStartTime(goal.start)
 		setGoalNotes(goal.notes)
 
 	}
@@ -468,7 +469,7 @@ const Profile = () => {
 		response.avgStrainPerSet = isNaN(response.strain / response.sets) ? 0 : Math.round(response.strain / response.sets);
 		return response;
 	};
-	const [accumulatedGoals, setAccumulatedGoals] = useState(goals.map(goal => accumulative(goal.movement, timeReview)))
+	const [accumulatedGoals, setAccumulatedGoals] = useState(goals ? goals.map(goal => accumulative(goal.movement, timeReview)) : [])
 	const trimValue = (value) => {
 		if (value === String("")) return ' ';
 		else if (value < 1) return 1;
@@ -572,7 +573,6 @@ const Profile = () => {
 						<div className="container">
 							<h3>Goal</h3>
 							<div>
-
 								<Plan
 									value={goalPlan ? goalPlan : goalEdit.plan}
 									rems={goalEdit.plan}
@@ -625,7 +625,6 @@ const Profile = () => {
 						<div className="container">
 							<h3>TIMEFRAME</h3>
 							<div>
-
 								<Input
 									value={goalTimeFrame ? goalTimeFrame : goalEdit.timeFrame}
 									rems={`${goalEdit.timeFrame}+`}
@@ -639,11 +638,16 @@ const Profile = () => {
 								<span>days from</span>
 								<Input
 									type="date"
-									value={goalStartTime ? goalStartTime : prettierDate(goalEdit.start)}
-									rems={prettierDate(goalEdit.start)}
-									placeholder={prettierDate(goalEdit.start)}
+									value={goalStartTime ? prettierDate(goalStartTime) : prettierDate(goalEdit.start)}
+									rems={goalStartTime ? prettierDate(goalStartTime) : prettierDate(goalEdit.start)}
+									placeholder={goalStartTime ? prettierDate(goalStartTime) : prettierDate(goalEdit.start)}
 									onChange={(e) => {
-										setGoalStartTime(e.target.value === "" ? new String("") : e.target.value)
+										const date = new Date(`${e.target.value}T00:00:00`)
+										const newDate = new Date()
+										newDate.setMonth(date.getMonth())
+										newDate.setDate(date.getDate())
+										newDate.setFullYear(date.getFullYear())
+										setGoalStartTime(newDate)
 										setGoalEdited(true)
 									}}
 								/>
