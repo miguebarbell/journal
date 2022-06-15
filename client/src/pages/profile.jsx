@@ -673,6 +673,7 @@ const Profile = () => {
 				</FormContainer>
 			</BlurContainer>
 			<InfoWrapper>
+				{/*todo: make a option to upload a custom picture*/}
 				<ProfilePicture src={`https://avatars.dicebear.com/api/bottts/${user.email}.svg`}/>
 				<div>
 					<Title>Hi {user.name}</Title>
@@ -689,6 +690,7 @@ const Profile = () => {
 							<div id="movement">
 								<span>🏅</span>
 								<span onClick={() => setDisplayingGraph(goal.movement)}>{goal.movement}</span>
+								{/*fixme: can't edit in mobile devices*/}
 								<EditOutlinedIcon onClick={() => handleEditGoal(goal)}/>
 								<span id="left">{
 									(timeFrame(goal.start, goal.timeFrame)).left > 0 ?
@@ -717,7 +719,6 @@ const Profile = () => {
 			<EditButton onClick={() => {
 				addGoal();
 			}} ads={adMessage}>ADD A NEW GOAL</EditButton>
-			{/*<span>you should focus in one at time</span>*/}
 			<Review>
 				<h2>{timeReview === 0 ? 'All':'Last'} <TimeReviewInput value={timeReview} onChange={(e) => handleTimeReview(e)}/> days:</h2>
 				<h3>Time spent</h3>

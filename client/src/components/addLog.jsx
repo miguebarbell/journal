@@ -304,11 +304,13 @@ const AddLog = () => {
 							<input placeholder="" onChange={(e) => setSetsForm(e.target.value)} value={setsForm}/>
 						</DataWrap>
 						<DataWrap id="time">
+							{/*todo: if time unit, this should be the same as strain*/}
 							<label>Time</label>
 							<input placeholder="10" onChange={(e) => setDurationForm(e.target.value)} value={durationForm}/>
 						</DataWrap>
 					</DataContainer>
 					<DataWrap id="note">
+						{/*todo: put a handwritten font*/}
 						<label>Additional note</label>
 						<textarea onChange={(e) => setNotesForm(e.target.value)} value={notesForm}/>
 					</DataWrap>
