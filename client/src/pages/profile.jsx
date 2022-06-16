@@ -77,19 +77,28 @@ const LogoutButton = styled.button`
   }
 `;
 const InfoWrapper = styled.div`
-  max-height: 30vh;
-  display: flex;
-  align-items: center;
+  //max-height: 50vh;
+	display: compact;
+	
+	@media screen and (min-width: 600px) {
+		display: flex;
+	}
+  //display: flex;
+  //align-items: center;
   border-bottom: 1px groove ${COLOR_FOUR};
-
   * {
     margin: 1rem;
   }
+	div.info {
+		flex: 2;
+	}
 `;
 const ProfilePicture = styled.div`
 	border-radius: 50%;
 	height: 15vh;
 	width: 15vh;
+	max-width: 15vh;
+	max-height: 15vh;
 	background-image: linear-gradient(27deg, ${PRIMARY}, ${SECONDARY});
 	cursor: pointer;
 	position: relative;
@@ -97,11 +106,18 @@ const ProfilePicture = styled.div`
 	align-items: center;
 	justify-content: center;
 	box-shadow: inset 0 0 6px 3px ${COLOR_TWO};
+	flex: 1;
+	img {
+		position: absolute;
+    height: 15vh;
+    width: 15vh;
+    border-radius: 50%;
+	}
 	div {
     display: flex;
 		position: absolute;
-		width: 100%;
-		height: 100%;
+		//width: 100%;
+		//height: 100%;
 		border-radius: 50%;
 		justify-content: center;
 		align-items: center;
@@ -109,7 +125,9 @@ const ProfilePicture = styled.div`
 		font-weight: bold;
 		background-color: rgb(0,0,0);
 		opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;    
+		height: 15vh;
+    width: 15vh;
 	}
 	 &:hover {
 		 div {
@@ -587,6 +605,10 @@ const Profile = () => {
 				return `${volume} ${unit}`
 		}
 	}
+	const handleChangeProfilePicture = () => {
+		// todo: update the profile picture
+		alert('change it!!')
+	}
 	return (
 		<Container>
 			<BlurContainer show={goalEdit} id="edit-container">
@@ -701,12 +723,11 @@ const Profile = () => {
 				</FormContainer>
 			</BlurContainer>
 			<InfoWrapper>
-				{/*todo: make a option to upload a custom picture*/}
-				<ProfilePicture>
+				<ProfilePicture onClick={handleChangeProfilePicture}>
 					<img src={`https://avatars.dicebear.com/api/bottts/${user.email}.svg`} alt="You, in your best moment!"/>
 					<div>Edit</div>
 				</ProfilePicture>
-				<div>
+				<div className="info">
 					<Title>Hi {user.name}</Title>
 					<MotivationWrapper>
 						<Quote>{motivationQuote.text}</Quote>
