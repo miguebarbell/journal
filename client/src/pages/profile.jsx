@@ -666,6 +666,7 @@ const Profile = () => {
 									<option value="min">Minutes</option>
 									<option value="mts">Meters</option>
 									<option value="fts">Feet</option>
+									<option value="hrs">Hours</option>
 									{
 										goalPlan === 'habit' || goalPlan === 'accu' ? <option value="times">Times</option> : null
 									}
