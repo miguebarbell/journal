@@ -77,20 +77,66 @@ const LogoutButton = styled.button`
   }
 `;
 const InfoWrapper = styled.div`
-  max-height: 30vh;
-  display: flex;
-  align-items: center;
+  //max-height: 50vh;
+	display: compact;
+	
+	@media screen and (min-width: 600px) {
+		display: flex;
+	}
+  //display: flex;
+  //align-items: center;
   border-bottom: 1px groove ${COLOR_FOUR};
-
   * {
     margin: 1rem;
   }
+	div.info {
+		flex: 2;
+	}
 `;
-const ProfilePicture = styled.img`
-  border-radius: 50%;
-  height: 15vh;
-  width: 15vh;
-  background-image: linear-gradient(27deg, ${PRIMARY}, ${SECONDARY})
+const ProfilePicture = styled.div`
+	border-radius: 50%;
+	height: 15vh;
+	width: 15vh;
+	max-width: 15vh;
+	max-height: 15vh;
+	background-image: linear-gradient(27deg, ${PRIMARY}, ${SECONDARY});
+	cursor: pointer;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: inset 0 0 6px 3px ${COLOR_TWO};
+	flex: 1;
+	img {
+		position: absolute;
+    height: 15vh;
+    width: 15vh;
+    border-radius: 50%;
+	}
+	div {
+    display: flex;
+		position: absolute;
+		//width: 100%;
+		//height: 100%;
+		border-radius: 50%;
+		justify-content: center;
+		align-items: center;
+		font-size: 2rem;
+		font-weight: bold;
+		background-color: rgb(0,0,0);
+		opacity: 0;
+    transition: opacity 0.2s ease-in-out;    
+		height: 15vh;
+    width: 15vh;
+	}
+	 &:hover {
+		 div {
+			 opacity: 0.8;
+		 }
+   }
+	* {
+		position: absolute;
+	}
 `;
 const MotivationWrapper = styled.div`
   display: flex;
@@ -236,6 +282,7 @@ const EditGoalContainer = styled.div`
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+	    flex-wrap: wrap;
       width: 100%;
       padding-bottom: 0.5rem;
     }
@@ -389,12 +436,12 @@ const Profile = () => {
 	const [displayingGoal, setDisplayingGoal] = useState(false);
 	const [displayingGraph, setDisplayingGraph] = useState(false);
 	const [goalEdit, setGoalEdit] = useState(false);
-	const [goalPlan, setGoalPlan] = useState(goalEdit.plan);
-	const [goalQuantity, setGoalQuantity] = useState(goalEdit.quantity);
-	const [goalUnit, setGoalUnit] = useState(goalEdit.unit);
-	const [goalTimeFrame, setGoalTimeFrame] = useState(goalEdit.timeFrame);
-	const [goalStartTime, setGoalStartTime] = useState(goalEdit.start);
-	const [goalNotes, setGoalNotes] = useState(goalEdit.notes);
+	const [goalPlan, setGoalPlan] = useState(goalEdit.plan ? goalEdit.plan : '0');
+	const [goalQuantity, setGoalQuantity] = useState(goalEdit.quantity ? goalEdit.quantity : '0');
+	const [goalUnit, setGoalUnit] = useState(goalEdit.unit ? goalEdit.unit : '0');
+	const [goalTimeFrame, setGoalTimeFrame] = useState(goalEdit.timeFrame ? goalEdit.timeFrame : '0');
+	const [goalStartTime, setGoalStartTime] = useState(goalEdit.start ? goalEdit.start : '0');
+	const [goalNotes, setGoalNotes] = useState(goalEdit.notes ? goalEdit.notes : '0');
 	const [editedGoal, setGoalEdited] = useState(false)
 	const [timeReview, setTimeReview] = useState(30)
 	const [adMessage, setAdMessage] = useState('')
@@ -404,7 +451,7 @@ const Profile = () => {
 		setGoalQuantity(goal.quantity)
 		setGoalUnit(goal.unit)
 		setGoalTimeFrame(goal.timeFrame)
-		setGoalStartTime(prettierDate(goal.start))
+		setGoalStartTime(goal.start)
 		setGoalNotes(goal.notes)
 
 	}
@@ -468,8 +515,7 @@ const Profile = () => {
 		response.avgStrainPerSet = isNaN(response.strain / response.sets) ? 0 : Math.round(response.strain / response.sets);
 		return response;
 	};
-	const accumulatedGoals = goals.map(goal => accumulative(goal.movement, timeReview))
-
+	const [accumulatedGoals, setAccumulatedGoals] = useState(goals ? goals.map(goal => accumulative(goal.movement, timeReview)) : [])
 	const trimValue = (value) => {
 		if (value === String("")) return ' ';
 		else if (value < 1) return 1;
@@ -494,7 +540,75 @@ const Profile = () => {
 		if (goals.length > 2) {
 			setAdMessage('You should focus in one goal at a time.')
 		} else setAdMessage('Maintain a low goals length.')
-	}, [goals])
+		setAccumulatedGoals(goals.map(goal => accumulative(goal.movement, timeReview)))
+	}, [goals, timeReview])
+	const tacticTime = (timeInMin) => {
+		if (!timeInMin) return `nothing`
+		if (timeInMin > 60) {
+			if (timeInMin%60 === 0) {
+				return `${timeInMin/60} hours`
+			}
+			return `${Math.floor(timeInMin/60)}:${timeInMin%60}`
+		}
+		return `${timeInMin} mins`
+	}
+	const tacticVolume = (volume, unit) => {
+		if (!volume) return `nothing`
+		switch (unit) {
+			case 'kgs':
+				if (volume > 1000) {
+					if (volume%1000 === 0) {
+						return `${volume/1000} tons`
+					}
+					return `${(volume/1000).toFixed(2)} tons`
+				}
+				return `${volume} ${unit}`
+			case 'mts':
+				if (volume > 1000) {
+					if (volume%1000 === 0) {
+						return `${volume/1000} kms`
+					}
+					return `${(volume/1000).toFixed(2)} kms`
+				}
+				return `${volume} ${unit}`
+			case 'fts':
+				if (volume > 5280) {
+					if (volume%5280 === 0) {
+						return `${volume/5280} miles`
+					}
+					return `${(volume/5280).toFixed(2)} miles`
+				}
+				return `${volume} ${unit}`
+			case 'lbs':
+				if (volume > 2204.6226) {
+					if (volume%2204.6226 === 0) {
+						return `${volume/2204.6226} tons`
+					}
+					return `${(volume/2204.6226).toFixed(2)} tons`
+				}
+				return `${volume} ${unit}`
+			case 'min':
+				const days = volume/1440
+				const hours = (days - Math.floor(days))*24
+				const minutes = (hours - Math.floor(hours))*60
+				if (volume > 60) {
+					if (volume > 1440) {
+						// days:hours:minutes
+						return `${Math.floor(days)} days ${Math.floor(hours)}${Math.floor(minutes) === 0 ? " hours" : `:${Math.floor(minutes)}`}`
+					}
+					// hours:minutes
+					return `${Math.floor(hours)}${Math.floor(minutes) === 0 ? " hours" : `:${Math.floor(minutes)}`}`
+				}
+				// minutes
+				return `${volume} minutes`
+			default:
+				return `${volume} ${unit}`
+		}
+	}
+	const handleChangeProfilePicture = () => {
+		// todo: update the profile picture
+		alert('change it!!')
+	}
 	return (
 		<Container>
 			<BlurContainer show={goalEdit} id="edit-container">
@@ -509,7 +623,6 @@ const Profile = () => {
 						<div className="container">
 							<h3>Goal</h3>
 							<div>
-
 								<Plan
 									value={goalPlan ? goalPlan : goalEdit.plan}
 									rems={goalEdit.plan}
@@ -553,6 +666,7 @@ const Profile = () => {
 									<option value="min">Minutes</option>
 									<option value="mts">Meters</option>
 									<option value="fts">Feet</option>
+									<option value="hrs">Hours</option>
 									{
 										goalPlan === 'habit' || goalPlan === 'accu' ? <option value="times">Times</option> : null
 									}
@@ -562,7 +676,6 @@ const Profile = () => {
 						<div className="container">
 							<h3>TIMEFRAME</h3>
 							<div>
-
 								<Input
 									value={goalTimeFrame ? goalTimeFrame : goalEdit.timeFrame}
 									rems={`${goalEdit.timeFrame}+`}
@@ -576,11 +689,16 @@ const Profile = () => {
 								<span>days from</span>
 								<Input
 									type="date"
-									value={goalStartTime ? goalStartTime : prettierDate(goalEdit.start)}
-									rems={prettierDate(goalEdit.start)}
-									placeholder={prettierDate(goalEdit.start)}
+									value={goalStartTime ? prettierDate(goalStartTime) : prettierDate(goalEdit.start)}
+									rems={goalStartTime ? prettierDate(goalStartTime) : prettierDate(goalEdit.start)}
+									placeholder={goalStartTime ? prettierDate(goalStartTime) : prettierDate(goalEdit.start)}
 									onChange={(e) => {
-										setGoalStartTime(e.target.value === "" ? new String("") : e.target.value)
+										const date = new Date(`${e.target.value}T00:00:00`)
+										const newDate = new Date()
+										newDate.setMonth(date.getMonth())
+										newDate.setDate(date.getDate())
+										newDate.setFullYear(date.getFullYear())
+										setGoalStartTime(newDate)
 										setGoalEdited(true)
 									}}
 								/>
@@ -606,8 +724,11 @@ const Profile = () => {
 				</FormContainer>
 			</BlurContainer>
 			<InfoWrapper>
-				<ProfilePicture src={`https://avatars.dicebear.com/api/bottts/${user.email}.svg`}/>
-				<div>
+				<ProfilePicture onClick={handleChangeProfilePicture}>
+					<img src={`https://avatars.dicebear.com/api/bottts/${user.email}.svg`} alt="You, in your best moment!"/>
+					<div>Edit</div>
+				</ProfilePicture>
+				<div className="info">
 					<Title>Hi {user.name}</Title>
 					<MotivationWrapper>
 						<Quote>{motivationQuote.text}</Quote>
@@ -622,6 +743,7 @@ const Profile = () => {
 							<div id="movement">
 								<span>🏅</span>
 								<span onClick={() => setDisplayingGraph(goal.movement)}>{goal.movement}</span>
+								{/*fixme: can't edit in mobile devices*/}
 								<EditOutlinedIcon onClick={() => handleEditGoal(goal)}/>
 								<span id="left">{
 									(timeFrame(goal.start, goal.timeFrame)).left > 0 ?
@@ -650,13 +772,12 @@ const Profile = () => {
 			<EditButton onClick={() => {
 				addGoal();
 			}} ads={adMessage}>ADD A NEW GOAL</EditButton>
-			{/*<span>you should focus in one at time</span>*/}
 			<Review>
 				<h2>{timeReview === 0 ? 'All':'Last'} <TimeReviewInput value={timeReview} onChange={(e) => handleTimeReview(e)}/> days:</h2>
 				<h3>Time spent</h3>
-				{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} : {goal.duration} min</span>)}
+				{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} {tacticTime(goal.duration)}</span>)}
 				<h3>Strain done</h3>
-				{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} : {goal.strainVol} {goal.unit}</span>)}
+				{accumulatedGoals.map((goal, index) => <span key={index}>{goal.goal} :  {tacticVolume(goal.strainVol, goal.unit)}</span>)}
 				{displayingGoal ? <AddGoal show={setDisplayingGoal}/> : null}
 
 			</Review>
