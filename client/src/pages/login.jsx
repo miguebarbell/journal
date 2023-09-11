@@ -6,12 +6,11 @@ import {
   COLOR_TWO,
   PRIMARY,
   REACT_APP_DEMO_EMAIL,
-  REACT_APP_DEMO_PASS,
   SECONDARY
 } from "../conf";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {login} from "../redux/userApiCalls";
+import {demoLogin, login} from "../redux/userApiCalls";
 import img from '../bg/highkick.jpg';
 import {Link} from "react-router-dom";
 
@@ -99,10 +98,15 @@ const Login = ({ user }) => {
   const handleClick = (e) => {
     e.preventDefault();
     if (user === 'demo') {
-      login(dispatch, {
+      demoLogin(dispatch, {
         email: REACT_APP_DEMO_EMAIL,
-        password: REACT_APP_DEMO_PASS
+        name: 'Demo User',
+        user: 'demo'
       })
+      // login(dispatch, {
+      //   email: REACT_APP_DEMO_EMAIL,
+      //   password: REACT_APP_DEMO_PASS
+      // })
     } else {
       login(dispatch, {
         email,

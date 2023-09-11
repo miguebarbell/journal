@@ -1,6 +1,7 @@
 import {loginFailure, loginSuccess, loginStart} from "./userRedux";
 import {publicRequest, userRequest} from "../requestMethods";
 import {setLogs, setGoals} from "./goalRedux";
+import {demoUserGoals, demoUserLogs} from "../demoUser";
 
 
 // user calls
@@ -15,6 +16,12 @@ export const login = async (dispatch, user) => {
 		console.log(err);
 		dispatch(loginFailure());
 	}
+};
+
+export const demoLogin = async (dispatch, user) => {
+	dispatch(setGoals(demoUserGoals));
+	dispatch(loginSuccess(user));
+	dispatch(setLogs(demoUserLogs));
 };
 
 export const register = async (dispatch, user) => {
