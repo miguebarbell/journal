@@ -288,6 +288,9 @@ const ModifyLog = () => {
       setChange(0);
       editedLog['_id'] = log._id;
       editedLog['user'] = user
+      editedLog['date'] = log.date;
+      editedLog['movement'] = log.movement;
+      editedLog['unit'] = log.unit;
       updateLog(dispatch, editedLog);
     }
   };

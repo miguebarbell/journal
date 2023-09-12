@@ -32,7 +32,9 @@ const goalSlice = createSlice({
 			state.showing = action.payload;
 		},
 		saveEdittedLog: (state, action) => {
-			const newLogs = state.logs.filter(log => log._id !== action.payload._id);
+			const newLogs = state.logs.filter(log => {
+				return log._id !== action.payload._id
+			});
 			newLogs.push(action.payload);
 			state.logs = newLogs;
 		},
